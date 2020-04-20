@@ -12,9 +12,14 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('top');
+})->middleware('auth');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['prefix' => 'users', 'middleware' => 'auth'], function () {
+    Route::get('index', 'UserController@index')->name('users.index');
+
+});
