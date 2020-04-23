@@ -11,15 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('top');
-})->middleware('auth');
+//Route::get('/', function () {
+    //return view('top');
+//})->middleware('auth');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('top');
 
 Route::group(['prefix' => 'users', 'middleware' => 'auth'], function () {
     Route::get('index', 'UserController@index')->name('users.index');
-
+    
 });
