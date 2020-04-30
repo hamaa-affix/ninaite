@@ -27,8 +27,22 @@
           <span class="sr-only">Next</span>
         </a>
     </div>
-    <a href='#'>ログアウト</a>
+    
+    
+<div class="row">
+  <div class="col-9">.col-9</div>
+  
+  <div class="col-4">
+      <h1>サイド</h1>
+      <p>メニューとか</p>
+  </div>
+  <div class="col-8">
+    <h1>コンテンツ</h1>
+    <p>コンテンツ内容</p>
     <a href="users/show/{{{ Auth::user()->id }}}">プロフィール編集</a>
+  </div>
+</div>
+
   @endguest
   
 @endsection
