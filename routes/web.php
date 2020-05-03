@@ -17,9 +17,9 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('top');
+Route::get('/', 'HomeController@index')->name('home.index');
 
 Route::group(['prefix' => 'users', 'middleware' => 'auth'], function () {
-    Route::get('show/{id}', 'UserController@show')->name('users.show');
+    Route::get('show/{id}', 'UsersController@show')->name('users.show');
     
 });
