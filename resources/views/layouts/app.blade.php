@@ -30,20 +30,6 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 
-                                
-                  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                      <li class="nav-item active">
-                        <a class="nav-link" href="users/show/{{ Auth::user()->id }}">プロフィール<span class="sr-only">(current)</span></a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
-                      </li>
-                    </ul>
-                  </div>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
@@ -68,6 +54,20 @@
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
+                                
+                                <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                                      <li class="nav-item active">
+                                        <a class="nav-link" href="users/show/{{ Auth::user()->id }}">プロフィール<span class="sr-only">(current)</span></a>
+                                      </li>
+                                      <li class="nav-item">
+                                        <a class="nav-link" href="#">Link</a>
+                                      </li>
+                                      <li class="nav-item">
+                                        <a class="nav-link disabled" href="#">Disabled</a>
+                                      </li>
+                                    </ul>
+                                 </div>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"

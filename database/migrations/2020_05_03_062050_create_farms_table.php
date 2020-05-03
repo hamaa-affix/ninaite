@@ -16,7 +16,6 @@ class CreateFarmsTable extends Migration
         Schema::create('farms', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('representative_name');
             $table->string('postal_code');
             $table->string('address1');
             $table->string('address2');
@@ -24,7 +23,7 @@ class CreateFarmsTable extends Migration
             $table->string('tel');
             $table->string('site_uri');
             $table->string('summary');
-            $table->text('contens');
+            $table->text('conten');
             $table->timestamps();
         });
     }

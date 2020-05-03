@@ -8,49 +8,17 @@ use Auth;
 
 class UsersController extends Controller
 {
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $user = Auth::user()->find($id);
-        //d($user);
         return view('users.show', compact('user'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $user = Auth::user()->find($id);
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -62,7 +30,11 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user()->find($id);
+        $user->email = $request->email;
+        $user->save();
+        
+        return view('users.show', compact('user'));
     }
 
     /**
@@ -73,6 +45,10 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = Auth::user()->find($id);
+        $user->delete();
+        
+        return redirect('/');
+
     }
 }
