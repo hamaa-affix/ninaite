@@ -19,9 +19,17 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home.index');
 
+//userのcrud
 Route::group(['prefix' => 'users', 'middleware' => 'auth'], function () {
     Route::get('show/{id}', 'UsersController@show')->name('users.show');
     Route::get('edit/{id}', 'UsersController@edit')->name('users.edit');
     Route::put('update/{id}', 'UsersController@update')->name('users.update');
     Route::delete('destroy/{id}', 'UsersController@destroy')->name('users.destroy');
 });
+
+//farmsのcrud
+Route::group(['prefix' => 'farms', 'middleware' => 'auth'], function() {
+    Route::get('create/users/{id}', 'FarmsController@create')->name('farms.create');
+    Route::post('store/users/{id}', 'FarmsController@store')->name('farms.store');
+});
+

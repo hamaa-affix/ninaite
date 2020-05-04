@@ -40,6 +40,8 @@
             </div>
         </div>
     </form>
+    
+   <a href="{{ route('farms.create', ['id' => $user->id ]) }}" class="btn btn-primary">農園を作る</a>
   </div>
 </div>
 @endsection

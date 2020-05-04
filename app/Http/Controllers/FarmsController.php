@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\Farm;
+use Auth;
+
 
 class FarmsController extends Controller
 {
@@ -16,14 +20,11 @@ class FarmsController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function create($id)
     {
-        //
+        $user = Auth::user()->find($id);
+        
+        return view('farms.create', compact('user'));
     }
 
     /**
