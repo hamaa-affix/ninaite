@@ -23,7 +23,7 @@ class CreateFarmsTable extends Migration
             $table->string('tel');
             $table->string('site_uri');
             $table->string('summary');
-            $table->text('conten');
+            $table->text('content');
             $table->timestamps();
         });
     }
