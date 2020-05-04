@@ -51,7 +51,6 @@ class FarmsController extends Controller
          $farm->content = $request->content;
          
          $farm->save();
-         dd($farm);
         
     }
 
