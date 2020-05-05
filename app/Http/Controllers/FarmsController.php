@@ -7,6 +7,8 @@ use App\User;
 use App\Farm;
 use Auth;
 
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\StoreRegisterFarm;
 
 class FarmsController extends Controller
 {
@@ -15,14 +17,15 @@ class FarmsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Farm $farm)
     {
-        //
+        $farm->users();
+        dd($farmData);
     }
 
-    public function create($id)
+    public function create()
     {
-        $user = Auth::user()->find($id);
+        $user = Auth::user();
         
         return view('farms.create', compact('user'));
     }
@@ -33,11 +36,11 @@ class FarmsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Farm $farm, $id)
+    public function store(Request $request, Farm $farm)
     {
         
         //条件１、user_id = farm_idとして
-         $user = Auth::user()->find($id);
+         $user = Auth::user();
          $farm->id = $user->id;
          //条件２、条件２を満たした状態でinsertしていく
          $farm->name = $request->name;
@@ -49,9 +52,15 @@ class FarmsController extends Controller
          $farm->site_uri = $request->site_uri;
          $farm->summary = $request->summary;
          $farm->content = $request->content;
-         
          $farm->save();
-        
+         
+         
+         DB::table('farm_users')->insert([
+                ['user_id' => $user->id,
+                 'farm_id' => $farm->id
+                ],
+            ]);
+        return redirect('/');
     }
 
     /**

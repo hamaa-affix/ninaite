@@ -41,7 +41,7 @@
         </div>
     </form>
     
-   <a href="{{ route('farms.create', ['id' => $user->id ]) }}" class="btn btn-primary">農園を作る</a>
+   <a href="{{ route('farms.create') }}" class="btn btn-primary">農園を作る</a>
   </div>
 </div>
 @endsection
