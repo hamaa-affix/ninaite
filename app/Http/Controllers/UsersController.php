@@ -46,7 +46,7 @@ class UsersController extends Controller
     public function destroy($id)
     {
         $user = Auth::user()->find($id);
-        $usr->delete();
+        $user->delete();
         
         return redirect('/');
 
