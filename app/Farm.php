@@ -8,6 +8,7 @@ class Farm extends Model
 {
     public function users()
     {
-        return $this->belongsToMany('App\User');
+        //usersのリレーション定義変更
+        return $this->belongsToMany('App\User', 'farm_user', 'farm_id', 'user_id');
     }
 }

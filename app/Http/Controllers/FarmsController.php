@@ -37,11 +37,6 @@ class FarmsController extends Controller
      */
     public function store(Request $request, Farm $farm)
     {
-        
-        
-         $user = Auth::user();
-         $farm->id = $user->id;
-         
          $farm->name = $request->name;
          $farm->postal_code = $request->postal_code;
          $farm->address1 = $request->address1;
@@ -53,12 +48,7 @@ class FarmsController extends Controller
          $farm->content = $request->content;
          $farm->save();
          
-         
-         DB::table('farm_users')->insert([
-                ['user_id' => $user->id,
-                 'farm_id' => $farm->id
-                ],
-            ]);
+         //$user = Auth::user()->farms()->get();
         return redirect('/');
     }
 
@@ -68,11 +58,11 @@ class FarmsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Farm $farm,$id)
+    public function show($id)
     {
-        $farm = Auth::user($id)->farms()->get;
-        dd($farm);
-        
+       $farmDatas = Auth::user($id)->farms()->get();
+        //dd($user);
+       return view('farms.show', compact('farmDatas'));
     }
 
     /**
