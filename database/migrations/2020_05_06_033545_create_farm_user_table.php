@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFarmUsersTable extends Migration
+class CreateFarmUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,15 @@ class CreateFarmUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('farm_users', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('farm_user', function (Blueprint $table) {
             $table->unsignedInteger('farm_id');
             $table->unsignedInteger('user_id');
+            $table->primary(['farm_id', 'user_id']);
             $table->timestamps();
+            
+            $table->foreign('farm_id')->references('id')->on('farms')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
         });
     }
 
@@ -28,6 +32,6 @@ class CreateFarmUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('farm_users');
+        Schema::dropIfExists('farm_user');
     }
 }

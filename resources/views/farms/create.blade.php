@@ -11,7 +11,7 @@
                 <div class="card-header">{{ __('農園作成') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="">
+                    <form method="post" action="{{ route('farms.store')}}">
                         @csrf
 
                         <div class="form-group row">
@@ -103,7 +103,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('サイトurl') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="text" class="form-control @error('site_uri') is-invalid @enderror" name="site_uri" required autocomplete="">
+                                <input id="password" type="url" class="form-control @error('site_uri') is-invalid @enderror" name="site_uri" required autocomplete="">
 
                                 @error('site_uri')
                                     <span class="invalid-feedback" role="alert">
@@ -117,7 +117,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('概要') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="text" class="form-control @error('summary') is-invalid @enderror" name="site_uri" required autocomplete="">
+                                <input id="password" type="text" class="form-control @error('summary') is-invalid @enderror" name="summary" required autocomplete="">
 
                                 @error('summary')
                                     <span class="invalid-feedback" role="alert">
@@ -132,9 +132,9 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('コンテンツ') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="text" class="form-control @error('conten') is-invalid @enderror" name="conten" required autocomplete="">
+                                <input id="password" type="text" class="form-control @error('content') is-invalid @enderror" name="content" required autocomplete="">
 
-                                @error('conten')
+                                @error('content')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

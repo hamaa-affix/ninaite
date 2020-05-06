@@ -17,10 +17,9 @@ class FarmsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Farm $farm)
+    public function index()
     {
-        $farm->users();
-        dd($farmData);
+      //
     }
 
     public function create()
@@ -39,10 +38,10 @@ class FarmsController extends Controller
     public function store(Request $request, Farm $farm)
     {
         
-        //条件１、user_id = farm_idとして
+        
          $user = Auth::user();
          $farm->id = $user->id;
-         //条件２、条件２を満たした状態でinsertしていく
+         
          $farm->name = $request->name;
          $farm->postal_code = $request->postal_code;
          $farm->address1 = $request->address1;
@@ -69,9 +68,11 @@ class FarmsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Farm $farm,$id)
     {
-        //
+        $farm = Auth::user($id)->farms()->get;
+        dd($farm);
+        
     }
 
     /**
