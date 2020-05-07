@@ -99,8 +99,8 @@ class FarmsController extends Controller
         dd($farm);
         $farm->save();
         
-        $farmDatas = Auth::user($id)->farms()->get();
-        return view('farms.show', compact('farmDatas'));
+        $user = Auth::user()->id;
+        return view('farms.show', compact('user'));
     }
 
     /**
