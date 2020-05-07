@@ -21,13 +21,6 @@ class UsersController extends Controller
         return view('users.edit', compact('user'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $user = Auth::user()->find($id);
@@ -37,12 +30,6 @@ class UsersController extends Controller
         return view('users.show', compact('user'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $user = Auth::user()->find($id);

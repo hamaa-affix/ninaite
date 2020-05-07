@@ -32,5 +32,7 @@ Route::group(['prefix' => 'farms', 'middleware' => 'auth'], function() {
     Route::get('create', 'FarmsController@create')->name('farms.create');
     Route::post('store', 'FarmsController@store')->name('farms.store');
     Route::get('show/{id}', 'FarmsController@show')->name('farms.show');
+    Route::get('edit/{id}', 'FarmsController@edit')->name('farms.edit');
+    Route::put('update/{id}', 'FarmsController@update')->name('farms.update');
 });
 

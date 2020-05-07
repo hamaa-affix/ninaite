@@ -7,7 +7,6 @@ use App\User;
 use App\Farm;
 use Auth;
 
-use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreRegisterFarm;
 
 class FarmsController extends Controller
@@ -48,7 +47,6 @@ class FarmsController extends Controller
          $farm->content = $request->content;
          $farm->save();
          
-         //$user = Auth::user()->farms()->get();
         return redirect('/');
     }
 
@@ -61,7 +59,6 @@ class FarmsController extends Controller
     public function show($id)
     {
        $farmDatas = Auth::user($id)->farms()->get();
-        //dd($user);
        return view('farms.show', compact('farmDatas'));
     }
 
@@ -71,9 +68,11 @@ class FarmsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Farm $farm, $id)
     {
-        //
+        $farmData = $farm->find($id);
+        //dd($farmData);
+       return view('farms.edit', compact('farmData'));
     }
 
     /**
@@ -83,9 +82,25 @@ class FarmsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreRegisterFarm $request, $id)
     {
-        //
+        $validated = $request->validated();
+        
+        $farm = Farm::find($id);
+        $farm->name = $request->name;
+        $farm->postal_code = $request->postal_code;
+        $farm->address1 = $request->address1;
+        $farm->address2 = $request->address2;
+        $farm->address3 = $request->address3;
+        $farm->tel = $request->tel;
+        $farm->site_uri = $request->site_uri;
+        $farm->summary = $request->summary;
+        $farm->content = $request->content;
+        dd($farm);
+        $farm->save();
+        
+        $farmDatas = Auth::user($id)->farms()->get();
+        return view('farms.show', compact('farmDatas'));
     }
 
     /**
