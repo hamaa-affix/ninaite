@@ -11,11 +11,6 @@ use App\Http\Requests\StoreRegisterFarm;
 
 class FarmsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
       //
@@ -70,8 +65,7 @@ class FarmsController extends Controller
      */
     public function edit(Farm $farm, $id)
     {
-        $farmData = $farm->find($id);
-        //dd($farmData);
+       $farmData = $farm->find($id);
        return view('farms.edit', compact('farmData'));
     }
 
@@ -82,25 +76,24 @@ class FarmsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreRegisterFarm $request, $id)
+    public function update(Request $request, $id)
     {
-        $validated = $request->validated();
+        //$validated = $request->validated();
+        $farmData = Farm::find($id);
+        $farmData->name = $request->name;
+        $farmData->postal_code = $request->postal_code;
+        $farmData->address1 = $request->address1;
+        $farmData->address2 = $request->address2;
+        $farmData->address3 = $request->address3;
+        $farmData->tel = $request->tel;
+        $farmData->site_uri = $request->site_uri;
+        $farmData->summary = $request->summary;
+        $farmData->content = $request->content;
+        $farmData->save();
         
-        $farm = Farm::find($id);
-        $farm->name = $request->name;
-        $farm->postal_code = $request->postal_code;
-        $farm->address1 = $request->address1;
-        $farm->address2 = $request->address2;
-        $farm->address3 = $request->address3;
-        $farm->tel = $request->tel;
-        $farm->site_uri = $request->site_uri;
-        $farm->summary = $request->summary;
-        $farm->content = $request->content;
-        dd($farm);
-        $farm->save();
-        
-        $user = Auth::user()->id;
-        return view('farms.show', compact('user'));
+        //userと紐ずくfarmdatasを取得
+        $farmDatas = Auth::user()->farms()->get();
+        return view('farms.show', compact('farmDatas'));
     }
 
     /**
@@ -111,6 +104,10 @@ class FarmsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $farmData = Auth::user()->farms()->find($id);
+        $farmData->delete();
+        
+        $farmDatas = Auth::user()->farms()->get();
+        return view('farms.show', compact('farmDatas'));
     }
 }

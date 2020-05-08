@@ -34,5 +34,6 @@ Route::group(['prefix' => 'farms', 'middleware' => 'auth'], function() {
     Route::get('show/{id}', 'FarmsController@show')->name('farms.show');
     Route::get('edit/{id}', 'FarmsController@edit')->name('farms.edit');
     Route::put('update/{id}', 'FarmsController@update')->name('farms.update');
+    Route::delete('destroy/{id}', 'FarmsController@destroy')->name('farms.destroy');
 });
 
