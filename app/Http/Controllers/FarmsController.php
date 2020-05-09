@@ -33,7 +33,7 @@ class FarmsController extends Controller
          $farm->address2 = $request->address2;
          $farm->address3 = $request->address3;
          $farm->tel = $request->tel;
-         $farm->site_uri = $request->site_uri;
+         $farm->site_url = $request->site_url;
          $farm->summary = $request->summary;
          $farm->content = $request->content;
          $farm->save();
@@ -67,7 +67,7 @@ class FarmsController extends Controller
         $farmData->address2 = $request->address2;
         $farmData->address3 = $request->address3;
         $farmData->tel = $request->tel;
-        $farmData->site_uri = $request->site_uri;
+        $farmData->site_url = $request->site_url;
         $farmData->summary = $request->summary;
         $farmData->content = $request->content;
         $farmData->save();

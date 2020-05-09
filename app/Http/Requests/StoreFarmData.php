@@ -30,7 +30,7 @@ class StoreFarmData extends FormRequest
             'address2' => 'required|string|max:255',
             'address3' => 'required|string|max:255',
             'tel' => 'required|string|max:20',
-            'site_uri' => 'required|url',
+            'site_url' => 'required|url',
             'summary' =>  'required|string|max:255',
             'content' =>  'required|string|max:255',
 

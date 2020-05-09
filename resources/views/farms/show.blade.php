@@ -12,7 +12,7 @@
       　<p class="card-text">{{$farmData->address2}}</p>
       　<p class="card-text">{{$farmData->address3}}</p>
       　<p class="card-text">{{$farmData->tel}}</p>
-      　<p class="card-text">{{$farmData->site_uri}}</p>
+      　<p class="card-text">{{$farmData->site_url}}</p>
       　<p class="card-text">{{$farmData->summary}}</p>
       　<p class="card-text">{{$farmData->content}}</p>
       <a class="btn btn-primary" href="{{ route('farms.edit', ['id' => $farmData->id]) }}" role="button">編集する</a>

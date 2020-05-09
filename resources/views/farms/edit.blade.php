@@ -67,8 +67,8 @@
       
       <div class="form-group">
         <label for="formGroupExampleInput">url</label>
-        <input type="url" class="form-control" id="formGroupExampleInput" name='site_uri'  placeholder="{{ $farmData->site_uri }} ">
-        @error('site_uri')
+        <input type="url" class="form-control" id="formGroupExampleInput" name='site_url'  placeholder="{{ $farmData->site_url }} ">
+        @error('site_url')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>

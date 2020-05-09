@@ -21,7 +21,7 @@ class CreateFarmsTable extends Migration
             $table->string('address2');
             $table->string('address3');
             $table->string('tel');
-            $table->string('site_uri');
+            $table->string('site_url');
             $table->string('summary');
             $table->text('content');
             $table->timestamps();

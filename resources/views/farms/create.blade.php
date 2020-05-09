@@ -103,9 +103,9 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('サイトurl') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="url" class="form-control @error('site_uri') is-invalid @enderror" name="site_uri" required autocomplete="">
+                                <input id="password" type="url" class="form-control @error('site_url') is-invalid @enderror" name="site_url" required autocomplete="">
 
-                                @error('site_uri')
+                                @error('site_url')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
