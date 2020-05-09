@@ -14,7 +14,7 @@ class CreateFarmsTable extends Migration
     public function up()
     {
         Schema::create('farms', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name');
             $table->string('postal_code');
             $table->string('address1');

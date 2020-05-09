@@ -9,6 +9,6 @@ class Farm extends Model
     public function users()
     {
         //usersのリレーション定義変更
-        return $this->belongsToMany('App\User', 'farm_user', 'farm_id', 'user_id');
+        return $this->belongsToMany('App\User', 'farm_user')->withTimestamps();
     }
 }

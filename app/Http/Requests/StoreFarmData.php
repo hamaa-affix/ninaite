@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRegisterFarm extends FormRequest
+class StoreFarmData extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -33,6 +33,7 @@ class StoreRegisterFarm extends FormRequest
             'site_uri' => 'required|url',
             'summary' =>  'required|string|max:255',
             'content' =>  'required|string|max:255',
+
         ];
     }
 }

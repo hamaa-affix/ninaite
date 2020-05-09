@@ -7,7 +7,8 @@ use App\User;
 use App\Farm;
 use Auth;
 
-use App\Http\Requests\StoreRegisterFarm;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\StoreFarmData;
 
 class FarmsController extends Controller
 {
@@ -23,13 +24,8 @@ class FarmsController extends Controller
         return view('farms.create', compact('user'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request, Farm $farm)
+    
+    public function store(StoreFarmData $request, Farm $farm)
     {
          $farm->name = $request->name;
          $farm->postal_code = $request->postal_code;
@@ -42,43 +38,28 @@ class FarmsController extends Controller
          $farm->content = $request->content;
          $farm->save();
          
-        return redirect('/');
+         //中間テーブルへレコードを追加。
+         $farm->users()->sync(Auth::user()->id);
+         return redirect('/');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function show($id)
     {
        $farmDatas = Auth::user($id)->farms()->get();
        return view('farms.show', compact('farmDatas'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit(Farm $farm, $id)
     {
        $farmData = $farm->find($id);
        return view('farms.edit', compact('farmData'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+
+    public function update(StoreFarmData $request, $id)
     {
-        //$validated = $request->validated();
         $farmData = Farm::find($id);
         $farmData->name = $request->name;
         $farmData->postal_code = $request->postal_code;
@@ -90,6 +71,7 @@ class FarmsController extends Controller
         $farmData->summary = $request->summary;
         $farmData->content = $request->content;
         $farmData->save();
+        
         
         //userと紐ずくfarmdatasを取得
         $farmDatas = Auth::user()->farms()->get();

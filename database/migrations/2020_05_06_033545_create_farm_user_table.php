@@ -14,11 +14,10 @@ class CreateFarmUserTable extends Migration
     public function up()
     {
         Schema::create('farm_user', function (Blueprint $table) {
-            $table->unsignedInteger('farm_id');
-            $table->unsignedInteger('user_id');
-            $table->primary(['farm_id', 'user_id']);
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('farm_id')->index();
+            $table->unsignedBigInteger('user_id')->index();
             $table->timestamps();
-            
             $table->foreign('farm_id')->references('id')->on('farms')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 

@@ -40,6 +40,6 @@ class User extends Authenticatable
     public function farms()
     {
         //farmsリレーション定義変更
-        return $this->belongsToMany('App\Farm','farm_user', 'user_id', 'farm_id');
+        return $this->belongsToMany('App\Farm','farm_user')->withTimestamps();
     }
 }
