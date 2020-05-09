@@ -31,7 +31,7 @@
     
 <div class="row">
   <div class="col-12">
-    <a href="users/show/{{ Auth::user()->id }}">プロフィール編集</a>
+    何かコンテンツ
   </div>
   
   <div class="col-4 ml-4">

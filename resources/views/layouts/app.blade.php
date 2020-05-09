@@ -58,11 +58,11 @@
                                 <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                                       <li class="nav-item active">
-                                        <a class="nav-link" href="users/show/{{ Auth::user()->id }}">プロフィール<span class="sr-only">(current)</span></a>
+                                        <a class="nav-link" href="{{route('users.show', ['id' => Auth::user()->id]) }}">プロフィール<span class="sr-only">(current)</span></a>
                                       </li>
                                       <!--farmプロフィールのリンク-->
                                     　<li class="nav-item active">
-                                        <a class="nav-link" href="farms/show/{{ Auth::user()->id }}">農園を編集<span class="sr-only">(current)</span></a>
+                                        <a class="nav-link" href="{{route('farms.show', ['id' => Auth::user()->id]) }}">農園を編集<span class="sr-only">(current)</span></a>
                                       </li>
                                       <li class="nav-item">
                                         <a class="nav-link" href="#">Link</a>

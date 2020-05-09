@@ -11,7 +11,7 @@
     <h5 class="card-title">{{ $user->name }}</h5>
     <p class="card-text">メールアドレス</p>
     <p class="card-text">{{ $user->email }}</p>
-    <a href="/users/edit/{{ $user->id }}" class="btn btn-primary">プロフィール編集</a>
+    <a href="{{route('users.edit', ['id' => $user->id]) }}" class="btn btn-primary">プロフィール編集</a>
     
     <form method='POST' action='{{route('users.destroy', ['id' => $user->id]) }}'>
         @csrf
