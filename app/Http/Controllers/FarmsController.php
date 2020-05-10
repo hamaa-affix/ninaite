@@ -14,13 +14,14 @@ class FarmsController extends Controller
 {
     public function index()
     {
-      //
+       $farmDatas = Farm::orderBy('id', 'desc')->get();
+       return view('farms.index', compact('farmDatas'));
+      
     }
 
     public function create()
     {
         $user = Auth::user();
-        
         return view('farms.create', compact('user'));
     }
 
@@ -46,14 +47,14 @@ class FarmsController extends Controller
  
     public function show($id)
     {
-       $farmDatas = Auth::user($id)->farms()->get();
-       return view('farms.show', compact('farmDatas'));
+       $farmData = Farm::find($id);
+       return view('farms.show', compact('farmData'));
     }
 
     
-    public function edit(Farm $farm, $id)
+    public function edit($id)
     {
-       $farmData = $farm->find($id);
+       $farmData = Farm::find($id);
        return view('farms.edit', compact('farmData'));
     }
 

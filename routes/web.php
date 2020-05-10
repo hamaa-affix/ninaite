@@ -28,7 +28,8 @@ Route::group(['prefix' => 'users', 'middleware' => 'auth'], function () {
 });
 
 //farmsのcrud
-Route::group(['prefix' => 'farms', 'middleware' => 'auth'], function() {
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/', 'FarmsController@index')->name('farms.index');
     Route::get('create', 'FarmsController@create')->name('farms.create');
     Route::post('store', 'FarmsController@store')->name('farms.store');
     Route::get('show/{id}', 'FarmsController@show')->name('farms.show');

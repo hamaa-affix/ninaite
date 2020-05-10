@@ -62,10 +62,10 @@
                                       </li>
                                       <!--farmプロフィールのリンク-->
                                     　<li class="nav-item active">
-                                        <a class="nav-link" href="{{route('farms.show', ['id' => Auth::user()->id]) }}">農園を編集<span class="sr-only">(current)</span></a>
+                                        <a class="nav-link" href="{{route('farms.index')}}">農園一覧をみる<span class="sr-only">(current)</span></a>
                                       </li>
                                       <li class="nav-item">
-                                        <a class="nav-link" href="#">Link</a>
+                                        <a class="nav-link" href="">Link</a>
                                       </li>
                                       <li class="nav-item">
                                         <a class="nav-link disabled" href="#">Disabled</a>
