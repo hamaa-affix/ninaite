@@ -2,7 +2,7 @@
 
 @section('content')
 <div>editです</div>
-    <form method='post' action='{{ route('farms.update', ['id' => $farmData->id] ) }}'>
+    <form method='post' action='{{ route('farms.update', ['farm' => $farmData->id] ) }}'>
       <input type='hidden' name='_method' value='PUT'>
       @csrf
       <div class="form-group">
@@ -98,7 +98,7 @@
        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     
-    <form method='POST' action='{{route('farms.destroy', ['id' => $farmData->id]) }}'>
+    <form method='POST' action='{{route('farms.destroy', ['farm' => $farmData->id]) }}'>
         @csrf
         <input type='hidden' name='_method' value='DELETE'>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">

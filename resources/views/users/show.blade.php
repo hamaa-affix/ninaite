@@ -11,9 +11,9 @@
     <h5 class="card-title">{{ $user->name }}</h5>
     <p class="card-text">メールアドレス</p>
     <p class="card-text">{{ $user->email }}</p>
-    <a href="{{route('users.edit', ['id' => $user->id]) }}" class="btn btn-primary">プロフィール編集</a>
+    <a href="{{route('users.edit', ['user' => $user->id]) }}" class="btn btn-primary">プロフィール編集</a>
     
-    <form method='POST' action='{{route('users.destroy', ['id' => $user->id]) }}'>
+    <form method='POST' action='{{route('users.destroy', ['user' => $user->id]) }}'>
         @csrf
         <input type='hidden' name='_method' value='DELETE'>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
@@ -56,7 +56,7 @@
               　<p class="card-text">{{$farmData->site_url}}</p>
               　<p class="card-text">{{$farmData->summary}}</p>
               　<p class="card-text">{{$farmData->content}}</p>
-              <a class="btn btn-primary" href="{{ route('farms.edit', ['id' => $farmData->id]) }}" role="button">詳細へ</a>
+              　<a class="btn btn-primary" href="{{ route('farms.edit', ['farm' => $farmData->id]) }}" role="button">詳細へ</a>
             </div>
           </div>
         </div>
