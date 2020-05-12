@@ -1,36 +1,36 @@
 @extends('layouts.app')
 
 @section('content')
-<div>showです</div>
-<table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">農園名</th>
-      <th scope="col">郵便番号</th>
-      <th scope="col">都道府県</th>
-      <th scope="col">番地、マンション名</th>
-      <th scope="col">電話番号</th>
-      <th scope="col">サイトurl</th>
-      <th scope="col">概要</th>
-      <th scope="col">コンテンツ</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">{{ $farmData->name }}</th>
-      <td>{{$farmData->address1}}</td>
-      <td>{{$farmData->address2}}</td>
-      <td>{{$farmData->address3}}</td>
-      <td>{{$farmData->tel}}</td>
-      <td>{{$farmData->site_url}}</td>
-      <td>{{$farmData->summary}}</td>
-      <td>{{$farmData->content}}</td>
-    </tr>
-  </tbody>
-</table>
-  @foreach($farmData->users()->get() as $user)
-      @if(Auth::user()->id === $user->id)
-        <a class="btn btn-primary" href="{{ route('farms.edit', ['farm' => $farmData->id]) }}" role="button">編集する</a>
-      @endif
-  @endforeach
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card text-center " style="width: 100%;">
+            <div class="card-header">
+              　　<h3>農園詳細</h3>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">農園名</h4>
+                <p class="card-text">{{ $farmData->name }}</p>
+                <h4 class="card-title">郵便番号</h4>
+                <p class="card-text">{{ $farmData->address1 }}</p>
+                <h4 class="card-title">都道府県</h4>
+                <p class="card-text">{{ $farmData->address2 }}</p>
+                <h4 class="card-title">番地、マンション名</h4>
+                <p class="card-text">{{ $farmData->address3 }}</p>
+                <h4 class="card-title">電話番号</h4>
+                <p class="card-text">{{ $farmData->tel }}</p>
+                <h4 class="card-title">サイトurl</h4>
+                <p class="card-text">{{ $farmData->site_url }}</p>
+                <h4 class="card-title">概要</h4>
+                <p class="card-text">{{ $farmData->summary }}</p>
+                <h4 class="card-title">コンテンツ</h4>
+                <p class="card-text">{{ $farmData->content }}</p>
+                @foreach($farmData->users()->get() as $user)
+                    @if(Auth::user()->id === $user->id)
+                      <a class="btn btn-primary" href="{{ route('farms.edit', ['farm' => $farmData->id]) }}" role="button">編集する</a>
+                    @endif
+                @endforeach
+            </div>
+        </div>
+    </div>
+  </div>
 @endsection

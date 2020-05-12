@@ -6,6 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Farm extends Model
 {
+    protected $fillable = [
+        'name', 
+        'postal_code', 
+        'address1',
+        'address2',
+        'address3',
+        'tel',
+        'site_url',
+        'summary',
+        'content'
+    ];
+    
     public function users()
     {
         //usersのリレーション定義変更

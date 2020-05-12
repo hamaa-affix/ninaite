@@ -2,7 +2,7 @@
 
 @section('content')
 　users詳細画面です。
-<div class="card">
+<div class="card text-center">
   <div class="card-header">
     プロフィール
   </div>

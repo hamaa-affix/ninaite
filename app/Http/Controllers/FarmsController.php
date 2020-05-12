@@ -28,17 +28,8 @@ class FarmsController extends Controller
     
     public function store(StoreFarmData $request, Farm $farm)
     {
-         $farm->name = $request->name;
-         $farm->postal_code = $request->postal_code;
-         $farm->address1 = $request->address1;
-         $farm->address2 = $request->address2;
-         $farm->address3 = $request->address3;
-         $farm->tel = $request->tel;
-         $farm->site_url = $request->site_url;
-         $farm->summary = $request->summary;
-         $farm->content = $request->content;
-         $farm->save();
-         
+        //fill関数に変更
+         $farm->fill($request->all())->save();
          //中間テーブルへレコードを追加。
          $farm->users()->sync(Auth::user()->id);
          return redirect('/');
