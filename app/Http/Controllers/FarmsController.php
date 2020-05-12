@@ -48,6 +48,7 @@ class FarmsController extends Controller
     public function show($id)
     {
        $farmData = Farm::find($id);
+       $farmData->users();
        return view('farms.show', compact('farmData'));
     }
 

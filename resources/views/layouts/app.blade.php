@@ -48,6 +48,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('新規登録') }}</a>
                                 </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="{{route('farms.index')}}">農園一覧をみる<span class="sr-only">(current)</span></a>
+                                 </li>
                             @endif
                         @else
                             <li class="nav-item dropdown">

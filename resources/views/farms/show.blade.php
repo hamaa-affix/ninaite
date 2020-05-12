@@ -2,20 +2,35 @@
 
 @section('content')
 <div>showです</div>
-<div class="card-group">
-  <div class="card">
-    <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Image cap"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text></svg>
-    <div class="card-body">
-      <h5 class="card-title">{{ $farmData->name }}</h5>
-    　<p class="card-text">{{$farmData->address1}}</p>
-    　<p class="card-text">{{$farmData->address2}}</p>
-    　<p class="card-text">{{$farmData->address3}}</p>
-    　<p class="card-text">{{$farmData->tel}}</p>
-    　<p class="card-text">{{$farmData->site_url}}</p>
-    　<p class="card-text">{{$farmData->summary}}</p>
-    　<p class="card-text">{{$farmData->content}}</p>
-      <a class="btn btn-primary" href="{{ route('farms.edit', ['farm' => $farmData->id]) }}" role="button">編集する</a>
-    </div>
-  </div>
-</div>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">農園名</th>
+      <th scope="col">郵便番号</th>
+      <th scope="col">都道府県</th>
+      <th scope="col">番地、マンション名</th>
+      <th scope="col">電話番号</th>
+      <th scope="col">サイトurl</th>
+      <th scope="col">概要</th>
+      <th scope="col">コンテンツ</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">{{ $farmData->name }}</th>
+      <td>{{$farmData->address1}}</td>
+      <td>{{$farmData->address2}}</td>
+      <td>{{$farmData->address3}}</td>
+      <td>{{$farmData->tel}}</td>
+      <td>{{$farmData->site_url}}</td>
+      <td>{{$farmData->summary}}</td>
+      <td>{{$farmData->content}}</td>
+    </tr>
+  </tbody>
+</table>
+  @foreach($farmData->users()->get() as $user)
+      @if(Auth::user()->id === $user->id)
+        <a class="btn btn-primary" href="{{ route('farms.edit', ['farm' => $farmData->id]) }}" role="button">編集する</a>
+      @endif
+  @endforeach
 @endsection
