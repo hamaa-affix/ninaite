@@ -8,119 +8,87 @@
           @csrf
           <div class="form-group">
             <label for="formGroupExampleInput">事業所名</label>
-            <input type="text" class="form-control text-center" id="formGroupExampleInput"  name='name' placeholder="{{ $farmData->name }} ">
+            <input type="text" class="form-control text-center" id="formGroupExampleInput"  name='name' value ='{{ old('name', $farmData->name)}}'>
             @error('name')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-        <br>
-        
-        <form method='post' action='{{ route('farms.update', ['farm' => $farmData->id] ) }}'>
+
           <div class="form-group">
             <label for="formGroupExampleInput">郵便番号</label>
-            <input type="text" class="form-control text-center" id="formGroupExampleInput" name='postal_code'  placeholder="{{ $farmData->postal_code }} ">
+            <input type="text" class="form-control text-center" id="formGroupExampleInput" name='postal_code'  value ='{{ old('postal_code', $farmData->postal_code)}}'>
             @error('postal_code')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-        <br>
-      
-        <form method='post' action='{{ route('farms.update', ['farm' => $farmData->id] ) }}'>
+     
           <div class="form-group">
             <label for="formGroupExampleInput">都道府県</label>
-            <input type="text" class="form-control text-center" id="formGroupExampleInput"  name='address1' placeholder="{{ $farmData->address1 }} ">
+            <input type="text" class="form-control text-center" id="formGroupExampleInput"  name='address1' value ='{{ old('address1', $farmData->address1)}}'>
             @error('address1')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-        <br>
           
-        <form method='post' action='{{ route('farms.update', ['farm' => $farmData->id] ) }}'>  
           <div class="form-group">
             <label for="formGroupExampleInput">市町村</label>
-            <input type="text" class="form-control text-center" id="formGroupExampleInput" name='address2'  placeholder="{{ $farmData->address2 }} ">
+            <input type="text" class="form-control text-center" id="formGroupExampleInput" name='address2' value ='{{ old('address2', $farmData->address2)}}'>
             @error('address2')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-        <br>
       
-        <form method='post' action='{{ route('farms.update', ['farm' => $farmData->id] ) }}'>
           <div class="form-group">
             <label for="formGroupExampleInput">番地、マンション名</label>
-            <input type="text" class="form-control text-center" id="formGroupExampleInput" name='address3'  placeholder="{{ $farmData->address3 }} ">
+            <input type="text" class="form-control text-center" id="formGroupExampleInput" name='address3' value ='{{ old('address3', $farmData->address3)}}'>
             @error('address3')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-        <br>
           
-        <form method='post' action='{{ route('farms.update', ['farm' => $farmData->id] ) }}'>
           <div class="form-group">
             <label for="exampleInputEmail1">電話番号</label>
-            <input type="text" class="form-control text-center" id="exampleInputEmail1" aria-describedby="emailHelp" name='tel'  placeholder='{{ $farmData->tel }} '>
+            <input type="text" class="form-control text-center" id="exampleInputEmail1" aria-describedby="emailHelp" name='tel' value ='{{ old('tel', $farmData->tel)}}'>
             @error('tel')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-        <br>
       
-        <form method='post' action='{{ route('farms.update', ['farm' => $farmData->id] ) }}'>  
           <div class="form-group">
             <label for="formGroupExampleInput">url</label>
-            <input type="url" class="form-control text-center" id="formGroupExampleInput" name='site_url'  placeholder="{{ $farmData->site_url }} ">
+            <input type="url" class="form-control text-center" id="formGroupExampleInput" name='site_url'  value ='{{ old('site_url', $farmData->site_url)}}'>
             @error('site_url')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-        <br>
-        
-        <form method='post' action='{{ route('farms.update', ['farm' => $farmData->id] ) }}'>
-           <div class="form-group">
+
+          <div class="form-group">
             <label for="formGroupExampleInput">概要</label>
-            <input type="text" class="form-control text-center" id="formGroupExampleInput" name='summary'  placeholder="{{ $farmData->summary }} ">
+            <input type="text" class="form-control text-center" id="formGroupExampleInput" name='summary'  value='{{ old('summary',$farmData->summary) }}'>
             @error('summary')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-        <br>
-    
-        <form method='post' action='{{ route('farms.update', ['farm' => $farmData->id] ) }}'>
-           <div class="form-group">
+
+          <div class="form-group">
             <label for="formGroupExampleInput">コンテンツ</label>
-            <input type="text" class="form-control text-center" id="formGroupExampleInput"  name='content' placeholder="{{ $farmData->content }} ">
+            <input type="text" class="form-control text-center" id="formGroupExampleInput" name='content'  value ='{{ old('content', $farmData->content) }}'>
             @error('content')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

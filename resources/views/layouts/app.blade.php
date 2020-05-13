@@ -57,24 +57,6 @@
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
-                                
-                                <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                                      <li class="nav-item active">
-                                        <a class="nav-link" href="{{route('users.show', ['user' => Auth::user()->id]) }}">プロフィール<span class="sr-only">(current)</span></a>
-                                      </li>
-                                      <!--farmプロフィールのリンク-->
-                                    　<li class="nav-item active">
-                                        <a class="nav-link" href="{{route('farms.index')}}">農園一覧をみる<span class="sr-only">(current)</span></a>
-                                      </li>
-                                      <li class="nav-item">
-                                        <a class="nav-link" href="">Link</a>
-                                      </li>
-                                      <li class="nav-item">
-                                        <a class="nav-link disabled" href="#">Disabled</a>
-                                      </li>
-                                    </ul>
-                                 </div>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
@@ -87,6 +69,20 @@
                                         @csrf
                                     </form>
                                 </div>
+                            </li>
+                            
+                            <li class="nav-item dropdown">
+                                <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                                      <li class="nav-item active">
+                                        <a class="nav-link" href="{{route('users.show', ['user' => Auth::user()->id]) }}">プロフィール<span class="sr-only">(current)</span></a>
+                                      </li>
+                                      <!--farmプロフィールのリンク-->
+                                    　<li class="nav-item active">
+                                        <a class="nav-link" href="{{route('farms.index')}}">農園一覧をみる<span class="sr-only">(current)</span></a>
+                                      </li>
+                                    </ul>
+                                 </div>
                             </li>
                         @endguest
                     </ul>

@@ -15,6 +15,7 @@ class FarmsController extends Controller
     public function index()
     {
        $farmDatas = Farm::orderBy('id', 'desc')->get();
+       
        return view('farms.index', compact('farmDatas'));
       
     }
@@ -39,7 +40,7 @@ class FarmsController extends Controller
     public function show($id)
     {
        $farmData = Farm::find($id);
-       $farmData->users();
+
        return view('farms.show', compact('farmData'));
     }
 
@@ -54,21 +55,9 @@ class FarmsController extends Controller
     public function update(StoreFarmData $request, $id)
     {
         $farmData = Farm::find($id);
-        $farmData->name = $request->name;
-        $farmData->postal_code = $request->postal_code;
-        $farmData->address1 = $request->address1;
-        $farmData->address2 = $request->address2;
-        $farmData->address3 = $request->address3;
-        $farmData->tel = $request->tel;
-        $farmData->site_url = $request->site_url;
-        $farmData->summary = $request->summary;
-        $farmData->content = $request->content;
-        $farmData->save();
-        
-        
-        //userと紐ずくfarmdatasを取得
-        $farmDatas = Auth::user()->farms()->get();
-        return view('farms.show', compact('farmDatas'));
+        $farmData->fill($request->all())->save();
+
+        return view('farms.show', compact('farmData'));
     }
 
     /**
@@ -81,8 +70,6 @@ class FarmsController extends Controller
     {
         $farmData = Auth::user()->farms()->find($id);
         $farmData->delete();
-        
-        $farmDatas = Auth::user()->farms()->get();
-        return view('farms.show', compact('farmDatas'));
+        return view('farms.show', compact('farmData'));
     }
 }
