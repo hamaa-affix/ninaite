@@ -11,22 +11,20 @@
 |
 */
 
-//Route::get('/', function () {
-    //return view('top');
-//})->middleware('auth');
-
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home.index');
 
-//userのcrud
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('users', 'UsersController');
 });
 
-//farmsのcrud
-Route::group(['middleware' => 'auth'], function() {
+Route::group(['middleware' => 'auth'], function () {
     Route::resource('farms', 'FarmsController');
 });
 
+//Recruitmentのルーティング
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('recruitments', 'RecruitmentsController');
+});
 
