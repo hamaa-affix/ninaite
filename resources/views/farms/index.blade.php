@@ -2,7 +2,6 @@
 
 @section('content')
 <div>farms.indexです</div>
-  
  @foreach($farmDatas as $farmData)
  <div class="row">
    <div class="col-sm-12">
@@ -24,11 +23,10 @@
             <p class="card-text">{{ $farmData->summary }}</p>
           <h5 class="card-title">コンテンツ</h5>
             <p class="card-text">{{ $farmData->content }}</p>
-          <a href="{{ route('farms.show', ['farm' => $farmData->id]) }}" class="card-link">詳細へ</a>
+            <a href="{{ route('farms.show', ['farm' => $farmData->id]) }}" class="card-link">詳細へ</a>
       </div>
     </div>
    </div>
   </div>
  @endforeach
- 
 @endsection

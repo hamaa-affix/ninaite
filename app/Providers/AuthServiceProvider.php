@@ -4,6 +4,10 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use App\Policies\FarmPolicy;
+use Auth;
+use App\User;
+use App\Farm;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -13,7 +17,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Model' => 'App\Policies\ModelPolicy',
+        //'App\Farm' => 'App\Policies\FarmPolicy',
+         Farm::class => FarmPolicy::class,
     ];
 
     /**
@@ -24,7 +29,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        //
+        
+         //Gate::resource('farms', 'App\Policies\FarmPolicy');
     }
 }

@@ -12,7 +12,6 @@
     <p class="card-text">メールアドレス</p>
     <p class="card-text">{{ $user->email }}</p>
     <a href="{{route('users.edit', ['user' => $user->id]) }}" class="btn btn-primary">プロフィール編集</a>
-    
     <form method='POST' action='{{route('users.destroy', ['user' => $user->id]) }}'>
         @csrf
         <input type='hidden' name='_method' value='DELETE'>
