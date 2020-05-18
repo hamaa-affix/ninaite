@@ -15,12 +15,14 @@ class CreateRecruitmentsTable extends Migration
     {
         Schema::create('recruitments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('farm_id')->comment('事業者ID');
+            $table->unsignedBigInteger('farm_id')->comment('外部キー');
             $table->Integer('status')->comment('ステータス');
             $table->string('title')->comment('タイトル');
             $table->string('summary')->comment('概要');
-            $table->text('contens')->comment('依頼内容');
+            $table->text('content')->comment('依頼内容');
             $table->timestamps();
+            
+            $table->foreign('farm_id')->references('id')->on('farms')->onDelete('cascade');
         });
     }
 

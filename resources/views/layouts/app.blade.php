@@ -84,7 +84,7 @@
                                       </li>
                                       
                                       <li class="nav-item active">
-                                        <a class="nav-link" href="{{route('recruitments.index')}}">案件をみる<span class="sr-only">(current)</span></a>
+                                        <a class="nav-link" href="{{}}">案件をみる<span class="sr-only">(current)</span></a>
                                       </li>
                                     </ul>
                                  </div>

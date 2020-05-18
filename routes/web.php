@@ -25,7 +25,5 @@ Route::group(['middleware' => 'auth'], function () {
 
 //Recruitmentのルーティング
 Route::group(['middleware' => 'auth'], function () {
-    Route::resource('recruitments', 'RecruitmentsController');
+    Route::resource('farms.recruitments', 'RecruitmentsController');
 });
-
-//Route::get('/recruitments/index', 'RecruitmentsController@index');

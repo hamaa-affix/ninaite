@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Recruitment;
 use App\Keyword;
+use App\Farm;
 use Auth;
 use Gate;
 
@@ -25,9 +26,10 @@ class RecruitmentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        return view('recruitments.create');
+    public function create($id)
+    {   
+        $farm = Farm::find($id);
+        return view('recruitments.create', compact('farm'));
     }
 
     /**

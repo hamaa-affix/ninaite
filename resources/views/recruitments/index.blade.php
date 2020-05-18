@@ -2,5 +2,5 @@
 
 @section('content')
  recruitments.indexです
-  <h1>こんにちは{{ $user->name }}</h1>
+  <a href='{{route('recruitments.create') }}'>作成</a>
 @endsection
