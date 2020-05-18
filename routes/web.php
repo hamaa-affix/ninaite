@@ -28,3 +28,4 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('recruitments', 'RecruitmentsController');
 });
 
+//Route::get('/recruitments/index', 'RecruitmentsController@index');

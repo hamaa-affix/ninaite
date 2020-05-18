@@ -17,7 +17,7 @@ class RecruitmentsController extends Controller
      */
     public function index()
     {
-        //
+        return view('recruitments.index');
     }
 
     /**
@@ -27,7 +27,7 @@ class RecruitmentsController extends Controller
      */
     public function create()
     {
-        //
+        return view('recruitments.create');
     }
 
     /**

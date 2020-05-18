@@ -77,13 +77,19 @@
                                       <li class="nav-item active">
                                         <a class="nav-link" href="{{route('users.show', ['user' => Auth::user()->id]) }}">プロフィール<span class="sr-only">(current)</span></a>
                                       </li>
+                                      
                                       <!--farmプロフィールのリンク-->
                                     　<li class="nav-item active">
                                         <a class="nav-link" href="{{route('farms.index')}}">農園一覧をみる<span class="sr-only">(current)</span></a>
                                       </li>
+                                      
+                                      <li class="nav-item active">
+                                        <a class="nav-link" href="{{route('recruitments.index')}}">案件をみる<span class="sr-only">(current)</span></a>
+                                      </li>
                                     </ul>
                                  </div>
                             </li>
+                            
                         @endguest
                     </ul>
                 </div>

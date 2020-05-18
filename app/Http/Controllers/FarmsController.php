@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Farm;
-use App\FarmUser;
 use Auth;
 use Gate;
 

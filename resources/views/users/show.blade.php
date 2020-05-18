@@ -65,6 +65,8 @@
                 <h5 class="card-title">コンテンツ</h5>
                 <p class="card-text">{{ $farmData->content }}</p>
                 <a href="{{ route('farms.show', ['farm' => $farmData->id]) }}" class="card-link">詳細へ</a>
+                <br>
+                <a href="{{ route('recruitments.create') }}" class="card-link">案件を作る</a>
             </div>
         </div>
     </div>
