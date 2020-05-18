@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreRecruitment;
+
 use App\Recruitment;
 use App\Keyword;
 use App\Farm;
@@ -38,7 +40,7 @@ class RecruitmentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRecruitment $request, $id)
     {
         //
     }
