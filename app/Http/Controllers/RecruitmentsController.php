@@ -44,8 +44,6 @@ class RecruitmentsController extends Controller
      */
     public function store(Recruitment $recruitment, StoreRecruitment $request, $id)
     {
-        $validated = $request->validated();
-        
         $farm = Farm::find($id);
         $recruitment->farm_id = $farm->id;
         $recruitment->fill($request->all());
@@ -60,9 +58,11 @@ class RecruitmentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($farm_id, $id)
     {
-        //
+        $recruitment = Recruitment::find($id);
+        
+        return view('recruitments.show', compact('recruitment'));
     }
 
     /**
@@ -71,9 +71,11 @@ class RecruitmentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit( $farm_id, $id)
     {
-        //
+        $recruitment = Recruitment::find($id);
+        
+        return view('recruitments.edit', compact('recruitment'));
     }
 
     /**
@@ -83,9 +85,12 @@ class RecruitmentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreRecruitment $request, $farm_id, $id)
     {
-        //
+        $recruitment = Recruitment::find($id);
+        $recruitment->fill($request->all())->save();
+        
+        return redirect('/');
     }
 
     /**
@@ -94,8 +99,11 @@ class RecruitmentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($farm_id, $id)
     {
-        //
+        $recruitment = Recruitment::find($id);
+        $recruitment->delete();
+        
+        return redirect('/');
     }
 }
