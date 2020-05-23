@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
 use App\Http\Requests\StoreRecruitment;
 
 use App\Recruitment;
@@ -20,7 +20,9 @@ class RecruitmentsController extends Controller
      */
     public function index()
     {
-        return view('recruitments.index');
+        $recruitments = Recruitment::orderBy('id', 'desc')->get();
+        
+        return view('recruitments.index', compact('recruitments'));
     }
 
     /**
@@ -40,9 +42,16 @@ class RecruitmentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRecruitment $request, $id)
+    public function store(Recruitment $recruitment, StoreRecruitment $request, $id)
     {
-        //
+        $validated = $request->validated();
+        
+        $farm = Farm::find($id);
+        $recruitment->farm_id = $farm->id;
+        $recruitment->fill($request->all());
+        $recruitment->save();
+        
+        return redirect('/');
     }
 
     /**

@@ -9,7 +9,8 @@ class Recruitment extends Model
     protected $fillable = [
         'title', 
         'summary',
-        'contens',
+        'content',
+        'status'
     ];
     
     public function farm()

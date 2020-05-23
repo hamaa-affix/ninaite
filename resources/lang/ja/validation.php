@@ -71,7 +71,7 @@ return [
         'file'    => ':attribute は :value キロバイト未満である必要があります。',
         'string'  => ':attribute は :value 文字未満である必要があります。',
         'array'   => ':attribute は :value 未満の項目を持つ必要があります。',
-    ],
+    ], 
     'lte'                  => [
         'numeric' => ':attribute は :value 以下である必要があります。',
         'file'    => ':attribute は :value キロバイト以下である必要があります。',
@@ -97,7 +97,7 @@ return [
     'numeric'              => ':attribute は数字のみ有効です',
     'present'              => ':attribute が存在しません',
     'regex'                => ':attribute 無効な値です',
-    'required'             => ':attribute は必須です',
+    'required'             => ':attribute は入力してください',
     'required_if'          => ':attribute は :other が :value には必須です',
     'required_unless'      => ':attribute は :other が :values でなければ必須です',
     'required_with'        => ':attribute は :values が入力されている場合は必須です',
@@ -157,7 +157,10 @@ return [
     'attributes' => [
         'name'=>'名前', 
         'email'=>'メールアドレス', 
-        'password'=>'パスワード', 
+        'password'=>'パスワード',
+        'content' => '入力内容',
+        'summary' => '概要情報',
+        'title' => '案件名'
         ],
 
 ];

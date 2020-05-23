@@ -16,7 +16,7 @@ class CreateRecruitmentsTable extends Migration
         Schema::create('recruitments', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('farm_id')->comment('外部キー');
-            $table->Integer('status')->comment('ステータス');
+            $table->integer('status')->comment('ステータス');
             $table->string('title')->comment('タイトル');
             $table->string('summary')->comment('概要');
             $table->text('content')->comment('依頼内容');
