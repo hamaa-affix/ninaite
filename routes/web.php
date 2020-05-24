@@ -32,3 +32,7 @@ Route::group(['middleware' => 'auth'], function () {
 Route::get('recruitments', 'RecruitmentsController@index')
        ->middleware('auth')
        ->name('recruitments.index');
+       
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('recruitments.keywords', 'KeywordsController');
+}) ;
