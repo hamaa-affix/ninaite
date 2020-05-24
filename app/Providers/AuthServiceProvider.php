@@ -5,9 +5,11 @@ namespace App\Providers;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use App\Policies\FarmPolicy;
+use App\Policies\RecruitmentPolicy;
 use Auth;
 use App\User;
 use App\Farm;
+use App\Recruitment;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -19,6 +21,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         //'App\Farm' => 'App\Policies\FarmPolicy',
          Farm::class => FarmPolicy::class,
+         Recruitment::class => RecruitmentPolicy::class,
     ];
 
     /**

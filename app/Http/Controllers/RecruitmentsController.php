@@ -71,9 +71,12 @@ class RecruitmentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit( $farm_id, $id)
+    public function edit($farm_id, $id)
     {
+        $farm = new Farm;
         $recruitment = Recruitment::find($id);
+        //policyにによる認可
+        Gate::authorize('update', [$recruitment, $farm]);
         
         return view('recruitments.edit', compact('recruitment'));
     }
@@ -87,7 +90,11 @@ class RecruitmentsController extends Controller
      */
     public function update(StoreRecruitment $request, $farm_id, $id)
     {
+        $farm = new Farm;
         $recruitment = Recruitment::find($id);
+        //policyにによる認可
+        Gate::authorize('update', [$recruitment, $farm]);
+        
         $recruitment->fill($request->all())->save();
         
         return redirect('/');
@@ -101,7 +108,11 @@ class RecruitmentsController extends Controller
      */
     public function destroy($farm_id, $id)
     {
+        $farm = new Farm;
         $recruitment = Recruitment::find($id);
+        //policyにによる認可
+        Gate::authorize('delete', [$recruitment, $farm]);
+        
         $recruitment->delete();
         
         return redirect('/');
