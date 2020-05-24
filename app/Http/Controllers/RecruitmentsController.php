@@ -32,7 +32,7 @@ class RecruitmentsController extends Controller
      */
     public function create($farm_id)
     {   
-        $farm = Farm::find($id);
+        $farm = Farm::find($farm_id);
         return view('recruitments.create', compact('farm'));
     }
 
@@ -42,7 +42,7 @@ class RecruitmentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Recruitment $recruitment, StoreRecruitment $request, $form_id)
+    public function store(Recruitment $recruitment, StoreRecruitment $request, $farm_id)
     {
         $farm = Farm::find($farm_id);
         $recruitment->farm_id = $farm->id;
