@@ -24,8 +24,13 @@
                 <p class="card-text">{{ $farmData->summary }}</p>
                 <h4 class="card-title">コンテンツ</h4>
                 <p class="card-text">{{ $farmData->content }}</p>
-                <a class="btn btn-primary" href="{{ route('farms.edit', ['farm' => $farmData->id]) }}" role="button">編集する</a>
-                <a class="btn btn-primary" href="{{ route('farms.recruitments.create', ['farm' => $farmData->id])}}" role="button">案件を作成する</a>
+                
+                @foreach($farmData->users()->get() as $user)
+                    @if(Auth::user()->id === $user->id)
+                    <a class="btn btn-primary" href="{{ route('farms.edit', ['farm' => $farmData->id]) }}" role="button">編集する</a>
+                    <a class="btn btn-primary" href="{{ route('farms.recruitments.create', ['farm' => $farmData->id])}}" role="button">案件を作成する</a>
+                    @endif
+                @endforeach
             </div>
         </div>
     </div>
