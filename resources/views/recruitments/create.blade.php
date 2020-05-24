@@ -37,7 +37,7 @@
       </div>
     
       <div class="form-group text-center">
-        <label for="exampleFormControlSelect1">求人公開状況　0 = 公開中　1 = 非公開</label>
+        <label for="exampleFormControlSelect1">求人公開状況　0 = 非公開　1 = 公開</label>
         <input class="form-control @error('status') is-invalid @enderror" type="text" name='status'>
               @error('status')
                   <span class="invalid-feedback" role="alert">

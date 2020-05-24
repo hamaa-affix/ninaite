@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Enums\Status;
+
 
 class Recruitment extends Model
 {
@@ -12,6 +14,11 @@ class Recruitment extends Model
         'content',
         'status'
     ];
+    
+     protected $enumCasts = [
+        'status' => Status::class,
+    ];
+    
     
     public function farm()
     {   
