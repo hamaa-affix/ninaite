@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Keyword;
+use App\Recruitment;
 use Illuminate\Http\Request;
 
 class KeywordsController extends Controller
@@ -22,9 +23,10 @@ class KeywordsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($recruitment_id)
     {
-        //
+        $recruitment = Recruitment::find($recruitment_id);
+        return view('keywords.create', compact('recruitment'));
     }
 
     /**
@@ -35,7 +37,10 @@ class KeywordsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $keyword = new Keyword;
+        //dd($request->value);
+        preg_match_all('/#([a-zA-Z0-9０-９ぁ-んァ-ヶー一-龠]+)/u', $request->value, $match);
+        dd($match[1]);
     }
 
     /**
