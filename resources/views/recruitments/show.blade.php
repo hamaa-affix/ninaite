@@ -22,6 +22,11 @@
                               <li class="list-group-item">現在募集をしておりません</li>
                             @endif
                             </ul>
+                            @foreach($recruitment->keywords()->get() as $keyword)
+                            <ul class="list-group list-group-flush">
+                              <li class="list-group-item">{{ $keyword->value }}</li>
+                            </ul>
+                            @endforeach
                         </div>
                 </div>
 　　　　　　　　@foreach($recruitment->farm()->get() as $recruitmentData)
