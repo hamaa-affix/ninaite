@@ -21,20 +21,28 @@
                             @else
                               <li class="list-group-item">現在募集をしておりません</li>
                             @endif
+                            
+                            @foreach($recruitment->farm()->get() as $recruitmentData)
+                　　　　　　　　        @if($recruitmentData->id === $recruitment->id)
+                                   <a href="{{ route('farms.recruitments.edit', ['farm' => $recruitment->farm_id, 'recruitment' => $recruitment->id]) }}"  class="card-link text-center">編集する</a>
+                                @endif
+　　　　　　　　            @endforeach
+                       </div>
+                       
+                       <div class="form-group text-center">
+                         <h4>関連付いているキーワード</h4>
                             </ul>
                             @foreach($recruitment->keywords()->get() as $keyword)
                             <ul class="list-group list-group-flush">
                               <li class="list-group-item">{{ $keyword->value }}</li>
                             </ul>
                             @endforeach
+                            
+                            <a href="{{ route('keywords.edit', ['id' => $recruitment->id]) }}"  class="card-link text-center">タグを編集する</a>
+
+                            <a href="{{ route('recruitments.keywords.create', ['recruitment' => $recruitment->id]) }}"  class="card-link text-center">タグを作成する</a>
                         </div>
                 </div>
-　　　　　　　　@foreach($recruitment->farm()->get() as $recruitmentData)
-　　　　　　　　        @if($recruitmentData->id === $recruitment->id)
-                            <a href="{{ route('farms.recruitments.edit', ['farm' => $recruitment->farm_id, 'recruitment' => $recruitment->id]) }}"  class="card-link text-center">編集する</a>
-                        @endif
-　　　　　　　　@endforeach
-　　　　　　　　<a href="{{ route('recruitments.keywords.create', ['recruitment' => $recruitment->id]) }}"  class="card-link text-center">タグを作成する</a>
             </div>
         </div>
     </div>

@@ -15,7 +15,7 @@ class KeywordsController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -54,7 +54,8 @@ class KeywordsController extends Controller
         //取得したId値を中間テーブルにレコード挿入
         $recruitment = Recruitment::find($recruitment_id);
         $recruitment->keywords()->attach($keywordDatas_id);
-
+        
+        
         return view('recruitments.show', compact('recruitment'));
         
     }
@@ -76,9 +77,12 @@ class KeywordsController extends Controller
      * @param  \App\Keyword  $keyword
      * @return \Illuminate\Http\Response
      */
-    public function edit(Keyword $keyword)
+    public function edit($id)
     {
-        //
+        $recruitment = Recruitment::find($id);
+        $keywords = Keyword::all();
+        
+        return view('keywords.edit', compact('recruitment', 'keywords'));
     }
 
     /**
@@ -88,9 +92,18 @@ class KeywordsController extends Controller
      * @param  \App\Keyword  $keyword
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Keyword $keyword)
+    public function update(Request $request, Keyword $keyword, $recruitment_id, $id)
     {
-        //
+        //keywordの全件取得
+        //$keywords = [];
+        //foreach(){
+            //array_push($keywords, $values->id);
+        //}
+        
+        //$recruitment = Recruitment::find($recruitment_id,);
+        //$recruitment->keywords()->sync($keywords);
+        
+        //return view('recruitments.index');
     }
 
     /**

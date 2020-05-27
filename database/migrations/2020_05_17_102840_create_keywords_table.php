@@ -16,6 +16,7 @@ class CreateKeywordsTable extends Migration
         Schema::create('keywords', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('value')->comment('キーワードタグ');
+            $table->timestamps();
         });
     }
 

@@ -34,5 +34,10 @@ Route::get('recruitments', 'RecruitmentsController@index')
        ->name('recruitments.index');
        
 Route::group(['middleware' => 'auth'], function () {
-    Route::resource('recruitments.keywords', 'KeywordsController');
-}) ;
+    Route::resource('recruitments.keywords', 'KeywordsController')
+     ->except(['edit']);
+});
+
+Route::get('/keywords/{id}/edit', 'KeywordsController@edit')
+       ->middleware('auth')
+       ->name('keywords.edit');
