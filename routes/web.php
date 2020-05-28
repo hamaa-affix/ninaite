@@ -32,12 +32,14 @@ Route::group(['middleware' => 'auth'], function () {
 Route::get('recruitments', 'RecruitmentsController@index')
        ->middleware('auth')
        ->name('recruitments.index');
-       
+//keywordsのルーティング       
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('recruitments.keywords', 'KeywordsController')
-     ->except(['edit']);
+     ->except(['edit','update']);
 });
-
-Route::get('/keywords/{id}/edit', 'KeywordsController@edit')
-       ->middleware('auth')
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/keywords/{id}/edit', 'KeywordsController@edit')
        ->name('keywords.edit');
+    Route::PUT('keywords/{id}', 'KeywordsController@update')
+    ->name('keywords.update');
+});
