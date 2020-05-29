@@ -15,7 +15,7 @@
                             @foreach($keywords as $keyword)
                             <div class="form-check">
                                  <div class="form-check">
-                                      <input class="form-check-input" type="checkbox" name='value' value="{{ $keyword->id }}" id="defaultCheck1"
+                                      <input class="form-check-input" type="checkbox" name='value[]' value="{{ $keyword->value}}" id="defaultCheck1"
                                           @if($recruitment->keywords()->where('keywords.id', $keyword->id)->first() !== null)
                                               checked
                                           @endif>

@@ -92,18 +92,28 @@ class KeywordsController extends Controller
      * @param  \App\Keyword  $keyword
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Keyword $keyword, $recruitment_id, $id)
+    public function update(Request $request, $recruitment_id)
     {
-        //keywordの全件取得
-        //$keywords = [];
-        //foreach(){
-            //array_push($keywords, $values->id);
-        //}
         
-        //$recruitment = Recruitment::find($recruitment_id,);
-        //$recruitment->keywords()->sync($keywords);
+        $keyword = Keyword::delete();
         
-        //return view('recruitments.index');
+        $values = $request->value;
+        $keywordDatas = [];
+        foreach($values as $valueData) {
+            $keywords = fistOrCreate(['value' => $valueData]);
+            array_push($keywordDatas, $valueData);
+        }
+        dd($keywordDatas);
+        
+        $keyword_ids = [];
+        foreach($keywordDatas as $keywordData) {
+            array_push($keyword_ids, $keywordData['id']);
+        }
+        
+        $recruitment = Recruitment::find($recruitment_id);
+        $recruitment->keywords()->sync($keyword_ids);
+        
+        return view('/');
     }
 
     /**
