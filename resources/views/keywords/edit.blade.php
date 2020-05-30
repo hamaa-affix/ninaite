@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
- recruitments.indexです
  <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -26,7 +25,7 @@
                                 </div>
                             </div>
                             @endforeach
-                            <button type="submit" class="btn btn-primary"> キーワードを編集</button>
+                            <button type="submit" class="btn btn-success"> キーワードを編集</button>
                        </div>
                     <form>
                 </div>

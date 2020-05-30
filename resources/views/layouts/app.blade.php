@@ -21,12 +21,12 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light  bg-white ">
+        <nav class="navbar navbar-expand-md navbar-light  bg-success ">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand text-light" href="{{ url('/') }}">
                     {{ config('app.name', 'ninaite') }}
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 
@@ -42,19 +42,19 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link text-light" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('新規登録') }}</a>
+                                    <a class="nav-link text-light" href="{{ route('register') }}">{{ __('新規登録') }}</a>
                                 </li>
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="{{route('farms.index')}}">農園一覧をみる<span class="sr-only">(current)</span></a>
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" href="{{route('farms.index')}}">農園一覧をみる<span class="sr-only">(current)</span></a>
                                  </li>
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
@@ -74,17 +74,17 @@
                             <li class="nav-item dropdown">
                                 <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                                      <li class="nav-item active">
-                                        <a class="nav-link" href="{{route('users.show', ['user' => Auth::user()->id]) }}">プロフィール<span class="sr-only">(current)</span></a>
+                                      <li class="nav-item">
+                                        <a class="nav-link text-light" href="{{route('users.show', ['user' => Auth::user()->id]) }}">プロフィール<span class="sr-only">(current)</span></a>
                                       </li>
                                       
                                       <!--farmプロフィールのリンク-->
-                                    　<li class="nav-item active">
-                                        <a class="nav-link" href="{{route('farms.index')}}">農園一覧をみる<span class="sr-only">(current)</span></a>
+                                    　<li class="nav-item text-light">
+                                        <a class="nav-link text-light" href="{{route('farms.index')}}">農園一覧をみる<span class="sr-only">(current)</span></a>
                                       </li>
                                       
                                       <li class="nav-item active">
-                                        <a class="nav-link" href="{{ route('recruitments.index') }}">案件をみる<span class="sr-only">(current)</span></a>
+                                        <a class="nav-link text-light" href="{{ route('recruitments.index') }}">案件をみる<span class="sr-only">(current)</span></a>
                                       </li>
                                     </ul>
                                  </div>

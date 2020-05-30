@@ -46,11 +46,13 @@ class KeywordsController extends Controller
             $keywordData = Keyword::firstOrCreate(['value' => $value]);
             array_push($keywordDatas, $keywordData);
         }
+        dd($keywordDatas);
         //空の配列を用意して先ほど取得したデータのIDのみをforeachで回しながら代入
         $keywordDatas_id = [];
         foreach($keywordDatas as $keyword_value){
             array_push($keywordDatas_id, $keyword_value['id']);
         }
+        dd($keywordDatas_id);
         //取得したId値を中間テーブルにレコード挿入
         $recruitment = Recruitment::find($recruitment_id);
         $recruitment->keywords()->attach($keywordDatas_id);
@@ -95,16 +97,16 @@ class KeywordsController extends Controller
     public function update(Request $request, $recruitment_id)
     {
         
-        $keyword = Keyword::delete();
-        
         $values = $request->value;
+        $valueDatas = [];
+        array_push($valueDatas, $values);
+        
         $keywordDatas = [];
-        foreach($values as $valueData) {
-            $keywords = fistOrCreate(['value' => $valueData]);
-            array_push($keywordDatas, $valueData);
+        foreach($valueDatas as $valueData) {
+            $keywords = Keyword::firstOrCreate(['value' => $valueData]);
+            array_push($keywordDatas, $keywords);
         }
         dd($keywordDatas);
-        
         $keyword_ids = [];
         foreach($keywordDatas as $keywordData) {
             array_push($keyword_ids, $keywordData['id']);
@@ -113,7 +115,7 @@ class KeywordsController extends Controller
         $recruitment = Recruitment::find($recruitment_id);
         $recruitment->keywords()->sync($keyword_ids);
         
-        return view('/');
+        return view('recruitments.show', compact('recruitment'));
     }
 
     /**

@@ -8,7 +8,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('農園作成') }}</div>
+                <div class="card-header text-center h4">{{ __('農園作成') }}</div>
 
                 <div class="card-body">
                     <form method="post" action="{{ route('farms.store')}}">
@@ -142,8 +142,8 @@
                         </div>   
 
                         <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                            <div class="col-md-6 offset-md-6">
+                                <button type="submit" class="btn btn-success btn-lg">
                                     {{ __('登録') }}
                                 </button>
                             </div>
