@@ -24,6 +24,11 @@ class Farm extends Model
         return $this->belongsToMany('App\User', 'farm_user')->withTimestamps();
     }
     
+    public function isEditable($user_id) 
+    {
+        return $this->users()->where('users.id', $user_id)->count() > 0;
+    }
+    
     public function recruitments()
     {
         //recruitmentsへのリレーション定義変更

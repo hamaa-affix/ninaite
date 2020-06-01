@@ -53,9 +53,9 @@ class RecruitmentPolicy
      * @param  \App\Recruitment  $recruitment
      * @return mixed
      */
-    public function update(User $user, Recruitment $recruitment, Farm $farm)
+    public function update(User $user, Recruitment $recruitment)
     {
-         return $recruitment->farm()->where('farms.id', $farm->id)->first() != null;
+         return $recruitment->isEditable($user->id);
     }
 
     /**
@@ -65,9 +65,9 @@ class RecruitmentPolicy
      * @param  \App\Recruitment  $recruitment
      * @return mixed
      */
-    public function delete(User $user, Recruitment $recruitment, Farm $farm)
+    public function delete(User $user, Recruitment $recruitment)
     {
-         return $recruitment->farm()->where('farms.id', $farm->id)->first() != null;
+        return $recruitment->isEditable($user->id);
     }
 
     /**
