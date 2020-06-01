@@ -73,10 +73,9 @@ class RecruitmentsController extends Controller
      */
     public function edit($farm_id, $id)
     {
-        $farm = new Farm;
         $recruitment = Recruitment::find($id);
         //policyにによる認可
-        Gate::authorize('update', [$recruitment, $farm]);
+        Gate::authorize('update', [$recruitment]);
         
         return view('recruitments.edit', compact('recruitment'));
     }
@@ -90,13 +89,16 @@ class RecruitmentsController extends Controller
      */
     public function update(StoreRecruitment $request, $farm_id, $id)
     {
-        $farm = new Farm;
         $recruitment = Recruitment::find($id);
         //policyにによる認可
-        Gate::authorize('update', [$recruitment, $farm]);
-        
+        Gate::authorize('update', [$recruitment]);
         $recruitment->fill($request->all())->save();
         
+        //関連したキーワードの中間テーブルへの更新処理
+        $keywords = $request->keywords;
+        $recruitment->keywords()->detach();
+        $recruitment->keywords()->attach($keywords);
+
         return redirect('/');
     }
 
@@ -108,10 +110,9 @@ class RecruitmentsController extends Controller
      */
     public function destroy($farm_id, $id)
     {
-        $farm = new Farm;
         $recruitment = Recruitment::find($id);
         //policyにによる認可
-        Gate::authorize('delete', [$recruitment, $farm]);
+        Gate::authorize('delete', [$recruitment]);
         
         $recruitment->delete();
         

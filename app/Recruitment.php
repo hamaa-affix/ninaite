@@ -23,7 +23,7 @@ class Recruitment extends Model
     public function farm()
     {   
         //farmsへのリレーション
-        return $this->belongsTo('App\Farm');
+        return $this->belongsTo('App\Farm')->first();
     }
     
     public function keywords()
@@ -31,6 +31,12 @@ class Recruitment extends Model
         //keywordsのリレーション定義変更
         return $this->belongsToMany('App\Keyword','keyword_recruitment')->withTimestamps();
     }
+    
+    public function isEditable($user_id) 
+    {
+        return $this->farm()->users()->where('users.id', $user_id)->count() > 0;
+    }
+    
     
     
 }

@@ -96,11 +96,8 @@ class KeywordsController extends Controller
      */
     public function update(Request $request, $recruitment_id)
     {
-        
+      
         $values = $request->value;
-        $valueDatas = [];
-        array_push($valueDatas, $values);
-        
         $keywordDatas = [];
         foreach($valueDatas as $valueData) {
             $keywords = Keyword::firstOrCreate(['value' => $valueData]);

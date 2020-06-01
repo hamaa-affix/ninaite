@@ -30,9 +30,27 @@
                           <label for="exampleFormControlSelect1">求人公開状況　0 = 公開中　1 = 非公開</label>
                           <input class="form-control" type="text" name='status' value='{{ old('status', $recruitment->status ) }}' >
                         </div>
+                        
+                        <div class="form-group text-center">
+                          <label for="exampleFormControlTextarea1">キーワード</label>
+                          <div>
+                            @php
+                              $selectedKeywords = $recruitment->keywords()->pluck('keyword_id')->toArray();
+                            @endphp
+                            @foreach(App\Keyword::all() as $keyword)
+                              <label>
+                                  <input type="checkbox" name="keywords[]" value="{{ $keyword->id }}" 
+                                  @if(in_array($keyword->id, $selectedKeywords))
+                                        checked
+                                  @endif>
+                                  {{ $keyword->value }}
+                              </label>
+                            @endforeach
+                          </div>
+                        </div>
         
                         <div class="form-group text-center">
-                            <button type="submit" class="btn btn-primary"> 案件を更新</button>
+                            <button type="submit" class="btn btn-success"> 案件を更新</button>
                         </div>
                   </form>
                   
@@ -40,7 +58,7 @@
                         @csrf
                      <div class="form-group text-center">
                         <input type='hidden' name='_method' value='DELETE'>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
                               案件の削除
                         </button>
                   

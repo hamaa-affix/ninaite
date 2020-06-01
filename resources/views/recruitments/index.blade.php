@@ -9,9 +9,7 @@
                 <div class="card-body text-center">
                     <div class="form-group text-center">
                         <ul class="list-group list-group-flush">
-                         @foreach($recruitment->farm()->get() as $farmData)
-                            <li class="list-group-item"><span class="h5">農園名</span><br>{{ $farmData->name }}</li>
-                          @endforeach
+                            <li class="list-group-item"><span class="h5">農園名</span><br>{{ $recruitment->farm()->name}}</li>
                             <li class="list-group-item"><span class="h5">案件名</span><br>{{ $recruitment->title }}</li>
                             <li class="list-group-item"><span class="h5">農園概要</span><br>{{ $recruitment->summary }}</li>
                             <li class="list-group-item"><span class="h5">仕事内容</span><br>{{ $recruitment->content }}</li>

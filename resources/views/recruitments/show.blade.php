@@ -21,15 +21,16 @@
                         @else
                           <li class="list-group-item">現在募集をしておりません</li>
                         @endif
-                      </ul>  
-                        @foreach($recruitment->farm()->get() as $recruitmentData)
-            　　　　　　　　        @if($recruitmentData->id === $recruitment->id)
-                               <a href="{{ route('farms.recruitments.edit', ['farm' => $recruitment->farm_id, 'recruitment' => $recruitment->id]) }}"  class="btn btn-success">編集する</a>
-                            @endif
-　　　　　　　　            @endforeach
-　　　　　　　　            
-　　　　　　　　          <h4>関連付いているキーワード</h4>
-　　　　　　　　          @foreach($recruitment->keywords()->get() as $keyword)
+                      </ul>
+                      
+                      @if($recruitment->isEditable(Auth::id()))
+                        <div class='col-md-8 offset-md-2'>
+                          <a href="{{ route('farms.recruitments.edit', ['farm' => $recruitment->farm_id, 'recruitment' => $recruitment->id]) }}"  class="btn btn-success mt-3">編集する</a>
+                        </div>
+                      @endif
+                        
+                      <h4>関連付いているキーワード</h4>
+                      @foreach($recruitment->keywords()->get() as $keyword)
                         <ul class="list-group list-group-flush">
                           <li class="list-group-item">{{ $keyword->value }}</li>
                         </ul>
