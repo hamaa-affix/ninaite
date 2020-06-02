@@ -23,7 +23,7 @@ class KeywordsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($recruitment_id)
+    public function create( $recruitment_id)
     {
         $recruitment = Recruitment::find($recruitment_id);
         return view('keywords.create', compact('recruitment'));
@@ -81,10 +81,9 @@ class KeywordsController extends Controller
      */
     public function edit($id)
     {
-        $recruitment = Recruitment::find($id);
-        $keywords = Keyword::all();
-        
-        return view('keywords.edit', compact('recruitment', 'keywords'));
+      $recruitment = Recruitment::find($id);
+      
+      return view('keywords.edit', compact('recruitment'));
     }
 
     /**
@@ -96,23 +95,16 @@ class KeywordsController extends Controller
      */
     public function update(Request $request, $recruitment_id)
     {
+      $values = $request->value;
+      foreach($values as $keyword_key => $keyword_value){
+        $keyword = Keyword::find($keyword_key);
+        $keyword->value = $keyword_value;
+        $keyword->save();
+      }
       
-        $values = $request->value;
-        $keywordDatas = [];
-        foreach($valueDatas as $valueData) {
-            $keywords = Keyword::firstOrCreate(['value' => $valueData]);
-            array_push($keywordDatas, $keywords);
-        }
-        dd($keywordDatas);
-        $keyword_ids = [];
-        foreach($keywordDatas as $keywordData) {
-            array_push($keyword_ids, $keywordData['id']);
-        }
-        
-        $recruitment = Recruitment::find($recruitment_id);
-        $recruitment->keywords()->sync($keyword_ids);
-        
-        return view('recruitments.show', compact('recruitment'));
+      $recruitment = Recruitment::find($recruitment_id);
+      
+      return view('recruitments.show', compact('recruitment'));
     }
 
     /**
@@ -121,8 +113,11 @@ class KeywordsController extends Controller
      * @param  \App\Keyword  $keyword
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Keyword $keyword)
+    public function destroy(Keyword $keyword, $recruitment_id)
     {
-        //
+        $recruitment = Recruitment::find($recruitment_id);
+        $recruitment->keywords()->delete();
+        
+        return redirect('/');
     }
 }

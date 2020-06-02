@@ -10,9 +10,7 @@
                 <div class="card-body">
                     <div class="form-group text-center">
                       <ul class="list-group list-group-flush">
-                        @foreach($recruitment->farm()->get() as $farmData)
-                          <li class="list-group-item">{{ $farmData->name }}</li>
-                        @endforeach
+                          <li class="list-group-item">{{ $recruitment->farm()->name }}</li>
                           <li class="list-group-item">{{ $recruitment->title }}</li>
                           <li class="list-group-item">{{ $recruitment->summary }}</li>
                           <li class="list-group-item">{{ $recruitment->content }}</li>
@@ -25,7 +23,7 @@
                       
                       @if($recruitment->isEditable(Auth::id()))
                         <div class='col-md-8 offset-md-2'>
-                          <a href="{{ route('farms.recruitments.edit', ['farm' => $recruitment->farm_id, 'recruitment' => $recruitment->id]) }}"  class="btn btn-success mt-3">編集する</a>
+                          <a href="{{ route('farms.recruitments.edit', ['farm' => $recruitment->farm_id, 'recruitment' => $recruitment->id]) }}"  class="btn btn-success mt-3 mb-3">編集する</a>
                         </div>
                       @endif
                         

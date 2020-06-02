@@ -64,7 +64,9 @@ class FarmsController extends Controller
         $farmData = Farm::find($id);
         Gate::authorize('update', $farmData);
 
-        $farmData->fill($request->all())->save();
+        $farmData->fill($request->all());
+        dd($farmData); 
+        //->save();
 
         return view('farms.show', compact('farmData'));
     }

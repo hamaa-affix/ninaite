@@ -20,7 +20,7 @@
                                 @enderror
                         </div>
                         <div class="form-group text-center">
-                            <button type="submit" class="btn btn-primary">タグ作成</button>
+                            <button type="submit" class="btn btn-success">タグ作成</button>
                         </div>
                         
                       </form>
