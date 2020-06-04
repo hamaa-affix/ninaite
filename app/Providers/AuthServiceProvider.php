@@ -9,6 +9,7 @@ use App\Policies\RecruitmentPolicy;
 use Auth;
 use App\User;
 use App\Farm;
+use App\Keyword;
 use App\Recruitment;
 
 class AuthServiceProvider extends ServiceProvider
@@ -20,8 +21,9 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         //'App\Farm' => 'App\Policies\FarmPolicy',
-         Farm::class => FarmPolicy::class,
-         Recruitment::class => RecruitmentPolicy::class,
+        Farm::class => FarmPolicy::class,
+        Recruitment::class => RecruitmentPolicy::class,
+        Keyword::class => KeywordPolicy::class, 
     ];
 
     /**

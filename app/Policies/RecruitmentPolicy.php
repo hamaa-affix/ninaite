@@ -12,16 +12,6 @@ class RecruitmentPolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can view any recruitments.
-     *
-     * @param  \App\User  $user
-     * @return mixed
-     */
-    public function viewAny(User $user)
-    {
-        //
-    }
 
     /**
      * Determine whether the user can view the recruitment.
@@ -68,29 +58,5 @@ class RecruitmentPolicy
     public function delete(User $user, Recruitment $recruitment)
     {
         return $recruitment->isEditable($user->id);
-    }
-
-    /**
-     * Determine whether the user can restore the recruitment.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Recruitment  $recruitment
-     * @return mixed
-     */
-    public function restore(User $user, Recruitment $recruitment)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the recruitment.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Recruitment  $recruitment
-     * @return mixed
-     */
-    public function forceDelete(User $user, Recruitment $recruitment)
-    {
-        //
     }
 }

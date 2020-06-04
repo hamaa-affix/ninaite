@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Keyword;
 use App\Recruitment;
+use Gate;
 use Illuminate\Http\Request;
 
 class KeywordsController extends Controller
@@ -77,10 +78,10 @@ class KeywordsController extends Controller
      * @param  \App\Keyword  $keyword
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($recruitment_id)
     {
-      $recruitment = Recruitment::find($id);
-      
+      $recruitment = Recruitment::find($recruitment_id);
+      Gate::authorize('update');
       return view('keywords.edit', compact('recruitment'));
     }
 
@@ -93,6 +94,7 @@ class KeywordsController extends Controller
      */
     public function update(Request $request, $recruitment_id)
     {
+      Gate::authorize('update');
       $values = $request->value;
       foreach($values as $keyword_key => $keyword_value){
         $keyword = Keyword::find($keyword_key);
@@ -113,8 +115,9 @@ class KeywordsController extends Controller
      */
     public function destroy(Keyword $keyword, $recruitment_id)
     {
-        $recruitment = Recruitment::find($recruitment_id);
-        $recruitment->keywords()->delete();
+      Gate::authorize('delete');
+      $recruitment = Recruitment::find($recruitment_id);
+      $recruitment->keywords()->delete();
         
         return redirect('/');
     }

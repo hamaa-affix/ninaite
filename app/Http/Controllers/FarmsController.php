@@ -52,7 +52,7 @@ class FarmsController extends Controller
     {
         //policyによる認可処理
         $farmData = Farm::find($id);
-        Gate::authorize('update', $farmData);
+        Gate::authorize('update');
         
         return view('farms.edit', compact('farmData'));
     }
@@ -81,7 +81,7 @@ class FarmsController extends Controller
     {
         //policyによる認可処理
         $farmData = Farm::find($id);
-        Gate::authorize('delete', $farmData);
+        Gate::authorize('delete');
         
         $farmData->delete();
         return view('farms.show', compact('farmData'));

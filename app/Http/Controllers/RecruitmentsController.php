@@ -75,7 +75,7 @@ class RecruitmentsController extends Controller
     {
         $recruitment = Recruitment::find($id);
         //policyにによる認可
-        Gate::authorize('update', [$recruitment]);
+        Gate::authorize('update');
         
         return view('recruitments.edit', compact('recruitment'));
     }
@@ -112,7 +112,7 @@ class RecruitmentsController extends Controller
     {
         $recruitment = Recruitment::find($id);
         //policyにによる認可
-        Gate::authorize('delete', [$recruitment]);
+        Gate::authorize('delete');
         
         $recruitment->delete();
         

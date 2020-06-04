@@ -25,7 +25,6 @@
                         <div class='col-md-8 offset-md-2'>
                           <a href="{{ route('farms.recruitments.edit', ['farm' => $recruitment->farm_id, 'recruitment' => $recruitment->id]) }}"  class="btn btn-success mt-3 mb-3">編集する</a>
                         </div>
-                      @endif
                         
                       <h4>関連付いているキーワード</h4>
                       @foreach($recruitment->keywords()->get() as $keyword)
@@ -37,6 +36,7 @@
                         <a href="{{ route('keywords.edit', ['id' => $recruitment->id]) }}"  class="btn btn-success mr-2">タグを編集する</a>
                         <a href="{{ route('recruitments.keywords.create', ['recruitment' => $recruitment->id]) }}"  class="btn btn-success">タグを作成する</a>
                       </div>
+                      @endif
                    </div>
                 </div>
             </div>
