@@ -46,13 +46,11 @@ class KeywordsController extends Controller
             $keywordData = Keyword::firstOrCreate(['value' => $value]);
             array_push($keywordDatas, $keywordData);
         }
-        dd($keywordDatas);
         //空の配列を用意して先ほど取得したデータのIDのみをforeachで回しながら代入
         $keywordDatas_id = [];
         foreach($keywordDatas as $keyword_value){
             array_push($keywordDatas_id, $keyword_value['id']);
         }
-        dd($keywordDatas_id);
         //取得したId値を中間テーブルにレコード挿入
         $recruitment = Recruitment::find($recruitment_id);
         $recruitment->keywords()->attach($keywordDatas_id);

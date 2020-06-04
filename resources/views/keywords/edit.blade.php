@@ -6,6 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
+                  @if(App\Recruitment::find($recruitment->id)->has('keywords')->count() > 0)
                    <form action='{{ route('keywords.update', ['id' => $recruitment->id]) }}' method='POST'>
                        <input type='hidden' name='_method' value='PUT'>
                        @csrf
@@ -14,8 +15,8 @@
                           @foreach($recruitment->keywords()->get() as $keyword)
                             <input id="name" type="text" class="form-control text-center mt-3" name="value[{{ $keyword->id }}]" value="{{ old('value', $keyword->value) }}" required autocomplete="value" autofocus>
                           @endforeach
-                          <button type="submit" class="btn btn-success mt-3"> キーワードを編集</button>
-                     </div>
+                            <button type="submit" class="btn btn-success mt-3"> キーワードを編集</button>
+                        </div>
                     <form>
                       
                     <form method='POST' action='{{ route('keywords.destroy', ['id' => $recruitment->id])  }}'>
@@ -25,7 +26,6 @@
                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
                               キーワードを削除する
                         </button>
-                  
                          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                <div class="modal-dialog" role="document">
                                   <div class="modal-content">
@@ -49,6 +49,9 @@
                          </div>
                      </div>
                   </form>
+                  @else
+                      <a href="{{ route('recruitments.keywords.create', ['recruitment' => $recruitment->id]) }}"  class="btn btn-success">タグを作成する</a>
+                  @endif
                 </div>
             </div>
         </div>
