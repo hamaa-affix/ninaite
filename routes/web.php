@@ -16,28 +16,24 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home.index');
 
 Route::group(['middleware' => 'auth'], function () {
+    //usersのルーティング
     Route::resource('users', 'UsersController');
-});
-
-Route::group(['middleware' => 'auth'], function () {
+    //farmsのルーティング
     Route::resource('farms', 'FarmsController');
-});
-
-//Recruitmentのルーティング
-Route::group(['middleware' => 'auth'], function () {
+    //recruitmentのルーティング
     Route::resource('farms.recruitments', 'RecruitmentsController')
     ->except(['index']);
-});
-
-Route::get('recruitments', 'RecruitmentsController@index')
-       ->middleware('auth')
-       ->name('recruitments.index');
-//keywordsのルーティング       
-Route::group(['middleware' => 'auth'], function () {
+    //keywordsのルーティング
     Route::resource('recruitments.keywords', 'KeywordsController')
      ->except(['edit','update', 'destroy']);
 });
+
+
 Route::group(['middleware' => 'auth'], function () {
+    //recruitment一覧のルーティング
+    Route::get('recruitments', 'RecruitmentsController@index')
+       ->name('recruitments.index');
+    //各keywordsのルーテイング
     Route::get('/keywords/{id}/edit', 'KeywordsController@edit')
       ->name('keywords.edit');
     Route::PUT('keywords/{id}', 'KeywordsController@update')
