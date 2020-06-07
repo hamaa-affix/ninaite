@@ -18,14 +18,20 @@ Route::get('/', 'HomeController@index')->name('home.index');
 Route::group(['middleware' => 'auth'], function () {
     //usersのルーティング
     Route::resource('users', 'UsersController');
+    
     //farmsのルーティング
     Route::resource('farms', 'FarmsController');
+    
     //recruitmentのルーティング
     Route::resource('farms.recruitments', 'RecruitmentsController')
     ->except(['index']);
+    
     //keywordsのルーティング
     Route::resource('recruitments.keywords', 'KeywordsController')
      ->except(['edit','update', 'destroy']);
+     
+    //メッセージのルーティング
+    Route::resource('farms.messages', 'MessagesController');
 });
 
 

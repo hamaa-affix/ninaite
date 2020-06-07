@@ -69,7 +69,7 @@ class KeywordsController extends Controller
      */
     public function show(Keyword $keyword)
     {
-        //
+        
     }
 
     /**

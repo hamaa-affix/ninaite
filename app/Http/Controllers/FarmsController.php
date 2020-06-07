@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Farm;
+use App\Message;
 use Auth;
 use Gate;
 
@@ -21,6 +22,19 @@ class FarmsController extends Controller
         $farmDatas = Farm::orderBy('id', 'desc')->get();
         return view('farms.index', compact('farmDatas'));
       
+    }
+    
+    public function contactUsers(StoreFarmData $request, Farm $farm)
+    {
+        # $messages = Message::select('user_id', DB::raw('MAX(created_at) AS created_at'))->where('farm_id', $farm->id)->groupBy('user_id')->orderBy('MAX(created_at) DESC');
+
+        $messagesQuery = DB::table('messages')->select(DB::raw('user_id, COUNT(*) AS posted_count, MAX(created_at) AS last_posted_at'))->where('farm_id', $farm->id)->groupBy('user_id')->toSql();
+        $users = User::select()
+            ->join(DB::raw("($messagesQuery) AS m"), 'users.id', '=', 'm.user_id')
+            ->orderBy('m.last_posted_at', 'DESC')
+            ->setBindings([$farm->id]);
+        
+        return view('farms.contact_users', compact('users'));
     }
 
     public function create()
@@ -44,7 +58,7 @@ class FarmsController extends Controller
     {
         $farmData = Farm::find($id);
 
-        return view('farms.show', compact('farmData', 'farm'));
+        return view('farms.show', compact('farmData'));
     }
 
     
@@ -52,7 +66,7 @@ class FarmsController extends Controller
     {
         //policyによる認可処理
         $farmData = Farm::find($id);
-        Gate::authorize('update');
+        Gate::authorize('update', $farmData);
         
         return view('farms.edit', compact('farmData'));
     }
@@ -64,11 +78,9 @@ class FarmsController extends Controller
         $farmData = Farm::find($id);
         Gate::authorize('update', $farmData);
 
-        $farmData->fill($request->all());
-        dd($farmData); 
-        //->save();
+        $farmData->fill($request->all())->save();
 
-        return view('farms.show', compact('farmData'));
+        return view('farms.show', compact('farmData',$farmData));
     }
 
     /**
@@ -81,7 +93,7 @@ class FarmsController extends Controller
     {
         //policyによる認可処理
         $farmData = Farm::find($id);
-        Gate::authorize('delete');
+        Gate::authorize('delete',$farmData);
         
         $farmData->delete();
         return view('farms.show', compact('farmData'));

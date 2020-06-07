@@ -30,6 +30,11 @@ class Farm extends Model
         return $this->hasMany('App\Recruitment');
     }
     
+    public function messages()
+    {
+        return $this->hasMany('App\Msssege');
+    }
+    
      public function isEditable($user_id) 
     {
         return $this->users()->where('users.id', $user_id)->count() > 0;

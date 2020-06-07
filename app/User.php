@@ -42,4 +42,9 @@ class User extends Authenticatable
         //farmsリレーション定義変更
         return $this->belongsToMany('App\Farm','farm_user')->withTimestamps();
     }
+    
+    public function messages()
+    {
+        return $this->hasMany('App\Msssege');
+    }
 }

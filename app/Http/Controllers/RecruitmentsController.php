@@ -75,7 +75,7 @@ class RecruitmentsController extends Controller
     {
         $recruitment = Recruitment::find($id);
         //policyにによる認可
-        Gate::authorize('update');
+        Gate::authorize('update', $recruitment);
         
         return view('recruitments.edit', compact('recruitment'));
     }
@@ -91,14 +91,15 @@ class RecruitmentsController extends Controller
     {
         $recruitment = Recruitment::find($id);
         //policyにによる認可
-        Gate::authorize('update', [$recruitment]);
+        Gate::authorize('update', $recruitment);
         $recruitment->fill($request->all())->save();
         
         //関連したキーワードの中間テーブルへの更新処理
         $keywords = $request->keywords;
         $recruitment->keywords()->detach();
         $recruitment->keywords()->attach($keywords);
-
+        
+        //redirect先をrecuruitment.showへ変更すること！
         return redirect('/');
     }
 
@@ -112,7 +113,7 @@ class RecruitmentsController extends Controller
     {
         $recruitment = Recruitment::find($id);
         //policyにによる認可
-        Gate::authorize('delete');
+        Gate::authorize('delete', $recruitment);
         
         $recruitment->delete();
         
