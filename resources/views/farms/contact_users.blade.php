@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
- contact_usersです
+<div>やりとりしているユーザー一覧<div>
  <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -12,12 +12,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                  @foreach($farmDatas as $farmData) 
+                  @foreach($uesrs as user) 
                     <tr>
-                      <td>{{ $farmData->name }}</td>
-                      <td>{{ $farmData->summary }}</td>
-                      <td>{{ $farmData->site_url }}</td>
-                      <td><a href="{{ route('farms.show', ['farm' => $farmData->id]) }}" class="btn btn-success">詳細へ</a></td>
+                      <td><a href="{{ route('farms.messages.index', ['user_id' => $user->id]) }}" class="btn btn-success">{{ $user->name }}</a></</td>
                     </tr>
                   @endforeach
                  </tbody>
