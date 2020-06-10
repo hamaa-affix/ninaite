@@ -2,5 +2,15 @@
 
 @section('content')
 massage.indexです
-@foreach($messages一覧を回す)
+@if ($messages->isEmpty())
+  <p>まだメッセージありません</p>
+@else
+<div>
+    @foreach ($messages as $messageDatas)
+    <ul>
+       <li>{{$messageDatas->messages}}</li>
+    </ul>
+    @endforeach
+</div>
+@endif
 @endsection

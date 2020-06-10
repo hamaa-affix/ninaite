@@ -38,7 +38,7 @@
                             </span>
                         @enderror
                           </div>
-                        
+                          
                           <div class="form-group text-center">
                             <label for="exampleFormControlSelect1">求人公開状況</label>
                                 {{Form::select('status', [
@@ -49,9 +49,8 @@
                                     ['class' => 'form-control']
                                 )}}
                           </div>
-                        
                           <div class="form-group text-center">
-                            <button type="submit" class="btn btn-success">求人を登録</button>
+                            <button type="submit" class="btn btn-success">メッセージを送信</button>
                           </div>
                     </form>
                 </div>

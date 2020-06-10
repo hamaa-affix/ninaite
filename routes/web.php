@@ -20,7 +20,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('users', 'UsersController');
     
     //farmsのルーティング
-    Route::resource('farms', 'FarmsController');
+    Route::resource('farms', 'FarmsController')
+     ->except(['contact_user']);
     
     //recruitmentのルーティング
     Route::resource('farms.recruitments', 'RecruitmentsController')
@@ -31,7 +32,8 @@ Route::group(['middleware' => 'auth'], function () {
      ->except(['edit','update', 'destroy']);
      
     //メッセージのルーティング
-    Route::resource('farms.messages', 'MessagesController');
+    Route::resource('farms.messages', 'MessagesController')
+    ->except(['store']);
 });
 
 
@@ -46,4 +48,9 @@ Route::group(['middleware' => 'auth'], function () {
       ->name('keywords.update');
     Route::delete('keywords/{id}', 'KeywordsController@destroy')
       ->name('keywords.destroy');
+    //farms.contact_userのルーティング
+    Route::get('farms/{farm}/contact_users', 'FarmsController@contactUsers')
+    ->name('farms.contact_user');
+    Route::post('farms/{farm}/messages/{message}', 'MessagesController@store')
+    ->name('farms.messages.store');
 });

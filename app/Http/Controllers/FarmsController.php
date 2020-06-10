@@ -24,15 +24,16 @@ class FarmsController extends Controller
       
     }
     
-    public function contactUsers(StoreFarmData $request, Farm $farm)
+    public function contactUsers(Farm $farm)
     {
-        # $messages = Message::select('user_id', DB::raw('MAX(created_at) AS created_at'))->where('farm_id', $farm->id)->groupBy('user_id')->orderBy('MAX(created_at) DESC');
-
+        //$messages = Message::select('user_id', DB::raw('MAX(created_at) AS created_at'))->where('farm_id', $farm->id)->groupBy('user_id')->orderBy('MAX(created_at) DESC');
+       
         $messagesQuery = DB::table('messages')->select(DB::raw('user_id, COUNT(*) AS posted_count, MAX(created_at) AS last_posted_at'))->where('farm_id', $farm->id)->groupBy('user_id')->toSql();
         $users = User::select()
             ->join(DB::raw("($messagesQuery) AS m"), 'users.id', '=', 'm.user_id')
             ->orderBy('m.last_posted_at', 'DESC')
             ->setBindings([$farm->id]);
+       
         
         return view('farms.contact_users', compact('users'));
     }

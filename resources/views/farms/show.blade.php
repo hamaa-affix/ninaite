@@ -28,7 +28,7 @@
               @endif
             @endforeach
             <div class='row justify-content-center mt-3'>
-              <a class="btn btn-success" href="{{ route('farms.messages.index', ['farm' => $farmData->id]) }}" role="button">メッセージを送る</a>
+              <a class="btn btn-success" href="{{ route('farms.contact_user', ['farm' => $farmData->id]) }}" role="button">メッセージを確認する</a>
             </div>
           </div>
         </div>

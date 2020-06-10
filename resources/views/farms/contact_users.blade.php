@@ -12,7 +12,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                  @foreach($uesrs as user) 
+                  @foreach($users as $user) 
                     <tr>
                       <td><a href="{{ route('farms.messages.index', ['user_id' => $user->id]) }}" class="btn btn-success">{{ $user->name }}</a></</td>
                     </tr>
