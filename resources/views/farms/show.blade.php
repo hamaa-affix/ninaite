@@ -17,19 +17,23 @@
               <li class="list-group-item"> <span class="h5">概要</span><br>{{ $farmData->summary }}</li>
               <li class="list-group-item"> <span class="h5">コンテンツ</span><br>{{ $farmData->content }}</li>
             </ul>
-            @foreach($farmData->users()->get() as $user)
-              @if(Auth::user()->id === $user->id)
-            <div class='row justify-content-center mt-3'>
-              <a class="btn btn-success" href="{{ route('farms.edit', ['farm' => $farmData->id]) }}" role="button">編集する</a>
-            </div>
-            <div class='row justify-content-center mt-3'>
-              <a class="btn btn-success" href="{{ route('farms.recruitments.create', ['farm' => $farmData->id])}}" role="button">案件を作成する</a>
-            </div>
-              @endif
-            @endforeach
-            <div class='row justify-content-center mt-3'>
-              <a class="btn btn-success" href="{{ route('farms.contact_user', ['farm' => $farmData->id]) }}" role="button">メッセージを確認する</a>
-            </div>
+            @if($farmData->users()->where('users.id', Auth::id())->count() > 0)
+              <div class='row justify-content-center mt-3'>
+                <a class="btn btn-success" href="{{ route('farms.edit', ['farm' => $farmData->id]) }}" role="button">編集する</a>
+              </div>
+              <div class='row justify-content-center mt-3'>
+                <a class="btn btn-success" href="{{ route('farms.recruitments.create', ['farm' => $farmData->id])}}" role="button">案件を作成する</a>
+              </div>
+              <div class='row justify-content-center mt-3'>
+                <a class="btn btn-success" href="{{ route('farms.contact_user', ['farm' => $farmData->id]) }}" role="button">メッセージを確認する</a>
+              </div>
+            @else
+               <div class='row justify-content-center mt-3'>
+                <a class="btn btn-success" href="{{ route('farms.messages.index', ['farm' => $farmData->id]) }}" role="button">農場のメッセージ一覧をみる</a>
+              </div>
+            @endif
+
+            
           </div>
         </div>
       </div>

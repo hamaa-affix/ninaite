@@ -18,7 +18,7 @@ class CreateMessagesTable extends Migration
             $table->unsignedBigInteger('user_id')->comment('外部key');
             $table->unsignedBigInteger('farm_id')->comment('外部key');
             $table->unsignedBigInteger('post_by')->comment('投稿者タイプ');
-            $table->string('messages')->comment('chatメッセージ');
+            $table->string('content')->comment('chatメッセージ');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('farm_id')->references('id')->on('farms')->onDelete('cascade');

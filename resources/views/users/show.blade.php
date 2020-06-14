@@ -52,21 +52,27 @@
                     </div>
                     
                     <div class="card">
-                        @foreach($user->farms()->get() as $farmData)
-                            <div class="card-body text-center">
-                              <ul class="list-group list-group-flush">
-                                  <li class="list-group-item"> <span class="h4">農園名</span><br>{{ $farmData->name }}</li>
-                                  <li class="list-group-item"> <span class="h4">郵便番号</span><br>{{ $farmData->address1 }}</li>
-                                  <li class="list-group-item"> <span class="h4">都道府県</span><br>{{ $farmData->address2 }}</li>
-                                  <li class="list-group-item"> <span class="h4">番地、マンション名</span><br>{{ $farmData->address3 }}</li>
-                                  <li class="list-group-item"> <span class="h4">電話番号</span><br>{{ $farmData->tel }}</li>
-                                  <li class="list-group-item"> <span class="h4">サイトurl</span><br>{{ $farmData->site_url }}</li>
-                                  <li class="list-group-item"> <span class="h4">概要</span><br>{{ $farmData->summary }}</li>
-                                  <li class="list-group-item"> <span class="h4">コンテンツ</span><br>{{ $farmData->content }}</li>
-                              </ul>
-                                <a href="{{ route('farms.show', ['farm' => $farmData->id]) }}"  class="btn btn-success mt-3">詳細へ</a>
-                            </div>
-                        @endforeach
+                            <table class="table table-hover">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">農園名</th>
+                                    <th scope="col">概要</th>
+                                    <th scope="colspan=2">サイトURL</th>
+                                    <th scope="col">詳細画面へ</th>
+                                  </tr>
+                                </thead>
+                                 @foreach($user->farms()->get() as $farmData)
+                                <tbody>
+                                  <tr>
+                                    <td>{{ $farmData->name }}</td>
+                                    <td>{{ $farmData->summary }}</td>
+                                    <td>{{ $farmData->site_url }}</td>
+                                    <td><a href="{{ route('farms.show', ['farm' => $farmData->id]) }}" class="btn btn-success">詳細へ</a></td>
+                                  </tr>
+                                 </tbody>
+                                 @endforeach
+                            </table>
+                       
                     </div>
                 </div>
             </div>

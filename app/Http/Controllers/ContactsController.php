@@ -10,19 +10,18 @@ use Gate;
 use App\Enums\PostBy;
 use Illuminate\Http\Request;
 
-class MessagesController extends Controller
+class ContactsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request,$farm_id)
+    public function index(Request $request, Farm $farm, User $user)
     {
-        $farm = Farm::find($farm_id);
-        $messages = $farm->messages()->where('user_id', Auth::id())->orderBy('created_at', 'DESC')->get();
+        $messages = $farm->messages()->where('user_id', $user->id)->orderBy('created_at', 'DESC')->get();
 
-        return view('messages.index', compact('messages', 'farm'));
+        return view('contacts.index', compact('messages', 'farm', 'user'));
     }
 
     /**
@@ -30,11 +29,9 @@ class MessagesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($farm_id)
+    public function create(Farm $farm, User $user)
     {
-         $farm = Farm::find($farm_id);
-         
-         return view('messages.create', compact('farm'));
+         return view('contacts.create', compact('farm', 'user'));
     }
 
     /**
@@ -43,18 +40,18 @@ class MessagesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $farm_id)
+    public function store(Request $request, Farm $farm, User $user)
     {
         $message = new Message;
-        $message->post_by = PostBy::USER;
+        $message->post_by = PostBy::FARM;
         $message->content = $request->content;
-        $message->user_id = Auth::id();
-        $message->farm_id = $farm_id;
+        $message->user_id = $user->id;
+        $message->farm_id = $farm->id;
         //dd($message);
         $message->save();
     
         //return redirect('messages.index', $farm_id);
-        return redirect()->route('farms.messages.index', $farm_id);
+        return redirect()->route('farms.users.messages.index', [$farm->id, $user->id]);
     }
 
     /**
@@ -74,12 +71,9 @@ class MessagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($farm_id, $message_id)
+    public function edit(Farm $farm, User $user, Message $message)
     {
-        $farm = Farm::find($farm_id);
-        $message = Message::find($message_id);
-
-        return view('messages.edit', compact('farm', 'message'));
+        return view('contacts.edit', compact('farm', 'user', 'message'));
     }
 
     /**
@@ -89,13 +83,12 @@ class MessagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $farm_id, $message_id)
+    public function update(Request $request, Farm $farm, User $user, Message $message)
     {
-        $message = Message::find($message_id);
         $message->content = $request->content;
         $message->save();
         
-        return redirect()->route('farms.messages.index', $message->farm_id);
+        return redirect()->route('farms.users.messages.index', [$farm->id, $user->id]);
     }
 
     /**

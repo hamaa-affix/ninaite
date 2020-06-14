@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header text-center">メッセージの作成</div>
                 <div class="card-body">
-                      <form action='{{ route('farms.messages.store', ['farm' => $farm->id] ) }}' method='POST'>
+                      <form action='{{ route('farms.users.messages.store', ['farm' => $farm->id, 'user' => $user->id] ) }}' method='POST'>
                         @csrf
                         <div class="form-group text-center">
                             <label for="exampleFormControlInput1">メッセージを作成</label>

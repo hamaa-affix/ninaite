@@ -32,7 +32,7 @@ class Farm extends Model
     
     public function messages()
     {
-        return $this->hasMany('App\Msssege');
+        return $this->hasMany('App\Message');
     }
     
      public function isEditable($user_id) 

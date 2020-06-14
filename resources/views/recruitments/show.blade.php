@@ -39,7 +39,7 @@
                       @endif
                       
                       <div class="row justify-content-center mt-3">
-                        <a href="{{ route('farms.messages.create', ['farm' => $recruitment->farm()->id]) }}"  class="btn btn-success mr-2">農家にメッサージを送る</a>
+                        <a href="{{ route('farms.messages.create', ['farm' => $recruitment->farm()->id]) }}"  class="btn btn-success mr-2">農家にメッセージを送る</a>
                       </div>
                    </div>
                 </div>

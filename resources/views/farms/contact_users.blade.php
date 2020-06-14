@@ -8,13 +8,13 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                      <th scope="col">ユーザー名</th>
+                      <th scope="col">{{$farm->name}}ユーザー名</th>
                     </tr>
                 </thead>
                 <tbody>
                   @foreach($users as $user) 
                     <tr>
-                      <td><a href="{{ route('farms.messages.index', ['user_id' => $user->id]) }}" class="btn btn-success">{{ $user->name }}</a></</td>
+                      <td><a href="{{ route('farms.users.messages.index', ['farm' => $farm->id, 'user' => $user->id]) }}" class="btn btn-success">{{ $user->name }}</a></</td>
                     </tr>
                   @endforeach
                  </tbody>

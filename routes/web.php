@@ -33,7 +33,9 @@ Route::group(['middleware' => 'auth'], function () {
      
     //メッセージのルーティング
     Route::resource('farms.messages', 'MessagesController')
-    ->except(['store']);
+    ->except(['show']);
+    
+    Route::resource('farms.users.messages', 'ContactsController');
 });
 
 
@@ -50,7 +52,5 @@ Route::group(['middleware' => 'auth'], function () {
       ->name('keywords.destroy');
     //farms.contact_userのルーティング
     Route::get('farms/{farm}/contact_users', 'FarmsController@contactUsers')
-    ->name('farms.contact_user');
-    Route::post('farms/{farm}/messages/{message}', 'MessagesController@store')
-    ->name('farms.messages.store');
+      ->name('farms.contact_user');
 });
