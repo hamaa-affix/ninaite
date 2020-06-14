@@ -32,8 +32,6 @@
                 <a class="btn btn-success" href="{{ route('farms.messages.index', ['farm' => $farmData->id]) }}" role="button">農場のメッセージ一覧をみる</a>
               </div>
             @endif
-
-            
           </div>
         </div>
       </div>
