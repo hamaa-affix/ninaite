@@ -41,7 +41,7 @@
         @foreach($recruitments as $recruitment)
          <div class="row">
             <div class="col-md-7">
-              <a href="#">
+              <a href="{{ route('farms.recruitments.show', ['farm' => $recruitment->farm_id, 'recruitment' => $recruitment->id]) }}">
                 <img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/700x300" alt="">
               </a>
               <hr>
@@ -53,6 +53,7 @@
             </div>
         </div>
          @endforeach
+         {{ $recruitments->links('vendor.pagination.bootstrap-4') }}
       </div>
   </div>
 
