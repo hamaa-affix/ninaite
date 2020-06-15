@@ -26,15 +26,26 @@
   <hr>
     
   <div class="row">
-      <div class="col-4 ml-4">
-          <h1>サイド</h1>
-          <p>メニューとか</p>
+      <div class="col-4 ml-4 ">
           <form class="form-inline" action="">
               <div class="form-group">
+                  <div class="col-auto">
+                       <i class="fas fa-search h5 text-body"></i>
+                  </div>
                   <input type="text" name="keyword" value="" class="form-control" placeholder="">
               </div>
-                  <input type="submit" value="検索" class="btn btn-info">
+                  <input type="submit" value="検索" class="btn btn-success">
           </form>
+          <br>
+          <ul class="list-unstyled justify-content-center">
+            @foreach($keywords as $keyword)
+              <li>
+                  <a class="text-success" href="">
+                      <i class="fas fa-tag fa-lg">{{ $keyword->value }}</i>
+                  </a>
+              </li>
+            @endforeach
+          </ul>
       </div>
       
       <div class="col-6">
