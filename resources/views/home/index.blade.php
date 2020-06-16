@@ -27,21 +27,23 @@
     
   <div class="row">
       <div class="col-4 ml-4 ">
-          <form class="form-inline" action="">
+          <form class="form-inline" method="get" action="{{ route('recruitments.search') }}">
+            @csrf
               <div class="form-group">
                   <div class="col-auto">
                        <i class="fas fa-search h5 text-body"></i>
                   </div>
-                  <input type="text" name="keyword" value="" class="form-control" placeholder="">
+                  <input type="text" name="search" value="" class="form-control" placeholder="">
               </div>
                   <input type="submit" value="検索" class="btn btn-success">
           </form>
+          
           <br>
           <ul class="list-unstyled justify-content-center">
             @foreach($keywords as $keyword)
               <li>
                   <a class="text-success" href="">
-                      <i class="fas fa-tag fa-lg">{{ $keyword->value }}</i>
+                      <i class="fas fa-tag fa-lg"><span class="badge badge-pill badge-success">{{ $keyword->value }}</span></i>
                   </a>
               </li>
             @endforeach
@@ -49,23 +51,35 @@
       </div>
       
       <div class="col-6">
-        @foreach($recruitments as $recruitment)
-         <div class="row">
-            <div class="col-md-7">
-              <a href="{{ route('farms.recruitments.show', ['farm' => $recruitment->farm_id, 'recruitment' => $recruitment->id]) }}">
-                <img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/700x300" alt="">
-              </a>
-              <hr>
-            </div>
-            <div class="col-md-5">
-              <h3>{{ $recruitment->summary}}</h3>
-              <p>{{$recruitment->content}}</p>
-              <a class="btn btn-success" href="{{ route('farms.recruitments.show', ['farm' => $recruitment->farm_id, 'recruitment' => $recruitment->id]) }}">詳細をみる</a>
-            </div>
-        </div>
-         @endforeach
-         {{ $recruitments->links('vendor.pagination.bootstrap-4') }}
+        @if (isset( $seach_result))
+            <h5>{{ $seach_result }}</h5>
+        @endif
+        
+        @if ($recruitments->count() >0)
+            @foreach($recruitments as $recruitment)
+             <div class="row">
+                <div class="col-md-7">
+                  <a href="{{ route('farms.recruitments.show', ['farm' => $recruitment->farm_id, 'recruitment' => $recruitment->id]) }}">
+                    <img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/700x300" alt="">
+                  </a>
+                  <hr>
+                </div>
+                <div class="col-md-5">
+                  <h3>{{ $recruitment->summary}}</h3>
+                  <p>{{ $recruitment->content }}</p>
+                  <a class="btn btn-success" href="{{ route('farms.recruitments.show', ['farm' => $recruitment->farm_id, 'recruitment' => $recruitment->id]) }}">詳細をみる</a>
+                </div>
+              </div>
+            @endforeach
+             {{ $recruitments->links('vendor.pagination.bootstrap-4') }}
+        @else
+          <h5>該当の案件は見つかりませんでした</h5>
+          <a class='text-success' href="{{ route('home.index') }}">
+            <i class="fas fa-home">ホームへ戻る</i>
+          </a>
+        @endif
       </div>
+      
   </div>
 
 @endsection

@@ -25,7 +25,7 @@ Route::group(['middleware' => 'auth'], function () {
     
     //recruitmentのルーティング
     Route::resource('farms.recruitments', 'RecruitmentsController')
-    ->except(['index']);
+    ->except(['index', 'search']);
     
     //keywordsのルーティング
     Route::resource('recruitments.keywords', 'KeywordsController')
@@ -42,7 +42,9 @@ Route::group(['middleware' => 'auth'], function () {
 Route::group(['middleware' => 'auth'], function () {
     //recruitment一覧のルーティング
     Route::get('recruitments', 'RecruitmentsController@index')
-       ->name('recruitments.index');
+      ->name('recruitments.index');
+    Route::get('recruitments/search', 'RecruitmentsController@search')
+      ->name('recruitments.search');
     //各keywordsのルーテイング
     Route::get('/keywords/{id}/edit', 'KeywordsController@edit')
       ->name('keywords.edit');

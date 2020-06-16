@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-//use Illuminate\Http\Request;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreRecruitment;
 
 use App\Recruitment;
@@ -118,5 +118,22 @@ class RecruitmentsController extends Controller
         $recruitment->delete();
         
         return redirect('/');
+    }
+    
+    public function search(Request $request)
+    {
+        
+        $recruitments = Recruitment::where('summary','like', '%'.$request->search.'%')
+                     ->orWhere('recruitments.content', 'like', '%'.$request->search.'%')
+                     ->paginate(1);
+        if (!empty($recruitments)){
+            $search_result = $request->search.'の検索結果'.$recruitments->total().'件';
+        } else{
+            $search_result = '概要の検索結果は0件でした';
+        }
+        
+        $keywords = Keyword::all();
+        
+        return view('home.index', compact('recruitments', 'keywords', 'search_result'));
     }
 }
