@@ -121,4 +121,11 @@ class KeywordsController extends Controller
         
         return redirect('/');
     }
+    
+    public function searchTags(Keyword $keyword)
+    {
+      $searchRecruitments = $keyword->recruitments()->orderBy('created_at', 'DESC')->get();
+      
+      return view('keywords.search_tags', compact('searchRecruitments'));
+    }
 }

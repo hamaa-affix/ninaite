@@ -52,6 +52,9 @@ Route::group(['middleware' => 'auth'], function () {
       ->name('keywords.update');
     Route::delete('keywords/{id}', 'KeywordsController@destroy')
       ->name('keywords.destroy');
+    //keyword検索のルーティング
+    Route::get('keywords/{keyword}/search_tags', 'KeywordsController@searchTags')
+      ->name('keywords.search_tags');
     //farms.contact_userのルーティング
     Route::get('farms/{farm}/contact_users', 'FarmsController@contactUsers')
       ->name('farms.contact_user');

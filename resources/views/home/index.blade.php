@@ -42,7 +42,7 @@
           <ul class="list-unstyled justify-content-center">
             @foreach($keywords as $keyword)
               <li>
-                  <a class="text-success" href="">
+                  <a class="text-success" href="{{ route('keywords.search_tags', ['keyword' => $keyword->id]) }}">
                       <i class="fas fa-tag fa-lg"><span class="badge badge-pill badge-success">{{ $keyword->value }}</span></i>
                   </a>
               </li>
@@ -65,7 +65,7 @@
                   <hr>
                 </div>
                 <div class="col-md-5">
-                  <h3>{{ $recruitment->summary}}</h3>
+                  <h3>{{ $recruitment->summary }}</h3>
                   <p>{{ $recruitment->content }}</p>
                   <a class="btn btn-success" href="{{ route('farms.recruitments.show', ['farm' => $recruitment->farm_id, 'recruitment' => $recruitment->id]) }}">詳細をみる</a>
                 </div>
