@@ -8,7 +8,7 @@
             <div class="card">
                 <div class="card-header text-center">案件一覧</div>
                 <div class="card-body">
-                   <form action='{{ route('farms.recruitments.update', ['farm' => $recruitment->farm_id, 'recruitment' => $recruitment->id]) }}' method='POST'>
+                   <form action='{{ route('farms.recruitments.update', ['farm' => $recruitment->farm_id, 'recruitment' => $recruitment->id]) }}' method='POST' enctype='multipart/form-data'>
                       @method('PUT')
                       @csrf
                         <div class="form-group text-center">
@@ -25,11 +25,27 @@
                           <label for="exampleFormControlTextarea1">仕事内容</label>
                           <textarea class="form-control"  name='content' rows="3">{{ old('content', $recruitment->content ) }}</textarea>
                         </div>
-                      
+    
                         <div class="form-group text-center">
-                          <label for="exampleFormControlSelect1">求人公開状況　0 = 公開中　1 = 非公開</label>
-                          <input class="form-control" type="text" name='status' value='{{ old('status', $recruitment->status ) }}' >
-                        </div>
+                            <label for="exampleFormControlSelect1">求人公開状況</label>
+                                {{Form::select('status', [
+                                    '0' => '非公開',
+                                    '1' => '公開',
+                                    ],
+                                    null,
+                                    ['class' => 'form-control']
+                                )}}
+                          </div>
+                          
+                          <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                            </div>
+                            <div class="custom-file">
+                              <input type="file" name="img_name" class="custom-file-input @error('img_name') is-invalid @enderror" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                              <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                            </div>
+                          </div>
                         
                         <div class="form-group text-center">
                           <label for="exampleFormControlTextarea1">キーワード</label>

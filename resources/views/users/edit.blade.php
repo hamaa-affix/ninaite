@@ -14,7 +14,7 @@
           <label for="exampleInputPassword1">email</label>
           <input type="email" class="form-control text-center" name='email' id="exampleInputPassword1" placeholder="{{ $user->email }}">
           </div>
-          <button type="submit" class="btn btn-primary">編集内容で登録</button>
+          <button type="submit" class="btn btn-success">編集内容で登録</button>
         </form>
     </div>
 </div>

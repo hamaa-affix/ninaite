@@ -21,6 +21,11 @@
                         @endif
                       </ul>
                       
+                     <div class="text-center">
+                          <img class="img-fluid rounded mb-3 mb-md-0" src="/storage/images/{{$recruitment->img_name}}" alt="">
+                          <hr>
+                      </div>
+                      
                       @if($recruitment->isEditable(Auth::id()))
                         <div class='col-md-8 offset-md-2'>
                           <a href="{{ route('farms.recruitments.edit', ['farm' => $recruitment->farm_id, 'recruitment' => $recruitment->id]) }}"  class="btn btn-success mt-3 mb-3">編集する</a>

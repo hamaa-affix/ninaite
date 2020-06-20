@@ -42,8 +42,8 @@
                           <div class="form-group text-center">
                             <label for="exampleFormControlSelect1">求人公開状況</label>
                                 {{Form::select('status', [
-                                    '0' => '公開',
-                                    '1' => '非公開',
+                                    '0' => '非公開',
+                                    '1' => '公開',
                                     ],
                                     null,
                                     ['class' => 'form-control']
@@ -55,8 +55,13 @@
                               <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
                             </div>
                             <div class="custom-file">
-                              <input type="file" name="img_name" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                              <input type="file" name="img_name" class="custom-file-input @error('img_name') is-invalid @enderror" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
                               <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                              @error('img_name')
+                                  <span class="invalid-feedback" role="alert">
+                                  <strong>{{ $message }}</strong>
+                                  </span>
+                              @enderror
                             </div>
                           </div>
                           

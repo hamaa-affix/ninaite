@@ -48,13 +48,12 @@ class RecruitmentsController extends Controller
     public function store(StoreRecruitment $request, $farm_id, Recruitment $recruitment)
     {
         //画像アップロードの処理
-        //dd($request->file('img_name'));
         $imageFile = $request->file('img_name');
         $list = FileUploadServices::fileUpload($imageFile);
         list($extension, $fileNameToStore, $fileData) = $list; 
         $data_url = CheckExtensionServices::checkExtension($fileData, $extension); 
         $image = Image::make($data_url);
-        $image->resize(400,400)->save(storage_path() . '/app/public/images/' . $fileNameToStore );
+        $image->resize(700,300)->save(storage_path() . '/app/public/images/' . $fileNameToStore );
         
         $farm = Farm::find($farm_id);
         $recruitment->farm_id = $farm->id;
@@ -105,6 +104,22 @@ class RecruitmentsController extends Controller
         $recruitment = Recruitment::find($id);
         //policyにによる認可
         Gate::authorize('update', $recruitment);
+        
+        //画像ファイル処理
+       if(!is_null($request->file('img_name'))){
+          $imageFile = $request->file('img_name');
+
+          $list = FileUploadServices::fileUpload($imageFile);
+          list($extension, $fileNameToStore, $fileData) = $list;
+          
+          $data_url = CheckExtensionServices::checkExtension($fileData, $extension);
+          $image = Image::make($data_url);        
+          $image->resize(700,300)->save(storage_path() . '/app/public/images/' . $fileNameToStore );
+
+          $recruitment->img_name = $fileNameToStore;
+        }
+        
+        //update処理
         $recruitment->fill($request->all())->save();
         
         //関連したキーワードの中間テーブルへの更新処理
