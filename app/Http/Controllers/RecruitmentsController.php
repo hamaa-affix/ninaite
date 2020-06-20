@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreRecruitment;
+use App\Services\CheckExtensionServices;
+use App\Services\FileUploadServices;
+use Intervention\Image\Facades\Image;
 
 use App\Recruitment;
 use App\Keyword;
@@ -42,11 +45,21 @@ class RecruitmentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Recruitment $recruitment, StoreRecruitment $request, $farm_id)
+    public function store(StoreRecruitment $request, $farm_id, Recruitment $recruitment)
     {
+        //画像アップロードの処理
+        //dd($request->file('img_name'));
+        $imageFile = $request->file('img_name');
+        $list = FileUploadServices::fileUpload($imageFile);
+        list($extension, $fileNameToStore, $fileData) = $list; 
+        $data_url = CheckExtensionServices::checkExtension($fileData, $extension); 
+        $image = Image::make($data_url);
+        $image->resize(400,400)->save(storage_path() . '/app/public/images/' . $fileNameToStore );
+        
         $farm = Farm::find($farm_id);
         $recruitment->farm_id = $farm->id;
         $recruitment->fill($request->all());
+        $recruitment->img_name = $fileNameToStore;
         $recruitment->save();
         
         return redirect('/');

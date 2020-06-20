@@ -22,8 +22,8 @@ class CreateFarmsTable extends Migration
             $table->string('address3');
             $table->string('tel');
             $table->string('site_url');
-            $table->string('summary');
-            $table->text('content');
+            $table->string('summary')->comment('農園概要');
+            $table->text('content')->comment('事業内容詳細');
             $table->timestamps();
         });
     }

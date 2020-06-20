@@ -27,7 +27,8 @@ class StoreRecruitment extends FormRequest
             'title' => 'required|string|max:25',
             'summary' =>  'required|string|max:255',
             'content' =>  'required|string|max:255',
-            'status' => 'required'
+            'status' => 'required',
+            'img_name' => ['file', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2000'], 
         ];
     }
 }

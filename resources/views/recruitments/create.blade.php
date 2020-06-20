@@ -7,8 +7,8 @@
             <div class="card">
                 <div class="card-header text-center h4">{{ $farm->name }}の案件作成</div>
                 <div class="card-body text-center">
-                    <form action='{{ route('farms.recruitments.store', ['farm' => $farm->id]) }}' method='POST'>
-                        @csrf
+                    <form action='{{ route('farms.recruitments.store', ['farm' => $farm->id]) }}' method='POST' enctype='multipart/form-data'>
+                        @csrf 
                           <div class="form-group text-center">
                             <label for="exampleFormControlInput1">案件名</label>
                             <input id="name" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" required autocomplete="title" autofocus>
@@ -49,8 +49,19 @@
                                     ['class' => 'form-control']
                                 )}}
                           </div>
+                        
+                          <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                            </div>
+                            <div class="custom-file">
+                              <input type="file" name="img_name" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                              <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                            </div>
+                          </div>
+                          
                           <div class="form-group text-center">
-                            <button type="submit" class="btn btn-success">メッセージを送信</button>
+                            <button type="submit" class="btn btn-success">案件を登録</button>
                           </div>
                     </form>
                 </div>
