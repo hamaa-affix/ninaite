@@ -1,19 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
-<div>editです</div>
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header text-center">農園の編集</div>
                 <div class="card-body text-center">
+                  <h5 class = "card-title font-weight-bolder" >農園情報を編集する</h5 > 
+                  <h6 class="card-title">変更点を修正してください</h6>
                   <form method='post' action='{{ route('farms.update', ['farm' => $farmData->id] ) }}'>
                       <input type='hidden' name='_method' value='PUT'>
                       @csrf
                       <div class="form-group">
-                        <label for="formGroupExampleInput">事業所名</label>
+                        <label for="formGroupExampleInput"><i class="fas fa-seedling" style="color: limegreen" ></i><strong>事業所名</strong></span></label>
                         <input type="text" class="form-control text-center" id="formGroupExampleInput"  name='name' value ='{{ old('name', $farmData->name)}}'>
                         @error('name')
                             <span class="invalid-feedback" role="alert">
@@ -23,7 +22,7 @@
                       </div>
                       
                       <div class="form-group">
-                        <label for="formGroupExampleInput">郵便番号</label>
+                        <label for="formGroupExampleInput"><i class="fas fa-seedling" style="color: limegreen" ></i><strong>郵便番号</strong></span></label>
                         <input type="text" class="form-control text-center" id="formGroupExampleInput" name='postal_code'  value ='{{ old('postal_code', $farmData->postal_code)}}'>
                         @error('postal_code')
                             <span class="invalid-feedback" role="alert">
@@ -33,7 +32,7 @@
                       </div>
                       
                       <div class="form-group">
-                        <label for="formGroupExampleInput">都道府県</label>
+                        <label for="formGroupExampleInput"><i class="fas fa-seedling" style="color: limegreen" ></i><strong>都道府県</strong></span></label>
                         <input type="text" class="form-control text-center" id="formGroupExampleInput"  name='address1' value ='{{ old('address1', $farmData->address1)}}'>
                         @error('address1')
                             <span class="invalid-feedback" role="alert">
@@ -43,7 +42,7 @@
                       </div>
                       
                       <div class="form-group">
-                        <label for="formGroupExampleInput">市町村</label>
+                        <label for="formGroupExampleInput"><i class="fas fa-seedling" style="color: limegreen" ></i><strong>市町村</strong></span></label>
                         <input type="text" class="form-control text-center" id="formGroupExampleInput" name='address2' value ='{{ old('address2', $farmData->address2)}}'>
                         @error('address2')
                             <span class="invalid-feedback" role="alert">
@@ -53,7 +52,7 @@
                       </div>
                       
                       <div class="form-group">
-                        <label for="formGroupExampleInput">番地、マンション名</label>
+                        <label for="formGroupExampleInput"><i class="fas fa-seedling" style="color: limegreen" ></i><strong>番地、マンション名</strong></span></label>
                         <input type="text" class="form-control text-center" id="formGroupExampleInput" name='address3' value ='{{ old('address3', $farmData->address3)}}'>
                         @error('address3')
                             <span class="invalid-feedback" role="alert">
@@ -63,7 +62,7 @@
                       </div>
                       
                       <div class="form-group">
-                        <label for="exampleInputEmail1">電話番号</label>
+                        <label for="exampleInputEmail1"><i class="fas fa-seedling" style="color: limegreen" ></i><strong>電話番号</strong></span></label>
                         <input type="text" class="form-control text-center" id="exampleInputEmail1" aria-describedby="emailHelp" name='tel' value ='{{ old('tel', $farmData->tel)}}'>
                         @error('tel')
                             <span class="invalid-feedback" role="alert">
@@ -73,7 +72,7 @@
                       </div>
                       
                       <div class="form-group">
-                        <label for="formGroupExampleInput">url</label>
+                        <label for="formGroupExampleInput"><i class="fas fa-seedling" style="color: limegreen" ></i><strong>農園のurl</strong></span></label>
                         <input type="url" class="form-control text-center" id="formGroupExampleInput" name='site_url'  value ='{{ old('site_url', $farmData->site_url)}}'>
                         @error('site_url')
                             <span class="invalid-feedback" role="alert">
@@ -83,7 +82,7 @@
                       </div>
                       
                       <div class="form-group">
-                        <label for="formGroupExampleInput">概要</label>
+                        <label for="formGroupExampleInput"><i class="fas fa-seedling" style="color: limegreen" ></i><strong>農園概要</strong></span></label>
                         <input type="text" class="form-control text-center" id="formGroupExampleInput" name='summary'  value='{{ old('summary',$farmData->summary) }}'>
                         @error('summary')
                             <span class="invalid-feedback" role="alert">
@@ -93,7 +92,7 @@
                       </div>
                       
                       <div class="form-group">
-                        <label for="formGroupExampleInput">コンテンツ</label>
+                        <label for="formGroupExampleInput"><i class="fas fa-seedling" style="color: limegreen" ></i><strong>農園の説明</strong></span></label>
                         <input type="text" class="form-control text-center" id="formGroupExampleInput" name='content'  value ='{{ old('content', $farmData->content) }}'>
                         @error('content')
                             <span class="invalid-feedback" role="alert">
@@ -101,7 +100,8 @@
                             </span>
                         @enderror
                       </div>
-                       <button type="submit" class="btn btn-success">編集して送信</button>
+                      
+                      <button type="submit" class="btn btn-success">編集して送信</button>
                     </form>
                     <br>
                     <form method='POST' action='{{route('farms.destroy', ['farm' => $farmData->id]) }}'>

@@ -1,21 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
-<h1>農園作成画面</h1>
-<p>{{$user->name}}さん</p>
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header text-center h4">{{ __('農園作成') }}</div>
-
+            <div class="card text-center">
                 <div class="card-body">
+                    <h5 class = "card-title font-weight-bolder" >{{ __('農園作成') }}</h5 > 
+                    <hr>
                     <form method="post" action="{{ route('farms.store')}}">
                         @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('農園名') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right"><i class="fas fa-seedling" style="color: limegreen" ></i><strong>{{ __('農園名') }}</strong></span></label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
@@ -28,7 +25,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('郵便番号') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right"><i class="fas fa-seedling" style="color: limegreen" ></i><strong>{{ __('郵便番号') }}</strong></span></label>
 
                             <div class="col-md-6">
                                 <input id="email" type="text" class="form-control @error('postal_code') is-invalid @enderror" name="postal_code" value="{{ old('postal_code') }}" required autocomplete="">
@@ -42,7 +39,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('都道府県') }}</label>
+                            <label for="password" class="col-md-4 col-form-label text-md-right"><i class="fas fa-seedling" style="color: limegreen" ></i><strong>{{ __('都道府県') }}</strong></span></label>
 
                             <div class="col-md-6">
                                 <input id="password" type="text" class="form-control @error('address1') is-invalid @enderror" name="address1" required autocomplete="">
@@ -56,7 +53,7 @@
                         </div>
                         
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('市町村') }}</label>
+                            <label for="password" class="col-md-4 col-form-label text-md-right"><i class="fas fa-seedling" style="color: limegreen" ></i><strong>{{ __('市町村') }}</strong></span></label>
 
                             <div class="col-md-6">
                                 <input id="password" type="text" class="form-control @error('address2') is-invalid @enderror" name="address2" required autocomplete="">
@@ -70,7 +67,7 @@
                         </div>
                         
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('番地、マンション名') }}</label>
+                            <label for="password" class="col-md-4 col-form-label text-md-right"><i class="fas fa-seedling" style="color: limegreen" ></i><strong>{{ __('番地、マンション名') }}</strong></span></label>
 
                             <div class="col-md-6">
                                 <input id="password" type="text" class="form-control @error('address3') is-invalid @enderror" name="address3" required autocomplete="">
@@ -85,7 +82,7 @@
                         
                           
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('電話番号') }}</label>
+                            <label for="password" class="col-md-4 col-form-label text-md-right"><i class="fas fa-seedling" style="color: limegreen" ></i><strong>{{ __('電話番号') }}</strong></span></label>
 
                             <div class="col-md-6">
                                 <input id="password" type="text" class="form-control @error('tel') is-invalid @enderror" name="tel" required autocomplete="">
@@ -99,7 +96,7 @@
                         </div>   
                         
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('サイトurl') }}</label>
+                            <label for="password" class="col-md-4 col-form-label text-md-right"><i class="fas fa-seedling" style="color: limegreen" ></i><strong>{{ __('サイトurl') }}</strong></span></label>
 
                             <div class="col-md-6">
                                 <input id="password" type="url" class="form-control @error('site_url') is-invalid @enderror" name="site_url" required autocomplete="">
@@ -113,7 +110,7 @@
                         </div>
                         
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('概要') }}</label>
+                            <label for="password" class="col-md-4 col-form-label text-md-right"><i class="fas fa-seedling" style="color: limegreen" ></i><strong>{{ __('概要') }}</strong></span></label>
 
                             <div class="col-md-6">
                                 <input id="password" type="text" class="form-control @error('summary') is-invalid @enderror" name="summary" required autocomplete="">
@@ -128,7 +125,7 @@
                         
                         
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('コンテンツ') }}</label>
+                            <label for="password" class="col-md-4 col-form-label text-md-right"><i class="fas fa-seedling" style="color: limegreen" ></i><strong>{{ __('コンテンツ') }}</strong></span></label>
 
                             <div class="col-md-6">
                                 <input id="password" type="text" class="form-control @error('content') is-invalid @enderror" name="content" required autocomplete="">
@@ -142,8 +139,9 @@
                         </div>   
 
                         <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-6">
+                            <div class="col-md-4 offset-md-4">
                                 <button type="submit" class="btn btn-success btn-lg">
+                                    <i class="fas fa-leaf"></i>
                                     {{ __('登録') }}
                                 </button>
                             </div>
@@ -154,6 +152,4 @@
         </div>
     </div>
 </div>
-
-
 @endsection
