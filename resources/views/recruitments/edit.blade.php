@@ -1,33 +1,33 @@
 @extends('layouts.app')
 
 @section('content')
-<p>recruitments.editdです</p>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header text-center">案件一覧</div>
+            <div class="card text-center">
                 <div class="card-body">
+                  <h5 class = "card-title font-weight-bolder" >案件情報を編集する</h5 > 
+                  <hr>
                    <form action='{{ route('farms.recruitments.update', ['farm' => $recruitment->farm_id, 'recruitment' => $recruitment->id]) }}' method='POST' enctype='multipart/form-data'>
                       @method('PUT')
                       @csrf
                         <div class="form-group text-center">
-                          <label for="exampleFormControlInput1">案件名</label>
+                          <label for="exampleFormControlInput1"><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>案件名</strong></span></label>
                           <input id="name" type="text" class="form-control" name="title" value ='{{ old('title', $recruitment->title ) }}'>
                         </div>
                           
                         <div class="form-group text-center">
-                          <label for="exampleFormControlTextarea1">農園概要</label>
+                          <label for="exampleFormControlTextarea1"><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>農園概要</strong></span></label>
                           <textarea class="form-control" name='summary' rows="3">{{ old('summary', $recruitment->summary ) }}</textarea>
                         </div>
 
                         <div class="form-group text-center">
-                          <label for="exampleFormControlTextarea1">仕事内容</label>
+                          <label for="exampleFormControlTextarea1"><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>仕事内容</strong></span></label>
                           <textarea class="form-control"  name='content' rows="3">{{ old('content', $recruitment->content ) }}</textarea>
                         </div>
     
                         <div class="form-group text-center">
-                            <label for="exampleFormControlSelect1">求人公開状況</label>
+                            <label for="exampleFormControlSelect1"><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>求人公開状況</strong></span></label>
                                 {{Form::select('status', [
                                     '0' => '非公開',
                                     '1' => '公開',
@@ -48,7 +48,7 @@
                           </div>
                         
                         <div class="form-group text-center">
-                          <label for="exampleFormControlTextarea1">キーワード</label>
+                          <label for="exampleFormControlTextarea1"><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>キーワード</strong></span></label>
                           <div>
                             @php
                               $selectedKeywords = $recruitment->keywords()->pluck('keyword_id')->toArray();
@@ -66,7 +66,7 @@
                         </div>
         
                         <div class="form-group text-center">
-                            <button type="submit" class="btn btn-success"> 案件を更新</button>
+                            <button type="submit" class="btn btn-success"><i class="fas fa-leaf"></i>案件を更新</button>
                         </div>
                   </form>
                   
@@ -75,7 +75,7 @@
                      <div class="form-group text-center">
                         <input type='hidden' name='_method' value='DELETE'>
                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
-                              案件の削除
+                              <i class="fas fa-leaf"></i>案件の削除
                         </button>
                   
                          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -93,8 +93,8 @@
                                      </div>
                                   
                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-                                        <button type="submit" class="btn btn-primary">削除</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-leaf"></i>閉じる</button>
+                                        <button type="submit" class="btn btn-success"><i class="fas fa-leaf"></i>削除</button>
                                      </div>
                                   </div>
                                </div>

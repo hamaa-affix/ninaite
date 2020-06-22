@@ -9,12 +9,12 @@
                   <div class="card-header h3">{{ $recruitment->farm()->name}}の案件</div>
                     <div class="card-body text-dark">
                         <ul class="list-group list-group-flush">
-                          <li class="list-group-item"><span class="h5">案件名</span><br>{{ $recruitment->title }}</li>
-                          <li class="list-group-item"><span class="h5">農園概要</span><br>{{ $recruitment->summary }}</li>
-                          <li class="list-group-item"><span class="h5">仕事内容</span><br>{{ $recruitment->content }}</li>
+                          <li class="list-group-item"><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>案件名</strong></span>&emsp;案件名{{ $recruitment->title }}</li>
+                          <li class="list-group-item"><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>農園概要</strong></span>&emsp;{{ $recruitment->summary }}</li>
+                          <li class="list-group-item"><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>仕事内容</strong></span>&emsp;{{ $recruitment->content }}</li>
                         </ul>
                         <div class="row justify-content-center">
-                            <a href="{{ route('farms.recruitments.show', ['farm' => $recruitment->farm_id, 'recruitment' => $recruitment->id]) }}"  class="btn btn-success mt-3">詳細へ</a>
+                            <a href="{{ route('farms.recruitments.show', ['farm' => $recruitment->farm_id, 'recruitment' => $recruitment->id]) }}"  class="btn btn-success mt-3"><i class="fas fa-leaf"></i>詳細へ</a>
                         </div>
                     </div>
                 </div>

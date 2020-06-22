@@ -12,7 +12,7 @@
                       <input type='hidden' name='_method' value='PUT'>
                       @csrf
                       <div class="form-group">
-                        <label for="formGroupExampleInput"><i class="fas fa-seedling" style="color: limegreen" ></i><strong>事業所名</strong></span></label>
+                        <label for="formGroupExampleInput"><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>事業所名</strong></span></label>
                         <input type="text" class="form-control text-center" id="formGroupExampleInput"  name='name' value ='{{ old('name', $farmData->name)}}'>
                         @error('name')
                             <span class="invalid-feedback" role="alert">
@@ -22,7 +22,7 @@
                       </div>
                       
                       <div class="form-group">
-                        <label for="formGroupExampleInput"><i class="fas fa-seedling" style="color: limegreen" ></i><strong>郵便番号</strong></span></label>
+                        <label for="formGroupExampleInput"><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>郵便番号</strong></span></label>
                         <input type="text" class="form-control text-center" id="formGroupExampleInput" name='postal_code'  value ='{{ old('postal_code', $farmData->postal_code)}}'>
                         @error('postal_code')
                             <span class="invalid-feedback" role="alert">
@@ -32,7 +32,7 @@
                       </div>
                       
                       <div class="form-group">
-                        <label for="formGroupExampleInput"><i class="fas fa-seedling" style="color: limegreen" ></i><strong>都道府県</strong></span></label>
+                        <label for="formGroupExampleInput"><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>都道府県</strong></span></label>
                         <input type="text" class="form-control text-center" id="formGroupExampleInput"  name='address1' value ='{{ old('address1', $farmData->address1)}}'>
                         @error('address1')
                             <span class="invalid-feedback" role="alert">
@@ -42,7 +42,7 @@
                       </div>
                       
                       <div class="form-group">
-                        <label for="formGroupExampleInput"><i class="fas fa-seedling" style="color: limegreen" ></i><strong>市町村</strong></span></label>
+                        <label for="formGroupExampleInput"><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>市町村</strong></span></label>
                         <input type="text" class="form-control text-center" id="formGroupExampleInput" name='address2' value ='{{ old('address2', $farmData->address2)}}'>
                         @error('address2')
                             <span class="invalid-feedback" role="alert">
@@ -52,7 +52,7 @@
                       </div>
                       
                       <div class="form-group">
-                        <label for="formGroupExampleInput"><i class="fas fa-seedling" style="color: limegreen" ></i><strong>番地、マンション名</strong></span></label>
+                        <label for="formGroupExampleInput"><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>番地、マンション名</strong></span></label>
                         <input type="text" class="form-control text-center" id="formGroupExampleInput" name='address3' value ='{{ old('address3', $farmData->address3)}}'>
                         @error('address3')
                             <span class="invalid-feedback" role="alert">
@@ -62,7 +62,7 @@
                       </div>
                       
                       <div class="form-group">
-                        <label for="exampleInputEmail1"><i class="fas fa-seedling" style="color: limegreen" ></i><strong>電話番号</strong></span></label>
+                        <label for="exampleInputEmail1"><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>電話番号</strong></span></label>
                         <input type="text" class="form-control text-center" id="exampleInputEmail1" aria-describedby="emailHelp" name='tel' value ='{{ old('tel', $farmData->tel)}}'>
                         @error('tel')
                             <span class="invalid-feedback" role="alert">
@@ -72,7 +72,7 @@
                       </div>
                       
                       <div class="form-group">
-                        <label for="formGroupExampleInput"><i class="fas fa-seedling" style="color: limegreen" ></i><strong>農園のurl</strong></span></label>
+                        <label for="formGroupExampleInput"><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>農園のurl</strong></span></label>
                         <input type="url" class="form-control text-center" id="formGroupExampleInput" name='site_url'  value ='{{ old('site_url', $farmData->site_url)}}'>
                         @error('site_url')
                             <span class="invalid-feedback" role="alert">
@@ -82,8 +82,8 @@
                       </div>
                       
                       <div class="form-group">
-                        <label for="formGroupExampleInput"><i class="fas fa-seedling" style="color: limegreen" ></i><strong>農園概要</strong></span></label>
-                        <input type="text" class="form-control text-center" id="formGroupExampleInput" name='summary'  value='{{ old('summary',$farmData->summary) }}'>
+                        <label for="formGroupExampleInput"><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>農園概要</strong></span></label>
+                        <textarea class="form-control"  name='summary' rows="3">{{ old('summary',$farmData->summary) }}</textarea>
                         @error('summary')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -92,8 +92,8 @@
                       </div>
                       
                       <div class="form-group">
-                        <label for="formGroupExampleInput"><i class="fas fa-seedling" style="color: limegreen" ></i><strong>農園の説明</strong></span></label>
-                        <input type="text" class="form-control text-center" id="formGroupExampleInput" name='content'  value ='{{ old('content', $farmData->content) }}'>
+                        <label for="formGroupExampleInput"><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>農園の説明</strong></span></label>
+                        <textarea class="form-control"  name='content' rows="3">{{ old('content', $farmData->content) }}</textarea>
                         @error('content')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

@@ -1,19 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
- recruitments.indexです
  <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header text-center">案件一覧</div>
+            <div class="card text-center">
                 <div class="card-body">
+                  <h5 class = "card-title font-weight-bolder" >農業案件の詳細</h5 > 
+                  <hr>
                     <div class="form-group text-center">
                       <ul class="list-group list-group-flush">
-                          <li class="list-group-item">{{ $recruitment->farm()->name }}</li>
-                          <li class="list-group-item">{{ $recruitment->title }}</li>
-                          <li class="list-group-item">{{ $recruitment->summary }}</li>
-                          <li class="list-group-item">{{ $recruitment->content }}</li>
+                          <li class="list-group-item"><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>農園名</strong></span>&emsp;{{ $recruitment->farm()->name }}</li>
+                          <li class="list-group-item"><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>案件名</strong></span>&emsp;{{ $recruitment->title }}</li>
+                          <li class="list-group-item"><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>農園の概要</strong></span>&emsp;{{ $recruitment->summary }}</li>
+                          <li class="list-group-item overflow-auto"><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>案件内容</strong></span>&emsp;{{ $recruitment->content }}</li>
                         @if($recruitment->stuas === 0)
                           <li class="list-group-item">募集中</li>
                         @else
@@ -27,25 +27,26 @@
                       </div>
                       
                       @if($recruitment->isEditable(Auth::id()))
-                        <div class='col-md-8 offset-md-2'>
-                          <a href="{{ route('farms.recruitments.edit', ['farm' => $recruitment->farm_id, 'recruitment' => $recruitment->id]) }}"  class="btn btn-success mt-3 mb-3">編集する</a>
-                        </div>
-                        
-                      <h4>関連付いているキーワード</h4>
+                       <div class="row justify-content-center mt-3">
+                          <a href="{{ route('farms.recruitments.edit', ['farm' => $recruitment->farm_id, 'recruitment' => $recruitment->id]) }}"  class="btn btn-success mr-2">編集する</a>
+                          <a href="{{ route('farms.messages.create', ['farm' => $recruitment->farm()->id]) }}"  class="btn btn-success">農家にメッセージを送る</a>
+                       </div>
+                      @endif
+                      <br>
+                      
+                      <h4><i class="fas fa-tag" style="color: limegreen"></i>関連付いているキーワード</h4>
                       @foreach($recruitment->keywords()->get() as $keyword)
-                        <ul class="list-group list-group-flush">
-                          <li class="list-group-item">{{ $keyword->value }}</li>
-                        </ul>
+                        <div class="d-inline-block">
+                          <p><i class="fas fa-seedling" style="color: limegreen" ></i>{{ $keyword->value }}</p>
+                        </div>
                       @endforeach
+                      
+                      @if($recruitment->isEditable(Auth::id()))
                       <div class="row justify-content-center mt-3">
                         <a href="{{ route('keywords.edit', ['id' => $recruitment->id]) }}"  class="btn btn-success mr-2">タグを編集する</a>
                         <a href="{{ route('recruitments.keywords.create', ['recruitment' => $recruitment->id]) }}"  class="btn btn-success">タグを作成する</a>
                       </div>
                       @endif
-                      
-                      <div class="row justify-content-center mt-3">
-                        <a href="{{ route('farms.messages.create', ['farm' => $recruitment->farm()->id]) }}"  class="btn btn-success mr-2">農家にメッセージを送る</a>
-                      </div>
                    </div>
                 </div>
             </div>
