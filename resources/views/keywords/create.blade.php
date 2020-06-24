@@ -7,7 +7,7 @@
         <div class="col-md-8">
             <div class="card text-center">
                 <div class="card-body">
-                  <h5 class = "card-title font-weight-bolder" >案件情報を編集する</h5 > 
+                  <h5 class = "card-title font-weight-bolder" >キーワードを作成する</h5 > 
                   <hr>
                       <form action='{{ route('recruitments.keywords.store', ['recruitment' => $recruitment->id]) }}' method='POST'>
                         @csrf

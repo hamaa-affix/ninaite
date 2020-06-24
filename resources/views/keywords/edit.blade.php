@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card text-center">
                 <div class="card-body">
-                  <h5 class = "card-title font-weight-bolder" >案件情報を編集する</h5 > 
+                  <h5 class = "card-title font-weight-bolder" >キーワードを編集する</h5 > 
                   <hr>
                   @if(App\Recruitment::find($recruitment->id)->has('keywords')->count() > 0)
                    <form action='{{ route('keywords.update', ['id' => $recruitment->id]) }}' method='POST'>
