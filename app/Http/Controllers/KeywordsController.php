@@ -81,7 +81,7 @@ class KeywordsController extends Controller
     public function edit($recruitment_id)
     {
       $recruitment = Recruitment::find($recruitment_id);
-      Gate::authorize('update');
+      Gate::authorize('update', $recruitment);
       return view('keywords.edit', compact('recruitment'));
     }
 
@@ -94,7 +94,9 @@ class KeywordsController extends Controller
      */
     public function update(Request $request, $recruitment_id)
     {
-      Gate::authorize('update');
+      $recruitment = Recruitment::find($recruitment_id);
+      Gate::authorize('update', $recruitment);
+      
       $values = $request->value;
       foreach($values as $keyword_key => $keyword_value){
         $keyword = Keyword::find($keyword_key);
@@ -102,7 +104,7 @@ class KeywordsController extends Controller
         $keyword->save();
       }
       
-      $recruitment = Recruitment::find($recruitment_id);
+      
       
       return view('recruitments.show', compact('recruitment'));
     }
@@ -115,8 +117,9 @@ class KeywordsController extends Controller
      */
     public function destroy(Keyword $keyword, $recruitment_id)
     {
-      Gate::authorize('delete');
       $recruitment = Recruitment::find($recruitment_id);
+      Gate::authorize('delete', $recruitment);
+     
       $recruitment->keywords()->delete();
         
         return redirect('/');

@@ -43,8 +43,8 @@
                       
                       @if($recruitment->isEditable(Auth::id()))
                       <div class="row justify-content-center mt-3">
-                        <a href="{{ route('keywords.edit', ['id' => $recruitment->id]) }}"  class="btn btn-success mr-2">タグを編集する</a>
-                        <a href="{{ route('recruitments.keywords.create', ['recruitment' => $recruitment->id]) }}"  class="btn btn-success">タグを作成する</a>
+                        <a href="{{ route('keywords.edit', ['id' => $recruitment->id]) }}"  class="btn btn-success mr-2">キーワードを編集する</a>
+                        <a href="{{ route('recruitments.keywords.create', ['recruitment' => $recruitment->id]) }}"  class="btn btn-success">キーワードを作成する</a>
                       </div>
                       @endif
                    </div>

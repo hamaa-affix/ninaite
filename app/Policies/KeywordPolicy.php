@@ -54,7 +54,7 @@ class KeywordPolicy
      */
     public function update(User $user, Keyword $keyword)
     {
-        //
+        return $keyword->isEditable($recruitment->id);
     }
 
     /**
@@ -90,6 +90,6 @@ class KeywordPolicy
      */
     public function forceDelete(User $user, Keyword $keyword)
     {
-        //
+        return $keyword->isEditable($recruitment->id);
     }
 }

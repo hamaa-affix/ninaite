@@ -18,6 +18,6 @@ class Keyword extends Model
     
      public function isEditable($recruitment_id) 
     {
-        return $this->recruitments()->where('farms.id', $recruitment_id)->count() > 0;
+        return $this->recruitments()->where('farm_id', $recruitment_id)->count() > 0;
     }
 }

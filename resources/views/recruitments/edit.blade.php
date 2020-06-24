@@ -49,6 +49,7 @@
                         
                         <div class="form-group text-center">
                           <label for="exampleFormControlTextarea1"><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>キーワード</strong></span></label>
+                          <p>新たに登録したいキーワードはチェックしてね</p>
                           <div>
                             @php
                               $selectedKeywords = $recruitment->keywords()->pluck('keyword_id')->toArray();
