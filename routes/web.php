@@ -32,8 +32,12 @@ Route::group(['middleware' => 'auth'], function () {
      ->except(['edit','update', 'destroy']);
      
     //メッセージのルーティング
-    Route::resource('farms.messages', 'MessagesController')
-    ->except(['show']);
+     Route::resource('farms.messages', 'MessagesController')
+     ->except(['show']);
+    
+    // chatroomのルーティング
+    Route::resource('farms.users.chatrooms', 'ChatRoomController')
+    ->except(['createChatRoom']);
     
     Route::resource('farms.users.messages', 'ContactsController');
 });
@@ -58,4 +62,7 @@ Route::group(['middleware' => 'auth'], function () {
     //farms.contact_userのルーティング
     Route::get('farms/{farm}/contact_users', 'FarmsController@contactUsers')
       ->name('farms.contact_user');
+      
+    Route::get('farms/{farm}/users/{user}/chatrooms', 'ChatRoomController@createChatRoom')
+      ->name('chat_rooms.create_chat_room');
 });

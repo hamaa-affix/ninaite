@@ -47,4 +47,18 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Msssege');
     }
+    
+    //テストコード
+    //chatroomのリレーション
+    public function userChatRoom()
+    {
+        return $this->belongsTo('App\ChatRoom');
+    }
+    
+    public function chatMessages() 
+    {
+        return $this->hasMany('App\ChatMessage');
+        
+    }
+    // ここまで
 }

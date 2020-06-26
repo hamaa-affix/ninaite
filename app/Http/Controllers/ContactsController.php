@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Farm;
 use App\User;
 use App\Message;
+use App\ChatRoom;
 use Auth;
 use Gate;
 use App\Enums\PostBy;
@@ -49,7 +50,7 @@ class ContactsController extends Controller
         $message->farm_id = $farm->id;
         //dd($message);
         $message->save();
-    
+        
         //return redirect('messages.index', $farm_id);
         return redirect()->route('farms.users.messages.index', [$farm->id, $user->id]);
     }

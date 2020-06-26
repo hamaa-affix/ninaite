@@ -39,6 +39,15 @@
                     <a class="btn btn-success" href="{{ route('farms.messages.index', ['farm' => $farmData->id]) }}" role="button"><i class="fas fa-leaf">農場のメッセージ一覧をみる</i></a>
                   </div>
                    @endif
+                   
+                   
+                   
+                   <a href='{{ route('chat_rooms.create_chat_room', ['farm' => $farmData->id, 'user' => Auth::id() ]) }}'>コンタクトをとる</a>
+                        
+                  
+                   
+                  
+                   
               </div>
             </div>
           </div>

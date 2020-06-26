@@ -34,9 +34,15 @@ class Farm extends Model
     {
         return $this->hasMany('App\Message');
     }
-    
-     public function isEditable($user_id) 
+    //testコード
+    public function farmChatRoom()
+    {
+        return $this->belongsTo('App\ChatRoom');
+    }
+    //ここまで
+    public function isEditable($user_id) 
     {
         return $this->users()->where('users.id', $user_id)->count() > 0;
     }
+    
 }

@@ -39,6 +39,9 @@
           </form>
           
           <br>
+          <div class=”text-center>
+              <p><strong>キーワード検索</strong></p>
+          </div>
           <ul class="list-unstyled justify-content-center">
             @foreach($keywords as $keyword)
               <li>
