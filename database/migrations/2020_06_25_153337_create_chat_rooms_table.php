@@ -15,12 +15,7 @@ class CreateChatRoomsTable extends Migration
     {
         Schema::create('chat_rooms', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id')->index();
-            $table->unsignedBigInteger('farm_id')->index();
             $table->timestamps();
-            
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('farm_id')->references('id')->on('farms')->onDelete('cascade');
         });
     }
 

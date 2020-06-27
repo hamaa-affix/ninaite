@@ -36,7 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
      ->except(['show']);
     
     // chatroomのルーティング
-    Route::resource('farms.users.chatrooms', 'ChatRoomController')
+    Route::resource('users.chatrooms', 'ChatRoomController')
     ->except(['createChatRoom']);
     
     Route::resource('farms.users.messages', 'ContactsController');
@@ -63,6 +63,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('farms/{farm}/contact_users', 'FarmsController@contactUsers')
       ->name('farms.contact_user');
       
-    Route::get('farms/{farm}/users/{user}/chatrooms', 'ChatRoomController@createChatRoom')
+    Route::post('users/{user}/chat_rooms/create_chat_room', 'ChatRoomController@createChatRoom')
       ->name('chat_rooms.create_chat_room');
 });

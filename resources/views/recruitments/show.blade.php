@@ -26,12 +26,16 @@
                           <hr>
                       </div>
                       
-                      @if($recruitment->isEditable(Auth::id()))
+
                        <div class="row justify-content-center mt-3">
+                         @if($recruitment->isEditable(Auth::id()))
                           <a href="{{ route('farms.recruitments.edit', ['farm' => $recruitment->farm_id, 'recruitment' => $recruitment->id]) }}"  class="btn btn-success mr-2">編集する</a>
+                         @endif
+                         
+                         @if( Auth::id() || $recruitemet->farm()->users()->id = Auth::id())
                           <a href="{{ route('farms.messages.create', ['farm' => $recruitment->farm()->id]) }}"  class="btn btn-success">農家にメッセージを送る</a>
+                         @endif
                        </div>
-                      @endif
                       <br>
                       
                       <h4><i class="fas fa-tag" style="color: limegreen"></i>関連付いているキーワード</h4>
@@ -44,7 +48,7 @@
                       @if($recruitment->isEditable(Auth::id()))
                       <div class="row justify-content-center mt-3">
                         <a href="{{ route('keywords.edit', ['id' => $recruitment->id]) }}"  class="btn btn-success mr-2">キーワードを編集する</a>
-                        <a href="{{ route('recruitments.keywords.create', ['recruitment' => $recruitment->id]) }}"  class="btn btn-success">キーワードを作成する</a>
+                        <a href="{{ route('recruitments.keywords.create', ['recruitment' => $recruitment->id]) }}"  class="btn btn-success">を作成する</a>
                       </div>
                       @endif
                    </div>

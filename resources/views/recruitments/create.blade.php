@@ -56,7 +56,7 @@
                         
                           <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                              <label for="exampleFormControlSelect1"><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>画像ファイルを選んでね</strong></span></label>
+                              <label for="exampleFormControlSelect1"><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>画像ファイル選択</strong></span></label>
                               <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
                             </div>
                             <div class="custom-file">

@@ -36,9 +36,30 @@ class ChatMessagesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, User $user, ChatRoom $chatRoom)
     {
-        //
+      //fillに置き換えができるな
+      $message = new ChatMessage;
+      $message->content = $request->content;
+      $message->user_id = $user->id;
+      $message->chat_room_id = $chatRoom->id;
+      $message->body = $request->body;
+      $message->save();
+      
+       //matcinguserの取得
+      // $matchingUser = User::farms()->where('farms.id', );
+      
+      $chatMessages = ChatMessage::where('chat_room_id', $chatRoom->id)
+                                ->whereIn('user_id', $user->id)
+                                ->orderBy('created_at', 'DESC')
+                                ->get();
+                                
+      if ($chatMessages->isEmpty()) {
+        $chatMessages = 'まだメッセージはないです';
+      }
+      
+      
+      // return redirect()->route('')->compact('messages')
     }
 
     /**
