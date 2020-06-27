@@ -32,9 +32,19 @@
                           <a href="{{ route('farms.recruitments.edit', ['farm' => $recruitment->farm_id, 'recruitment' => $recruitment->id]) }}"  class="btn btn-success mr-2">編集する</a>
                          @endif
                          
-                         @if( Auth::id() || $recruitemet->farm()->users()->id = Auth::id())
-                          <a href="{{ route('farms.messages.create', ['farm' => $recruitment->farm()->id]) }}"  class="btn btn-success">農家にメッセージを送る</a>
-                         @endif
+                        
+                          <form action='{{ route('chat_rooms.create_chat_room', ['user' => Auth::id()]) }}' method='POST'>
+                             @csrf
+                              <div class="form-group text-center">
+                                  <input id="name"  class="form-control text-center mt-3" type="hidden" name="user_id" value="{{ $recruitment->farm()->users()->pluck('user_id') }}" required autocomplete="" autofocus>
+                              </div>
+                              <button type="submit" class="btn btn-success mt-3"><i class="fas fa-leaf"></i>農家とコンタクトをとる</button>
+                          </form>
+                          
+                        
+                          
+                          <!--<a href="{{ route('farms.messages.create', ['farm' => $recruitment->farm()->id]) }}"  class="btn btn-success">農家にメッセージを送る</a>-->
+                         
                        </div>
                       <br>
                       

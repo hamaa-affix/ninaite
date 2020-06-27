@@ -50,9 +50,9 @@ class User extends Authenticatable
     
     //テストコード
     //chatroomのリレーション
-    public function userChatRoom()
+    public function ChatRooms()
     {
-        return $this->belongsTo('App\ChatRoom');
+        return $this->belongsToMany('App\ChatRoom');
     }
     
     public function chatMessages() 
