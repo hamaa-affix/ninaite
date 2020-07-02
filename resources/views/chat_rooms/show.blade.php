@@ -1,7 +1,5 @@
+@extends('layouts.app')
+
 @section('content')
- chatroom.showです
-        @foreach($messages as $message)
-          {{ $message->content  }}
-          <hr>
-        @endforeach
+ chat_rooms.show
 @endsection

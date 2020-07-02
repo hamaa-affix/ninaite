@@ -49,10 +49,9 @@ class User extends Authenticatable
     }
     
     //テストコード
-    //chatroomのリレーション
-    public function ChatRooms()
+    public function chatRoomUsers()
     {
-        return $this->belongsToMany('App\ChatRoom');
+        return $this->hasMany('App\ChatRoomUser');
     }
     
     public function chatMessages() 

@@ -22,14 +22,6 @@ class FarmPolicy
     {
         return $farm->isEditable($user->id);
 
-
-        
-        // foreach ($farm->users() as $farm_user) {
-        //     if ($farm_user->id === $user->id) {
-        //         return true;
-        //     }
-        // }
-        // return false;
     }
 
     /**

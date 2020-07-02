@@ -58,6 +58,10 @@
                           <div class="col-sm">
                               <a href="{{ route('farms.create') }}" class="btn btn-success ml-5"><i class="fas fa-leaf">農園情報を作る</i></a>
                           </div>
+                          
+                          <div class="col-sm">
+                              <a href="{{ route('users.chat_rooms.index', ['user' => Auth::id()]) }}" class="btn btn-success ml-5"><i class="fas fa-leaf">チャット確認</i></a>
+                          </div>
                         </div>
                     </div>
                 </div>
