@@ -26,9 +26,9 @@ class ChatRoomController extends Controller
         $matching_user_ids = ChatRoomUser::whereIn('chat_room_id', $my_chat_room_id)
                                       ->where('user_id', '<>', Auth::id())
                                       ->pluck('user_id');
+                                      
         //matching_userの取得                     
-        $matching_users = User::find($matching_user_ids);
-        
+        $matching_users = User::whereIn('id',$matching_user_ids)->orderby('created_at', 'DESC')->get();
         
         return view('chat_rooms.index', compact('matching_users'));
     }
@@ -67,7 +67,7 @@ class ChatRoomController extends Controller
     }
 
  
-    public function destroy(Farm $farm, User $user)
+    public function destroy(User $user)
     {
         //
     }
