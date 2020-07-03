@@ -39,19 +39,31 @@ class ChatRoomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Farm $farm, User $user)
+    public function show(User $user, $matching_chat_room_id)
     {
-        // $matching_user_id = $;
-      
-        // //自分の持っているチャットルームを取得
-        // $current_user_chat_rooms = ChatRoomUser::where('user_id', Auth::id())
-        // ->pluck('chat_room_id');
-    
-        // // 自分の持っているチャットルームからチャット相手のいるルームを探す
-        // $chat_room_id = ChatRoomUser::whereIn('chat_room_id', $current_user_chat_rooms)
-        //   ->where('user_id', $matching_user_id)
-        //     ->pluck('chat_room_id');
+        //matchingしているchatroomを取得
+        $chat_room_id = ChatRoomUser::where('chat_room_id', $matching_chat_room_id)->pluck('chat_room_id');
+        
+        //machingしているuserのデータを取得
+        $matching_user_id = ChatRoomUser::whereIn('chat_room_id', $chat_room_id)
+                                          ->where('user_id', '<>', Auth::id())
+                                          ->pluck('user_id');
+        
+        //pluckで取得した値はオブジェクト型なので数値に変換→これやらずfindで取得したら、呼び出し後プロパティ呼び出しができない。
+        if(is_object($matching_user_id)){
+            $matching_user_id = $matching_user_id->first();
+          }
+        //usernameを取得
+        $matching_user_data = User::find($matching_user_id);
+        $matching_user_name = $matching_user_data->name;
+       
+        
+        //chatmessage一覧を取得
+        $chat_messages = ChatMessage::where('chat_room_id', $chat_room_id)
+                                      ->orderby('created_at')
+                                      ->get();
 
+        return view('chat_rooms.show', compact('chat_room_id', 'matching_user_data', 'matching_user_name', 'chat_messages'));
     }
 
  
@@ -101,15 +113,15 @@ class ChatRoomController extends Controller
           }
             
             // チャット相手のユーザー情報を取得
-            $chat_room_user = User::findOrFail($matching_user_id);
+            $matching_user_data = User::findOrFail($matching_user_id);
         
             // チャット相手のユーザー名を取得(JS用)
-            $chat_room_user_name = $chat_room_user->name;
+            $matching_user_name = $matching_user_data->name;
         
             $chat_messages = ChatMessage::where('chat_room_id', $chat_room_id)
             ->orderby('created_at')
             ->get();
         
-            return view('chat_rooms.show', compact('chat_room_id', 'chat_room_user','chat_messages','chat_room_user_name'));
+            return view('chat_rooms.show', compact('chat_room_id', 'matching_user_data', 'matching_user_name', 'chat_messages'));
     }
 }

@@ -17,7 +17,7 @@
                      <tr>
                         <td><i class="fas fa-seedling" style="color: limegreen"></i>{{  $matching_user->name }}さん</td>
                         <td>
-                            <a href="{{ route('users.chat_rooms.show', ['user' => Auth::id(), 'chat_room' => App\ChatRoomUser::where('user_id', Auth::id())->where('chat_room_id', $user_data->chat_room_id)->pluck('chat_room_id')])  }}"  class="btn btn-success">
+                            <a href="{{ route('users.chat_rooms.show', ['user' => Auth::id(), 'chat_room' => $user_data->chat_room_id]) }}"  class="btn btn-success">
                                 <i class="fas fa-leaf">メッセージを確認する</i>
                             </a>
                         </td>  
@@ -39,7 +39,7 @@
                         @foreach($matching_user->chatRoomUsers()->get() as $user_data)
                         <tr>
                            <td>{{  $farm_user->name }}</td>
-                           <td><a href="{{ route('users.chat_rooms.show', ['user' => Auth::id(), 'chat_room' => App\ChatRoomUser::where('user_id', Auth::id())->where('chat_room_id', $user_data->chat_room_id)->pluck('chat_room_id')])  }}" class="btn btn-success"><i class="fas fa-leaf">メッセージを確認する</i></a></td>
+                           <td><a href="{{ route('users.chat_rooms.show', ['user' => Auth::id(), 'chat_room' => $user_data->chat_room_id]) }}" class="btn btn-success"><i class="fas fa-leaf">メッセージを確認する</i></a></td>
                         </tr>
                         @endforeach
                      @endforeach
