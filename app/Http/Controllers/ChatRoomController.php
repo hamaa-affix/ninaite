@@ -65,16 +65,9 @@ class ChatRoomController extends Controller
 
         return view('chat_rooms.show', compact('chat_room_id', 'matching_user_data', 'matching_user_name', 'chat_messages'));
     }
-
- 
-    public function destroy(User $user)
-    {
-        //
-    }
     
-    public function createChatRoom(Request $request, Farm $farm, User $user) 
+    public function createChatRoom(Request $request, User $user) 
     {
-      
 
         $matching_user_id = $request->user_id;
       
@@ -90,11 +83,10 @@ class ChatRoomController extends Controller
 
         // なければ作成する
         if ($chat_room_id->isEmpty()){
-    
-            ChatRoom::create(); //チャットルーム作成
-            
-            $latest_chat_room = ChatRoom::orderBy('created_at', 'desc')->first(); //最新チャットルームを取得
-    
+            //チャットルーム作成
+            ChatRoom::create(); 
+            //最新チャットルームを取得
+            $latest_chat_room = ChatRoom::orderBy('created_at', 'desc')->first(); 
             $chat_room_id = $latest_chat_room->id;
     
             // 新規登録 モデル側 $fillableで許可したフィールドを指定して保存
@@ -119,9 +111,19 @@ class ChatRoomController extends Controller
             $matching_user_name = $matching_user_data->name;
         
             $chat_messages = ChatMessage::where('chat_room_id', $chat_room_id)
-            ->orderby('created_at')
-            ->get();
-        
+                                          ->orderby('created_at')
+                                          ->get();
+                                      
             return view('chat_rooms.show', compact('chat_room_id', 'matching_user_data', 'matching_user_name', 'chat_messages'));
+    }
+    
+    public function chatMessage ()
+    {
+       
+    }
+    
+     public function destroy(User $user)
+    {
+        //
     }
 }
