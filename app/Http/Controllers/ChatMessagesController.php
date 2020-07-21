@@ -52,4 +52,9 @@ class ChatMessagesController extends Controller
     {
         //
     }
+    
+    public function vue()
+    {
+      return view('index');
+    }
 }

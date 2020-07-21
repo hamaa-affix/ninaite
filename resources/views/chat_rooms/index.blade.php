@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-          @if (App\User::find(Auth::id())->farms()->first() != null) 
+          @if (App\User::find(Auth::id())->farms()->first() !== null) 
             <table class="table table-hover">
                <thead>
                   <tr>
@@ -35,7 +35,7 @@
                </thead>
                <tbody>
                  @foreach($matching_users as $matching_user) 
-                     @foreach($matching_user->farms()->get() as $farm_user)
+                     @foreach($matching_user->farms()->get() as $farm_user) 
                         @foreach($matching_user->chatRoomUsers()->get() as $user_data)
                         <tr>
                            <td>{{  $farm_user->name }}</td>

@@ -104,5 +104,6 @@
     </div>
     @component('layouts.footer')
     @endcomponent
+   
 </body>
 </html>
