@@ -33,38 +33,12 @@ class ChatRoomController extends Controller
         return view('chat_rooms.index', compact('matching_users'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(User $user, $matching_chat_room_id)
     {
-        //matchingしているchatroomを取得
-        $chat_room_id = ChatRoomUser::where('chat_room_id', $matching_chat_room_id)->pluck('chat_room_id');
-        
-        //machingしているuserのデータを取得
-        $matching_user_id = ChatRoomUser::whereIn('chat_room_id', $chat_room_id)
-                                          ->where('user_id', '<>', Auth::id())
-                                          ->pluck('user_id');
-        
-        //pluckで取得した値はオブジェクト型なので数値に変換→これやらずfindで取得したら、呼び出し後プロパティ呼び出しができない。
-        if(is_object($matching_user_id)){
-            $matching_user_id = $matching_user_id->first();
-          }
-        //usernameを取得
-        $matching_user_data = User::find($matching_user_id);
-        $matching_user_name = $matching_user_data->name;
-       
-        
-        //chatmessage一覧を取得
-        $chat_messages = ChatMessage::where('chat_room_id', $chat_room_id)
-                                      ->orderby('created_at')
-                                      ->get();
-
-        return view('chat_rooms.show', compact('chat_room_id', 'matching_user_data', 'matching_user_name', 'chat_messages'));
+        return view('chat_rooms.show');
     }
+    
     
     public function createChatRoom(Request $request, User $user) 
     {
@@ -98,31 +72,35 @@ class ChatRoomController extends Controller
               ['chat_room_id' => $chat_room_id,
               'user_id' => $matching_user_id]);
           }
-
-        // チャットルーム取得時はオブジェクト型なので数値に変換
+      
+        
+          //testcode
         if(is_object($chat_room_id)){
-                $chat_room_id = $chat_room_id->first();
-          }
-            
-            // チャット相手のユーザー情報を取得
-            $matching_user_data = User::findOrFail($matching_user_id);
+                 $chat_room_id = $chat_room_id->first();
+        }
+           
+        $m = new ChatMessage;
+        $m->user_id = Auth::id();
+        $m->chat_room_id = $chat_room_id;
+        $m->body = 'tensai';
+        $m->save();
         
-            // チャット相手のユーザー名を取得(JS用)
-            $matching_user_name = $matching_user_data->name;
+        $my_chat_room_id = ChatRoomUser::where('user_id', Auth::id())->pluck('chat_room_id');
         
-            $chat_messages = ChatMessage::where('chat_room_id', $chat_room_id)
-                                          ->orderby('created_at')
-                                          ->get();
+        //自分と紐ついるchat_room_userの一覧を持ってくる。
+        $matching_user_ids = ChatRoomUser::whereIn('chat_room_id', $my_chat_room_id)
+                                      ->where('user_id', '<>', Auth::id())
+                                      ->pluck('user_id');
                                       
-            return view('chat_rooms.show', compact('chat_room_id', 'matching_user_data', 'matching_user_name', 'chat_messages'));
+        //matching_userの取得                     
+        $matching_users = User::whereIn('id',$matching_user_ids)->orderby('created_at', 'DESC')->get();
+        
+        return view('chat_rooms.index', compact('matching_users'));
+        //testcodeここまで
+
     }
     
-    public function chatMessage ()
-    {
-       
-    }
-    
-     public function destroy(User $user)
+    public function destroy(User $user)
     {
         //
     }

@@ -5,12 +5,22 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ChatMessage;
 use App\ChatRoom;
+use App\ChatRoomUser;
 use App\User;
 use Auth;
 
 class ChatMessagesController extends Controller
 {
-   
+    
+    public function index() 
+    {
+        $chat_room_id = ChatRoomUser::find(Auth::id())->pluck('chat_room_id');
+        
+        $chat_messages = ChatMessage::where('chat_room_id', $chat_room_id)->with('user')->get();
+        
+        return $chat_messages;
+    }
+    
     
     public function store(Request $request, User $user, ChatRoom $chatRoom)
     {

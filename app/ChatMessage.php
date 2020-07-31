@@ -12,7 +12,7 @@ class ChatMessage extends Model
         return $this->belongsTo('App\User');
     }
     
-    public function chatroom()
+    public function chatRoom()
     {
         return $this->belongsTo('App\ChatRoom');
     }

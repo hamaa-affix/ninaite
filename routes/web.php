@@ -84,10 +84,3 @@ Route::group(['middleware' => 'auth'], function () {
       ->name('chat_rooms.create_chat_room');
 });
 
-
-Route::group(['middleware' => 'auth'], function () {
-    //chatMessagesのルーティング
-    Route::resource('users.chat_rooms.chat_messages', 'ChatMessagesController')
-    ->except(['index, show, create,']);
-    Route::get('/vue', 'ChatMessagesController@vue');
-});
