@@ -14,23 +14,32 @@ class ChatMessagesController extends Controller
     
     public function index() 
     {
-        $chat_room_id = ChatRoomUser::find(Auth::id())->pluck('chat_room_id');
+        $chat_room_id = ChatRoomUser::where('chat_room_users.user_id',Auth::id())->pluck('chat_room_id');
         
-        $chat_messages = ChatMessage::where('chat_room_id', $chat_room_id)->with('user')->get();
+        $chat_messages = ChatMessage::where('chat_room_id', $chat_room_id)
+                                    ->with('user')
+                                    ->orderby('created_at', 'DESC')
+                                    ->get();
         
         return $chat_messages;
     }
     
     
-    public function store(Request $request, User $user, ChatRoom $chatRoom)
+    public function store(Request $request)
     {
-      //fillに置き換えができるな
-      $chat_message = new ChatMessage;
-      $chat_message->content = $request->body;
-      $chat_message->user_id = $user->id;
-      $chat_message->chat_room_id = $chatRoom->id;
-      $chat_message->body = $request->body;
-      $chat_message->save();
+        
+        $chat_room_id = ChatRoomUser::where('chat_room_users.user_id',Auth::id())->pluck('chat_room_id');
+        
+        if(is_object($chat_room_id)){
+            $chat_room_id = $chat_room_id->first();
+        }
+        //fillに置き換えができるな
+        
+        $chat_message = new ChatMessage;
+        $chat_message->user_id = Auth::id();
+        $chat_message->chat_room_id = $chat_room_id;
+        $chat_message->body = $request->message;
+        $chat_message->save();
       
        event(new ChatPusher($chat_message));
     }

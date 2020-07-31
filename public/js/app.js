@@ -1955,13 +1955,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       //laravel側からはメッサージのデータを渡しているので、変数massageは各カラムデータあり。
-      chatMessages: []
+      chatMessages: [],
+      postMessage: ''
     };
   },
   //Vueインスタンス作成時にlaravel側のデータをフックして取得
@@ -1975,6 +1975,18 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/chat_messages').then(function (res) {
         _this.chatMessages = res.data;
         console.log(res.data);
+      });
+    },
+    sendMessage: function sendMessage() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/chat_messages', {
+        message: this.postMessage
+      }).then(function (res) {
+        _this2.postMessage = '';
+        console.log(res);
+      })["catch"](function (error) {
+        console.log(error);
       });
     }
   }
@@ -37670,9 +37682,27 @@ var render = function() {
         ])
       }),
       _vm._v(" "),
-      _c("textarea"),
+      _c("textarea", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.postMessage,
+            expression: "postMessage"
+          }
+        ],
+        domProps: { value: _vm.postMessage },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.postMessage = $event.target.value
+          }
+        }
+      }),
       _vm._v(" "),
-      _c("button", [_vm._v("送信")])
+      _c("button", { on: { click: _vm.sendMessage } }, [_vm._v("送信")])
     ],
     2
   )

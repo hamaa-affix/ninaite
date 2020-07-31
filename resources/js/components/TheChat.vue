@@ -12,9 +12,8 @@
                 </li>
            </ul>
         </div>
-        
-        <textarea></textarea>
-        <button>送信</button>
+        <textarea v-model="postMessage"></textarea>
+        <button @click="sendMessage">送信</button>
     </div>
 </template>
 
@@ -26,6 +25,7 @@ export default {
         return {
             //laravel側からはメッサージのデータを渡しているので、変数massageは各カラムデータあり。
             chatMessages: [],
+            postMessage: ''
         }
     },
     //Vueインスタンス作成時にlaravel側のデータをフックして取得
@@ -40,6 +40,17 @@ export default {
                 console.log(res.data);
             });
         },
+        sendMessage() {
+            axios.post('/api/chat_messages', { message: this.postMessage })
+            .then((res) => {
+                this.postMessage = '';
+                console.log(res);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        }
     }
 }
 </script>
+
