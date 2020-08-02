@@ -2,8 +2,8 @@
     <div>
         <!--if文ロジックをしようしてAuthUserとfromUserで名前とmessageを分けたい。-->
         <div 
-            v-for="message in chatMessages"
-            :key='message.id'
+            v-for="(message, index) in chatMessages"
+            :key="index"
         >
            <ul>
                 <li>
@@ -20,6 +20,7 @@
 <script>
 import axios from 'axios';
 
+
 export default {
     data() {
         return {
@@ -31,6 +32,15 @@ export default {
     //Vueインスタンス作成時にlaravel側のデータをフックして取得
     created() {
         this.getMessages();
+        window.Echo.channel("ChatRoomChannel").listen("ChatPusher", (e) => {
+            console.log('receved a message');
+            console.log(e);
+            this.chatMessages.push({
+                body: e.message.body,
+                user: e.user
+            });
+        });
+        
      },
     methods: {
         getMessages() {
