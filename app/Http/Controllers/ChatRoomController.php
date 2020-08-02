@@ -74,17 +74,6 @@ class ChatRoomController extends Controller
           }
       
         
-          //testcode
-        if(is_object($chat_room_id)){
-                 $chat_room_id = $chat_room_id->first();
-        }
-           
-        $m = new ChatMessage;
-        $m->user_id = Auth::id();
-        $m->chat_room_id = $chat_room_id;
-        $m->body = 'tensai';
-        $m->save();
-        
         $my_chat_room_id = ChatRoomUser::where('user_id', Auth::id())->pluck('chat_room_id');
         
         //自分と紐ついるchat_room_userの一覧を持ってくる。
@@ -96,7 +85,6 @@ class ChatRoomController extends Controller
         $matching_users = User::whereIn('id',$matching_user_ids)->orderby('created_at', 'DESC')->get();
         
         return view('chat_rooms.index', compact('matching_users'));
-        //testcodeここまで
 
     }
     
