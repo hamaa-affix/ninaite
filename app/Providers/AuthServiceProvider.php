@@ -24,6 +24,7 @@ class AuthServiceProvider extends ServiceProvider
         Farm::class => FarmPolicy::class,
         Recruitment::class => RecruitmentPolicy::class,
         Keyword::class => KeywordPolicy::class, 
+        ChatRoom::class => ChatRoomPolicy::class,
     ];
 
     /**
