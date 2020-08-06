@@ -153,7 +153,7 @@ class RecruitmentsController extends Controller
         
         $recruitments = Recruitment::where('summary','like', '%'.$request->search.'%')
                      ->orWhere('recruitments.content', 'like', '%'.$request->search.'%')
-                     ->paginate(1);
+                     ->paginate(3);
         if (!empty($recruitments)){
             $search_result = $request->search.'の検索結果'.$recruitments->total().'件';
         } else{

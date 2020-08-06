@@ -2,8 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-
-class FarmUserTableSeeder extends Seeder
+class KeywordRecuitmentTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -26,10 +25,11 @@ class FarmUserTableSeeder extends Seeder
             ];
         
         foreach ($i as $key => $value) {
-             DB::table('farm_user')->insert([
-                'user_id' => $key,
-                'farm_id' => $value,
+             DB::table('keyword_recruitment')->insert([
+                'keyword_id' => $key,
+                'recruitment_id' => $value,
             ]);
         }
+        
     }
 }
