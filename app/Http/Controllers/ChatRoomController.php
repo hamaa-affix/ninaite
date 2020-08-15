@@ -9,7 +9,7 @@ use App\ChatMessage;
 use App\ChatRoomUser;
 use App\Farm;
 use Auth;
-
+use Gate;
 class ChatRoomController extends Controller
 {
     /**
@@ -34,8 +34,9 @@ class ChatRoomController extends Controller
     }
 
 
-    public function show(User $user, $matching_chat_room_id)
+    public function show(User $user, ChatRoom $chat_room)
     {
+        Gate::authorize('view', $user, $chat_room);
         return view('chat_rooms.show');
     }
     
