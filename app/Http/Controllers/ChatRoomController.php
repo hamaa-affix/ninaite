@@ -36,7 +36,7 @@ class ChatRoomController extends Controller
 
     public function show(User $user, ChatRoom $chat_room)
     {
-        Gate::authorize('view', $user, $chat_room);
+        // Gate::authorize('view', $user, $chat_room);
         return view('chat_rooms.show');
     }
     
