@@ -11,9 +11,9 @@ class ChatRoomPolicy
     use HandlesAuthorization;
 
    
-    public function view(User $user, ChatRoom $chatRoom)
+    public function view(User $user, ChatRoom $chat_room)
     {
-        return $chatRoom->isViewable();
+        return $chat_room->isViewable($user, $chat_room);
     }
 
 }
