@@ -1,4 +1,5 @@
 <template>
+      
     <b-container>
         <b-row>
             <b-col>
@@ -15,7 +16,6 @@
                 </transition-group>
             </b-col>
         </b-row>
-    
         <b-form-textarea
             v-model="postMessage"
             id="textarea-default"
@@ -23,7 +23,6 @@
             :disabled="!textExists"
         ></b-form-textarea>
         <b-button　pill variant="success"　:disabled="!textExists" @click="sendMessage">送信</b-button>
-
     </b-container>
 </template>
 
@@ -32,9 +31,7 @@ import axios from 'axios';
 import Nl2br from 'vue-nl2br';
 
 export default {
-    components: { 
-            Nl2br,
-        },
+    components: { Nl2br },
     data() {
         return {
             //laravel側からはメッサージのデータを渡しているので、変数massageは各カラムデータあり。
