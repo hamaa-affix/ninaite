@@ -1,27 +1,37 @@
 <template>
-    <div>
-        <!--if文ロジックをしようしてAuthUserとfromUserで名前とmessageを分けたい。-->
-        <div 
-            v-for="(message, index) in chatMessages"
-            :key="index"
-        >
-           <ul>
-                <li>
-                   <strong>{{ message.user.name }}</strong>
-                   {{ message.body }}
-                </li>
-           </ul>
-        </div>
-        <textarea v-model="postMessage"></textarea>
-        <button @click="sendMessage">送信</button>
-    </div>
+      
+    <b-container>
+        <b-row>
+            <b-col>
+                <transition-group name="chat" tag="div" class="list content">
+                    <section v-for="( message, index ) in chatMessages" :key="message" class="item">
+                      <b-avatar variant="success" class="item-image"></b-avatar>
+                      <div class="item-detail">
+                       <div class="item-name">{{ message.user.name }}</div>
+                        <div class="item-message">
+                          <nl2br tag="div" :text="message.body"/>
+                        </div>
+                      </div>
+                    </section>
+                </transition-group>
+            </b-col>
+        </b-row>
+        <b-form-textarea
+            v-model="postMessage"
+            id="textarea-default"
+            placeholder="メッセージを入力してください"
+            :disabled="!textExists"
+        ></b-form-textarea>
+        <b-button　pill variant="success"　:disabled="!textExists" @click="sendMessage">送信</b-button>
+    </b-container>
 </template>
 
 <script>
 import axios from 'axios';
-
+import Nl2br from 'vue-nl2br';
 
 export default {
+    components: { Nl2br },
     data() {
         return {
             //laravel側からはメッサージのデータを渡しているので、変数massageは各カラムデータあり。
@@ -29,8 +39,8 @@ export default {
             postMessage: ''
         }
     },
-    //Vueインスタンス作成時にlaravel側のデータをフックして取得
-    created() {
+    //elmentにmount後にlaravel側のデータをフックして取得
+    mounted() {
         this.getMessages();
         window.Echo.channel("ChatRoomChannel").listen("ChatPusher", (e) => {
             console.log('receved a message');
@@ -42,6 +52,11 @@ export default {
         });
         
      },
+    computed: {
+        textExists() {
+            return this.chatMessages.length > 0;
+        }
+    },
     methods: {
         getMessages() {
             axios.get('/api/chat_messages' )
@@ -63,4 +78,3 @@ export default {
     }
 }
 </script>
-
