@@ -18,8 +18,13 @@ class ChatRoom extends Model
     }
     
     //chatroom閲覧に対する認可。
-    public function isViewable($user_id)
+    public function isViewable($user, $chat_room)
     {
-        return $this->chatRoomUsers()->where('user_id', $user_id)->count() > 0;
+       $my_chat_room_id = $this->chatRoomUsers()->where('user_id', $user->id)->pluck('chat_room_id');
+       if(is_object($my_chat_room_id)) {
+           $my_chat_room_id = $my_chat_room_id->first();
+       }
+       
+       return $my_chat_room_id == $chat_room->id;
     }
 }

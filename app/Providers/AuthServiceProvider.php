@@ -6,11 +6,14 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use Illuminate\Support\Facades\Gate;
 use App\Policies\FarmPolicy;
 use App\Policies\RecruitmentPolicy;
+use App\Policies\KeywordPolicy;
+use App\Policies\ChatRoomPolicy;
 use Auth;
 use App\User;
 use App\Farm;
 use App\Keyword;
 use App\Recruitment;
+use App\ChatRoom;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -20,7 +23,6 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        //'App\Farm' => 'App\Policies\FarmPolicy',
         Farm::class => FarmPolicy::class,
         Recruitment::class => RecruitmentPolicy::class,
         Keyword::class => KeywordPolicy::class, 
