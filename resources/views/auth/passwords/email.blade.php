@@ -35,7 +35,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-success">
-                                    {{ __('再設定パスワードを送信') }}
+                                    <i class="fas fa-leaf fa-lg"></i>{{ __('再設定パスワードを送信') }}
                                 </button>
                             </div>
                         </div>
