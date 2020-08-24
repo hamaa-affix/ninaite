@@ -26,20 +26,27 @@
   <hr>
     
   <div class="row">
-      <div class="col-4 ml-4 ">
+      <div class="col-3 ml-5 ">
           <form class="form-inline" method="get" action="{{ route('recruitments.search') }}">
             @csrf
               <div class="form-group">
                   <div class="col-auto">
-                       <i class="fas fa-search h5 text-body"></i>
+                      <i class="fas fa-search fa-2x	"></i>
                   </div>
                   <input type="text" name="search" value="" class="form-control" placeholder="">
               </div>
                   <input type="submit" value="検索" class="btn btn-success">
           </form>
+          <hr>
+          <div class="mt-4">
+            <a class="text-success" href="{{route('farms.index')}}"><i class="fas fa-leaf">農園一覧をみる</i></a>
+          </div>
           
-          <br>
-          <div class=”text-center>
+          <div class="mt-4">
+             <a class="text-success" href="{{ route('recruitments.index') }}"><i class="fas fa-leaf">案件一覧をみる</i></a>
+          </div>
+          <hr>
+          <div class="">
               <p><strong>キーワード検索</strong></p>
           </div>
           <ul class="list-unstyled justify-content-center">
@@ -53,7 +60,7 @@
           </ul>
       </div>
       
-      <div class="col-6">
+      <div class="col-7">
         @if (isset( $seach_result))
             <h5>{{ $seach_result }}</h5>
         @endif
@@ -70,7 +77,9 @@
                 <div class="col-md-5">
                   <h3>{{ $recruitment->summary }}</h3>
                   <p>{{ $recruitment->content }}</p>
-                  <a class="btn btn-success" href="{{ route('farms.recruitments.show', ['farm' => $recruitment->farm_id, 'recruitment' => $recruitment->id]) }}">詳細をみる</a>
+                  <a class="btn btn-success" href="{{ route('farms.recruitments.show', ['farm' => $recruitment->farm_id, 'recruitment' => $recruitment->id]) }}">
+                    <i class="fas fa-leaf fa-sx"></i>詳細をみる
+                  </a>
                 </div>
               </div>
             @endforeach

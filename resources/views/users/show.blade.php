@@ -22,7 +22,7 @@
                   <div class="container">
                       <div class="row">
                           <div class="col-sm">
-                              <a href="{{route('users.edit', ['user' => $user->id]) }}" class="btn btn-success ml-4"><i class="fas fa-leaf">プロフィール編集</i></a>
+                              <a href="{{route('users.edit', ['user' => $user->id]) }}" class="btn btn-success ml-3"><i class="fas fa-leaf">プロフィール編集</i></a>
                           </div>
                           
                           <div class="col-sm">
@@ -57,10 +57,6 @@
                           
                           <div class="col-sm">
                               <a href="{{ route('farms.create') }}" class="btn btn-success ml-5"><i class="fas fa-leaf">農園情報を作る</i></a>
-                          </div>
-                          
-                          <div class="col-sm">
-                              <a href="{{ route('users.chat_rooms.index', ['user' => Auth::id()]) }}" class="btn btn-success ml-5"><i class="fas fa-leaf">チャット確認</i></a>
                           </div>
                         </div>
                     </div>
