@@ -15,6 +15,5 @@ $factory->define(Farm::class, function (Faker $faker) {
         'tel' => $faker->phoneNumber,
         'site_url'=> $faker->url,
         'summary' => $faker->realText($maxNbChars = 20, $indexSize = 2),
-        'content' => $faker->realText($maxNbChars = 20, $indexSize = 2)
     ];
 });

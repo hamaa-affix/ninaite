@@ -37,7 +37,7 @@ class FarmsController extends Controller
         return view('farms.create', compact('user'));
     }
 
-    
+        
     public function store(StoreFarmData $request, Farm $farm)
     {
          //fill関数に変更
@@ -90,6 +90,7 @@ class FarmsController extends Controller
         Gate::authorize('delete',$farmData);
         
         $farmData->delete();
-        return view('farms.show', compact('farmData'));
+        $user = User::find(Auth::id());
+        return view('users.show', compact('user'));
     }
 }

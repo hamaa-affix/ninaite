@@ -15,12 +15,11 @@
               <li class="list-group-item "><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>番地、マンション名</strong></span>&emsp;{{ $farmData->address3 }}</li>
               <li class="list-group-item "><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>電話番号</strong></span>&emsp;{{ $farmData->tel }}</li>
               <li class="list-group-item "><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>サイトurl</strong></span>&emsp;{{ $farmData->site_url }}</li>
-              <li class="list-group-item "><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>概要</strong></span>&emsp;{{ $farmData->summary }}</li>
-              <li class="list-group-item "><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>コンテンツ</strong></span>&emsp;{{ $farmData->content }}</li>
+              <li class="list-group-item "><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>事業内容</strong></span>&emsp;{{ $farmData->summary }}</li>
             </ul>
             
             <br>
-            @if($farmData->users()->where('users.id', Auth::id())->count() > 0)
+            @if($farmData->users()->first()->id === Auth::id())
             <div class="container">
               <div class="row">
                   <div class="col-sm">
@@ -31,16 +30,18 @@
                     <a class="btn btn-success" href="{{ route('farms.recruitments.create', ['farm' => $farmData->id])}}" role="button"><i class="fas fa-leaf">案件を作成する</i></a>
                   </div>
                   
+              　　@if(!$farmData->recruitments()->first() == null)
                   <div class="col-sm">
-                    <a class="btn btn-success" href="{{ route('farms.contact_user', ['farm' => $farmData->id]) }}" role="button"><i class="fas fa-leaf">メッセージを確認する</i></a>
+                    <a class="btn btn-success" 
+                       href="{{ route('farms.recruitments.show ', ['farm' => $farmData->id, 'recruitment' => $farmData->recruitments()->first()->id])}}" 
+                       role="button">
+                      <i class="fas fa-leaf">案件の詳細を確認する</i>
+                    </a>
                   </div>
-            @else
-                  <div class="col-sm">
-                    <a class="btn btn-success" href="{{ route('farms.messages.index', ['farm' => $farmData->id]) }}" role="button"><i class="fas fa-leaf">農場のメッセージ一覧をみる</i></a>
-                  </div>
-            @endif
+                  @endif
               </div>
             </div>
+            @endif
           </div>
         </div>
       </div>

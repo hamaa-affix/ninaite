@@ -82,19 +82,9 @@
                       </div>
                       
                       <div class="form-group">
-                        <label for="formGroupExampleInput"><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>農園概要</strong></span></label>
+                        <label for="formGroupExampleInput"><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>事業内容</strong></span></label>
                         <textarea class="form-control"  name='summary' rows="3">{{ old('summary',$farmData->summary) }}</textarea>
                         @error('summary')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                      </div>
-                      
-                      <div class="form-group">
-                        <label for="formGroupExampleInput"><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>農園の説明</strong></span></label>
-                        <textarea class="form-control"  name='content' rows="3">{{ old('content', $farmData->content) }}</textarea>
-                        @error('content')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

@@ -12,35 +12,18 @@ class KeywordTableSeeder extends Seeder
      */
     public function run()
     {
-         DB::table('keywords')->insert([
-            'value' => '米農家',
-        ]);
-         DB::table('keywords')->insert([
-            'value' => 'みかんの収穫',
-        ]);
-         DB::table('keywords')->insert([
-            'value' => 'レモンの出荷作業',
-        ]);
-         DB::table('keywords')->insert([
-            'value' => 'ジャガイモの出荷作業',
-        ]);
-         DB::table('keywords')->insert([
-            'value' => 'アスパラガスの収穫',
-        ]);
-         DB::table('keywords')->insert([
-            'value' => '白桃の加工作業',
-        ]);
-         DB::table('keywords')->insert([
-            'value' => 'ブドウでワイン',
-        ]);
-         DB::table('keywords')->insert([
-            'value' => '玉ねぎ栽培',
-        ]);
-         DB::table('keywords')->insert([
-            'value' => 'ベビーリーフの栽培',
-        ]);
-         DB::table('keywords')->insert([
-            'value' => 'イチゴ収穫',
-        ]);
+        $values = [
+            "米農家","みかんの収穫","レモンの出荷作業",
+            "ジャガイモの出荷作業","アスパラガスの収穫",
+            "白桃の加工作業","ブドウでワイン","玉ねぎ栽培",
+            "ベビーリーフの栽培","イチゴ収穫"
+        ];
+        
+        
+        foreach($values as $value){
+            Keyword::create([
+                'value' => $value,
+            ]);
+        }
     }
 }

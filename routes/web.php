@@ -23,10 +23,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::group(['middleware' => 'auth'], function () {
     //farmsのルーティング
-    Route::resource('farms', 'FarmsController')
-     ->except(['contact_user']);
-    
-   
+    Route::resource('farms', 'FarmsController');
 });
 
 Route::group(['middleware' => 'auth'], function () {
@@ -56,22 +53,6 @@ Route::group(['middleware' => 'auth'], function () {
     //keyword検索のルーティング
     Route::get('keywords/{keyword}/search_tags', 'KeywordsController@searchTags')
       ->name('keywords.search_tags');
-   
-});
-
-Route::group(['middleware' => 'auth'], function () {
-    //contactのルーティング
-    Route::resource('farms.users.messages', 'ContactsController');
-    
-     //farms.contact_userのルーティング
-    Route::get('farms/{farm}/contact_users', 'FarmsController@contactUsers')
-      ->name('farms.contact_user');
-});
-
-Route::group(['middleware' => 'auth'], function () {
-    //メッセージのルーティング
-     Route::resource('farms.messages', 'MessagesController')
-     ->except(['show']);
 });
 
 Route::group(['middleware' => 'auth'], function () {
