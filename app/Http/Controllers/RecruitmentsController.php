@@ -7,6 +7,7 @@ use App\Http\Requests\StoreRecruitment;
 use App\Services\CheckExtensionServices;
 use App\Services\FileUploadServices;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 
 use App\Recruitment;
 use App\Keyword;
@@ -48,21 +49,44 @@ class RecruitmentsController extends Controller
     public function store(StoreRecruitment $request, $farm_id, Recruitment $recruitment)
     {
         //画像アップロードの処理
-        $imageFile = $request->file('img_name');
-        $list = FileUploadServices::fileUpload($imageFile);
-        list($extension, $fileNameToStore, $fileData) = $list; 
-        $data_url = CheckExtensionServices::checkExtension($fileData, $extension); 
-        $image = Image::make($data_url);
-        $image->resize(700,300)->save(storage_path() . '/app/public/images/' . $fileNameToStore );
+        if(!is_null($request->file('img_name'))) {
+             //引数 $data から name='img_name'を取得(アップロードするファイル情報)
+            $imageFile = $request->file('img_name');
+            
+            //filedataの加工
+            $list = FileUploadServices::fileUpload($imageFile);
+            
+            //returnされた変数（配列）を各変数に配列順に代入 
+            list($extension, $fileNameToStore, $fileData) = $list; 
+            
+            //拡張子をurlに変換
+            $data_url = CheckExtensionServices::checkExtension($fileData, $extension); 
+            
+            //画像アップロード(Imageクラス makeメソッドを使用)
+            $image = Image::make($data_url);
+            
+            //画像を横400px, 縦400pxにリサイズし保存
+            $image->resize(700,300)->save(storage_path() . '/app/public/images/' . $fileNameToStore );
+            //filename to insert
+            $recruitment->img_name = $fileNameToStore;
+        }
         
-        $farm = Farm::find($farm_id);
-        $recruitment->farm_id = $farm->id;
-        $recruitment->fill($request->all());
-        $recruitment->img_name = $fileNameToStore;
-        $recruitment->save();
         
-        return redirect('/');
-    }
+         $imagefile = $request->file('image');
+        // ファイル名のタイムスタンプに使う
+        $now = date_format(Carbon::now(), 'YmdHis');
+        // アップロードされたファイル名を取得
+        $name = $imagefile->getClientOriginalName();
+        // S3の保存先のパスを生成
+        $storePath="hogeimage/".$now."_".$name;
+        // 画像を横幅は300px、縦幅はアスペクト比維持の自動サイズへリサイズ
+        $image = Image::make($imagefile)
+          ->resize(300, null, function ($constraint) {
+          $constraint->aspectRatio();
+        });
+        // S3に保存。ファイル名は$storePathで定義したとおり
+        Storage::disk('s3') ->put($storePath, (string) $image->encode(),'public');
+      }
 
     /**
      * Display the specified resource.
@@ -99,9 +123,8 @@ class RecruitmentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreRecruitment $request, $farm_id, $id)
+    public function update(StoreRecruitment $request, Farm $farm, Recruitment $recruitment)
     {
-        $recruitment = Recruitment::find($id);
         //policyにによる認可
         Gate::authorize('update', $recruitment);
         
@@ -128,7 +151,7 @@ class RecruitmentsController extends Controller
         $recruitment->keywords()->attach($keywords);
         
         //redirect先をrecuruitment.showへ変更すること！
-        return redirect('/');
+        return redirect()->route('farms.recruitments.show', ['farm' => $farm->id, $recruitment->id]);
     }
 
     /**

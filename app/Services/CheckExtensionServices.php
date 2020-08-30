@@ -6,7 +6,7 @@ class CheckExtensionServices
 {
  //画像アップ時の処理
   public static function checkExtension($fileData, $extension){
-
+    //拡張子ごとに base64エンコード実施
     $extension = mb_strtolower($extension);
 
     if ($extension === 'jpg'){
