@@ -15,7 +15,6 @@ class Farm extends Model
         'tel',
         'site_url',
         'summary',
-        'content'
     ];
     
     public function users()

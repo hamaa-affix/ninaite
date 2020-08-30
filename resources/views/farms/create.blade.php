@@ -110,7 +110,7 @@
                         </div>
                         
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right"><i class="fas fa-seedling" style="color: limegreen" ></i><strong>{{ __('概要') }}</strong></span></label>
+                            <label for="password" class="col-md-4 col-form-label text-md-right"><i class="fas fa-seedling" style="color: limegreen" ></i><strong>{{ __('事業内容') }}</strong></span></label>
 
                             <div class="col-md-6">
                                 <input id="password" type="text" class="form-control @error('summary') is-invalid @enderror" name="summary" required autocomplete="">
@@ -123,21 +123,6 @@
                             </div>
                         </div>
                         
-                        
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right"><i class="fas fa-seedling" style="color: limegreen" ></i><strong>{{ __('コンテンツ') }}</strong></span></label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="text" class="form-control @error('content') is-invalid @enderror" name="content" required autocomplete="">
-
-                                @error('content')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>   
-
                         <div class="form-group row mb-0">
                             <div class="col-md-4 offset-md-4">
                                 <button type="submit" class="btn btn-success btn-lg">

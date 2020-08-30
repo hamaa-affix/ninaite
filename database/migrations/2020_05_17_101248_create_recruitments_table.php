@@ -20,7 +20,7 @@ class CreateRecruitmentsTable extends Migration
             $table->string('title')->comment('タイトル');
             $table->string('summary')->comment('概要');
             $table->text('content')->comment('依頼内容');
-             $table->string('img_name')->nullable()->comment('画像name');
+            $table->string('img_name')->nullable()->comment('画像name');
             $table->timestamps();
             
             $table->foreign('farm_id')->references('id')->on('farms')->onDelete('cascade');

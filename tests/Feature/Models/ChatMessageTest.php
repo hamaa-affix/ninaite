@@ -18,7 +18,9 @@ class ChatMessageTest extends TestCase
     {
         
         $user = app(User::class);
-        $entity = factory(User::class, 5)->create(); // 先程作ったファクトリーでレコード生成
+        $entity = factory(User::class)->create([
+                'id' => 1
+            ]); // 先程作ったファクトリーでレコード生成
     
         DB::table('chat_rooms')->insert([
                 'id' => 1
