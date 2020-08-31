@@ -70,7 +70,7 @@
              <div class="row">
                 <div class="col-md-7">
                   <a href="{{ route('farms.recruitments.show', ['farm' => $recruitment->farm_id, 'recruitment' => $recruitment->id]) }}">
-                    <img class="img-fluid rounded mb-3 mb-md-0" src="/storage/images/{{$recruitment->img_name}}" alt="">
+                    <img class="img-fluid rounded mb-3 mb-md-0" src="{{$recruitment->img_name}}" alt="">
                   </a>
                   <hr>
                 </div>

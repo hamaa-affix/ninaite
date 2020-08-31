@@ -32,8 +32,8 @@
                   
               　　@if(!$farmData->recruitments()->first() == null)
                   <div class="col-sm">
-                    <a class="btn btn-success" 
-                       href="{{ route('farms.recruitments.show ', ['farm' => $farmData->id, 'recruitment' => $farmData->recruitments()->first()->id])}}" 
+                    <a class="btn btn-success ml-2" 
+                       href="{{ route('farms.recruitments.show', ['farm' => $farmData->id, 'recruitment' => $farmData->recruitments()->first()->id])}}" 
                        role="button">
                       <i class="fas fa-leaf">案件の詳細を確認する</i>
                     </a>

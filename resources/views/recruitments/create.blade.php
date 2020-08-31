@@ -54,14 +54,17 @@
                                 )}}
                           </div>
                         
+                          <div class="text-center">
+                              <p><i class="fas fa-seedling" style="color: limegreen" ></i><strong>画像ファイル選択</strong></p>
+                          </div>
                           <div class="input-group mb-3">
+                         
                             <div class="input-group-prepend">
-                              <label for="exampleFormControlSelect1"><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>画像ファイル選択</strong></span></label>
                               <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
                             </div>
                             <div class="custom-file">
                               <input type="file" name="img_name" class="custom-file-input @error('img_name') is-invalid @enderror" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                              <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                              <label class="custom-file-label" for="inputGroupFile01">ファイルを選択してください</label>
                               @error('img_name')
                                   <span class="invalid-feedback" role="alert">
                                   <strong>{{ $message }}</strong>

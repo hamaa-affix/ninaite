@@ -34,9 +34,8 @@ class RecruitmentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($farm_id)
+    public function create(Farm $farm)
     {   
-        $farm = Farm::find($farm_id);
         return view('recruitments.create', compact('farm'));
     }
 
@@ -46,46 +45,42 @@ class RecruitmentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRecruitment $request, $farm_id, Recruitment $recruitment)
+    public function store(StoreRecruitment $request, Farm $farm, Recruitment $recruitment)
     {
         //画像アップロードの処理
         if(!is_null($request->file('img_name'))) {
              //引数 $data から name='img_name'を取得(アップロードするファイル情報)
-            $imageFile = $request->file('img_name');
-            
+            $image_file = $request->file('img_name');
+           
             //filedataの加工
-            $list = FileUploadServices::fileUpload($imageFile);
+            $list = FileUploadServices::fileUpload($image_file);
             
             //returnされた変数（配列）を各変数に配列順に代入 
-            list($extension, $fileNameToStore, $fileData) = $list; 
+            list($file_path, $file_data) = $list; 
+           
+            //画像アップロード(Imageクラス makeメソッドを使用) make()で画像をDGで加工する為の読み込み
+            $image = Image::make($file_data);
             
-            //拡張子をurlに変換
-            $data_url = CheckExtensionServices::checkExtension($fileData, $extension); 
+            //画像を横700px, 縦300pxにリサイズし保存
+            $image->resize(700,300,function($constraint) {
+                $constraint->aspectRatio();
+            });
             
-            //画像アップロード(Imageクラス makeメソッドを使用)
-            $image = Image::make($data_url);
-            
-            //画像を横400px, 縦400pxにリサイズし保存
-            $image->resize(700,300)->save(storage_path() . '/app/public/images/' . $fileNameToStore );
-            //filename to insert
-            $recruitment->img_name = $fileNameToStore;
+            $disk = Storage::disk('s3');
+            //path = put(1:path, 2:画像, 3:'public');
+            $path_data = $disk->put($file_path, $image->encode(), 'public');
+            //filename to insert S3から取得したfullpath
+            $img_url = $disk->url($file_path);  
         }
-        
-        
-         $imagefile = $request->file('image');
-        // ファイル名のタイムスタンプに使う
-        $now = date_format(Carbon::now(), 'YmdHis');
-        // アップロードされたファイル名を取得
-        $name = $imagefile->getClientOriginalName();
-        // S3の保存先のパスを生成
-        $storePath="hogeimage/".$now."_".$name;
-        // 画像を横幅は300px、縦幅はアスペクト比維持の自動サイズへリサイズ
-        $image = Image::make($imagefile)
-          ->resize(300, null, function ($constraint) {
-          $constraint->aspectRatio();
-        });
-        // S3に保存。ファイル名は$storePathで定義したとおり
-        Storage::disk('s3') ->put($storePath, (string) $image->encode(),'public');
+    
+        $recruitment->farm_id = $farm->id;
+        $recruitment->fill($request->all());
+        $recruitment->img_name = $img_url;
+        $recruitment->save();
+
+
+        return redirect('/');
+
       }
 
     /**
@@ -94,11 +89,10 @@ class RecruitmentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($farm_id, $id)
+    public function show(Farm $farm, Recruitment $recruitment)
     {
-        $recruitment = Recruitment::find($id);
-        
-        return view('recruitments.show', compact('recruitment'));
+        $my_recruitments = Recruitment::where('farm_id', $farm->id)->orderBy('created_at', 'desc')->get();
+        return view('recruitments.show', compact('my_recruitments'));
     }
 
     /**
@@ -107,9 +101,8 @@ class RecruitmentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($farm_id, $id)
+    public function edit(Farm $farm, Recruitment $recruitment)
     {
-        $recruitment = Recruitment::find($id);
         //policyにによる認可
         Gate::authorize('update', $recruitment);
         
@@ -128,22 +121,38 @@ class RecruitmentsController extends Controller
         //policyにによる認可
         Gate::authorize('update', $recruitment);
         
-        //画像ファイル処理
-       if(!is_null($request->file('img_name'))){
-          $imageFile = $request->file('img_name');
-
-          $list = FileUploadServices::fileUpload($imageFile);
-          list($extension, $fileNameToStore, $fileData) = $list;
-          
-          $data_url = CheckExtensionServices::checkExtension($fileData, $extension);
-          $image = Image::make($data_url);        
-          $image->resize(700,300)->save(storage_path() . '/app/public/images/' . $fileNameToStore );
-
-          $recruitment->img_name = $fileNameToStore;
+        //画像アップロードの処理
+        if(!is_null($request->file('img_name'))) {
+             //引数 $data から name='img_name'を取得(アップロードするファイル情報)
+            $image_file = $request->file('img_name');
+           
+            //filedataの加工
+            $list = FileUploadServices::fileUpload($image_file);
+            
+            //returnされた変数（配列）を各変数に配列順に代入 
+            list($file_path, $file_data) = $list; 
+           
+            //画像アップロード(Imageクラス makeメソッドを使用) make()で画像をDGで加工する為の読み込み
+            $image = Image::make($file_data);
+            
+            //画像を横700px, 縦300pxにリサイズし保存
+            $image->resize(700,300,function($constraint) {
+                $constraint->aspectRatio();
+            });
+            
+            $disk = Storage::disk('s3');
+            //path = put(1:path, 2:画像, 3:'public');
+            $path_data = $disk->put($file_path, $image->encode(), 'public');
+            //filename to insert S3から取得したfullpath
+            $img_url = $disk->url($file_path);  
+            
         }
+
         
         //update処理
-        $recruitment->fill($request->all())->save();
+        $recruitment->fill($request->all());
+        $recruitment->img_name = $img_url;
+        $recruitment->save();
         
         //関連したキーワードの中間テーブルへの更新処理
         $keywords = $request->keywords;
@@ -160,9 +169,8 @@ class RecruitmentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($farm_id, $id)
+    public function destroy(Farm $farm, Recruitment $recruitment)
     {
-        $recruitment = Recruitment::find($id);
         //policyにによる認可
         Gate::authorize('delete', $recruitment);
         
