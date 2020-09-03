@@ -1,0 +1,81 @@
+version: '3.7'
+
+services: 
+    php:
+        container_name: php
+        build: ./php
+        volumes: 
+            - '.:/var/www/html'
+        environment:
+            - DB_CONNECTION=mysql
+            - DB_HOST=db
+            - DB_DATABASE=${DB_DATABASE}
+            - DB_USERNAME=${DB_USERNAME}
+            - DB_PASSWORD=${DB_PASSWORD}
+            - TZ=${TZ}
+        depends_on:
+            - db
+        links:
+            - db
+        networks: 
+            - backend
+    
+    web:
+        image: nginx:latest
+        container_name: web
+        volumes: 
+            #nginxに対してどこのディレクトリを公開したいかマウントする。今回はファイルシステムはmy_appになっているので、そこのディレクトリ配下と
+            #コンテナの公開ディレクトリ配下デフォルトでは/var/www/html/配下のをマウントしている。そして公開したい、rootの設定はconfファイルに記述#している
+            - '.:/var/www/html/'
+        #     - './web/default.conf:/etc/nginx/conf.d/default.conf'
+        ports: 
+            - '80:80'
+        environment:
+            - TZ=${TZ}
+        depends_on: 
+            - php
+        networks: 
+            - backend
+    
+    db:
+        image: mysql
+        container_name: db
+        environment: 
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD_ROOT}
+            MYSQL_DATABASE:  ${DB_DATABASE}
+            MYSQL_USER: ${DB_USERNAME}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            TZ: ${TZ}
+        volumes: 
+            - db-store:/var/lib/mysql
+            - './db/conf_d/my.cnf:/etc/mysql/conf.d/my.cnf'
+            
+        ports:
+            - ${DB_PORT}:3306
+        networks: 
+            - backend
+
+    test-db:
+        image: mysql
+        container_name: test-db
+        environment: 
+            MYSQL_ROOT_PASSWORD: ${DB_TESTING_PASSWORD_ROOT}
+            MYSQL_DATABASE:  ${DB_TESTING_DATABASE}
+            MYSQL_USER: ${DB_TESTING_USERNAME}
+            MYSQL_PASSWORD: ${DB_TESTING_PASSWORD}
+            TZ: ${TZ}
+        volumes: 
+            - db-testing-store:/var/lib/mysql
+            - './db/conf_d/my.cnf:/etc/mysql/conf.d/my.cnf'
+            
+        ports:
+            - ${DB_TESTING_PORT}:3306
+        networks: 
+            - backend
+
+volumes:
+    db-store:
+    db-testing-store:
+networks: 
+    backend:
+        driver: bridge 
