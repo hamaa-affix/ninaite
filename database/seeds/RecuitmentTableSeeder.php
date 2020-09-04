@@ -18,7 +18,7 @@ class RecuitmentTableSeeder extends Seeder
             'title' => 'お米の収穫作業、出荷作業',
             'summary' => '米農家を営んでいます。一緒に収穫しませんか',
             'content' => 'XXX県でxxxの生産加工を営んでいます。時給XXX 作業内容：XXXX,期間：XXX',
-            'img_name' => 'f532cb9d19349808c8cdd87cff4b59b8_w.jpg'
+            'img_name' => '/storage/recruitment_images/f532cb9d19349808c8cdd87cff4b59b8_w.jpg'
         ]);
         DB::table('recruitments')->insert([
             'farm_id' => 2,
@@ -26,7 +26,7 @@ class RecuitmentTableSeeder extends Seeder
             'title' => 'みかんの生産と加工をおこなっています。一緒に収穫しませんか',
             'summary' => 'みかんの収穫、出荷作業',
             'content' => 'XXX県でxxxの生産加工を営んでいます。時給XXX 作業内容：XXXX,期間：XXX',
-            'img_name' => '1455141_s.jpg'
+            'img_name' => '/storage/recruitment_images/1455141_s.jpg'
         ]);
         DB::table('recruitments')->insert([
             'farm_id' => 3,
@@ -34,7 +34,7 @@ class RecuitmentTableSeeder extends Seeder
             'title' => 'レモンの生産と加工をおこなっています。一緒に収穫しませんか',
             'summary' => 'レモンの収穫作業、出荷作業',
             'content' => 'XXX県でxxxの生産加工を営んでいます。時給XXX 作業内容：XXXX,期間：XXX',
-            'img_name' => '3092774_s.jpg'
+            'img_name' => '/storage/recruitment_images/3092774_s.jpg'
         ]);
         DB::table('recruitments')->insert([
             'farm_id' => 4,
@@ -42,7 +42,7 @@ class RecuitmentTableSeeder extends Seeder
             'title' => 'ジャガイモの生産と加工をおこなっています。一緒に収穫しませんか',
             'summary' => 'ジャガイモの収穫作業、出荷作業',
             'content' => 'XXX県でxxxの生産加工を営んでいます。時給XXX 作業内容：XXXX,期間：XXX',
-            'img_name' => '6f60542e48f1c6c60343df42f4453b5a_w.jpg'
+            'img_name' => '/storage/recruitment_images/6f60542e48f1c6c60343df42f4453b5a_w.jpg'
         ]);
         DB::table('recruitments')->insert([
             'farm_id' => 5,
@@ -50,7 +50,7 @@ class RecuitmentTableSeeder extends Seeder
             'title' => 'アスパラガスの生産と加工をおこなっています。一緒に収穫しませんか',
             'summary' => 'アスパラガスの収穫作業、出荷作業',
             'content' => 'XXX県でxxxの生産加工を営んでいます。時給XXX 作業内容：XXXX,期間：XXX',
-            'img_name' => '2546105_s.jpg'
+            'img_name' => '/storage/recruitment_images/2546105_s.jpg'
         ]);
         DB::table('recruitments')->insert([
             'farm_id' => 6,
@@ -58,7 +58,7 @@ class RecuitmentTableSeeder extends Seeder
             'title' => '白桃の生産と加工をおこなっています。一緒に収穫しませんか',
             'summary' => '白桃の収穫作業、出荷作業',
             'content' => 'XXX県でxxxの生産加工を営んでいます。時給XXX 作業内容：XXXX,期間：XXX',
-            'img_name' => '1675339_s.jpg'
+            'img_name' => '/storage/recruitment_images/1675339_s.jpg'
         ]);
         DB::table('recruitments')->insert([
             'farm_id' => 7,
@@ -66,7 +66,7 @@ class RecuitmentTableSeeder extends Seeder
             'title' => 'ブドウの生産と加工をおこなっています。一緒に収穫しませんか',
             'summary' => 'ブドウの収穫作業、出荷作業',
             'content' => 'XXX県でxxxの生産加工を営んでいます。時給XXX 作業内容：XXXX,期間：XXX',
-            'img_name' => '683864_s.jpg'
+            'img_name' => '/storage/recruitment_images/683864_s.jpg'
         ]);
         DB::table('recruitments')->insert([
             'farm_id' => 8,
@@ -74,7 +74,7 @@ class RecuitmentTableSeeder extends Seeder
             'title' => '人参、玉ねぎの生産と加工をおこなっています。一緒に収穫しませんか',
             'summary' => '人参、玉ねぎの収穫作業、出荷作業',
             'content' => 'XXX県でxxxの生産加工を営んでいます。時給XXX 作業内容：XXXX,期間：XXX',
-            'img_name' => '403591_s.jpg'
+            'img_name' => '/storage/recruitment_images/403591_s.jpg'
         ]);
         DB::table('recruitments')->insert([
             'farm_id' => 9,
@@ -82,7 +82,7 @@ class RecuitmentTableSeeder extends Seeder
             'title' => 'ベビーリーフの生産と加工をおこなっています。一緒に収穫しませんか',
             'summary' => 'ベビーリーフの収穫作業、出荷作業',
             'content' => 'XXX県でxxxの生産加工を営んでいます。時給XXX 作業内容：XXXX,期間：XXX',
-            'img_name' => '500_F_277370856_RP8elHc8TckjN8qzfPYFblMmP30HSC1k.jpg'
+            'img_name' => '/storage/recruitment_images/500_F_277370856_RP8elHc8TckjN8qzfPYFblMmP30HSC1k.jpg'
         ]);
         DB::table('recruitments')->insert([
             'farm_id' => 10,
@@ -90,7 +90,7 @@ class RecuitmentTableSeeder extends Seeder
             'title' => 'イチゴの生産と加工をおこなっています。一緒に収穫しませんか',
             'summary' => 'イチゴの収穫作業、出荷作業',
             'content' => 'XXX県でxxxの生産加工を営んでいます。時給XXX 作業内容：XXXX,期間：XXX',
-            'img_name' => 'mick-haupt-oOQsLhnMHKY-unsplash.jpg'
+            'img_name' => '/storage/recruitment_images/mick-haupt-oOQsLhnMHKY-unsplash.jpg'
         ]);
         
     }

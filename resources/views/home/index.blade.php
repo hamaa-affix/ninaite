@@ -63,6 +63,7 @@
                   </a>
                 </div>
               </div>
+              <br>
             @endforeach
              {{ $recruitments->links('vendor.pagination.bootstrap-4') }}
         @else
