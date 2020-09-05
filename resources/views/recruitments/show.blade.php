@@ -16,9 +16,9 @@
                             <li class="list-group-item"><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>農園の概要</strong></span>&emsp;{{ $recruitment->summary }}</li>
                             <li class="list-group-item overflow-auto"><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>案件内容</strong></span>&emsp;{{ $recruitment->content }}</li>
                           @if($recruitment->stuas === 0)
-                            <li class="list-group-item">募集中</li>
-                          @else
                             <li class="list-group-item">現在募集をしておりません</li>
+                          @else
+                            <li class="list-group-item">現在募集中</li>
                           @endif
                         </ul>
                       
@@ -26,7 +26,7 @@
                           <img class="img-fluid rounded mb-3 mb-md-0" src="/storage/images/{{$recruitment->img_name}}" alt="">
                           <hr>
                       </div>
-                      
+
 
                        <div class="row justify-content-center mt-3">
                          @if($recruitment->isEditable(Auth::id()))

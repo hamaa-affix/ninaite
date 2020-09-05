@@ -7,7 +7,7 @@ use App\Http\Requests\StoreRecruitment;
 use App\Services\CheckExtensionServices;
 use App\Services\FileUploadServices;
 use Intervention\Image\Facades\Image;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Storage; 
 
 use App\Recruitment;
 use App\Keyword;
@@ -72,7 +72,7 @@ class RecruitmentsController extends Controller
             //filename to insert S3から取得したfullpath
             $img_url = $disk->url($file_path);  
         } else {
-            $img_url = '/storage/images/1.png';
+            $img_url = '/storage/recruitment_images/1.png';
         }
     
         $recruitment->farm_id = $farm->id;

@@ -23,11 +23,11 @@
             <div class="container">
               <div class="row">
                   <div class="col-sm">
-                    <a class="btn btn-success" href="{{ route('farms.edit', ['farm' => $farmData->id]) }}" role="button"><i class="fas fa-leaf">編集する</i></a>
+                    <a class="btn btn-success" href="{{ route('farms.edit', ['farm' => $farmData->id]) }}" role="button"><i class="fas fa-leaf">農園情報を編集</i></a>
                   </div>
                   
                   <div class="col-sm">
-                    <a class="btn btn-success" href="{{ route('farms.recruitments.create', ['farm' => $farmData->id])}}" role="button"><i class="fas fa-leaf">案件を作成する</i></a>
+                    <a class="btn btn-success" href="{{ route('farms.recruitments.create', ['farm' => $farmData->id])}}" role="button"><i class="fas fa-leaf">案件を作成</i></a>
                   </div>
                   
               　　@if(!$farmData->recruitments()->first() == null)
@@ -35,7 +35,7 @@
                     <a class="btn btn-success ml-2" 
                        href="{{ route('farms.recruitments.show', ['farm' => $farmData->id, 'recruitment' => $farmData->recruitments()->first()->id])}}" 
                        role="button">
-                      <i class="fas fa-leaf">案件の詳細を確認する</i>
+                      <i class="fas fa-leaf">案件の詳細を確認</i>
                     </a>
                   </div>
                   @endif

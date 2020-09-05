@@ -9,7 +9,7 @@
                   <h5 class = "card-title font-weight-bolder" >プロフィール</h5 > 
                   <hr>
                   <div class="text-center">
-                    <img src="..." class="card-img-top" alt="...">
+                    <img src=" class="card-img-top" alt="...">
                   </div>
                   
                   <div class="form-group text-center">
