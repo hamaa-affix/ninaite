@@ -65,6 +65,19 @@
                     </div>
                 </div>
             </form>
+            
+            <form method="POST" action="{{ route('login') }}">
+                 @csrf
+                <div class="form-group row mt-2">
+                    <div class="col-md-8 offset-md-4">
+                        <input type="hidden" name="email" value="test@test">
+                        <input type="hidden" name="password" value="123456">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-leaf fa-lg"></i>テストユーザーでログイン
+                        </button>
+                    </div>
+                </div>
+            </form>                    
         </div>
     </div>
 </div>

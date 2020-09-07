@@ -43,7 +43,7 @@ class ChatRoomController extends Controller
     
     public function createChatRoom(Request $request, User $user) 
     {
-
+        dd($request);
         $matching_user_id = $request->user_id;
       
         //自分の持っているチャットルームを取得

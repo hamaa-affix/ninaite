@@ -1,5 +1,9 @@
 FROM php:7.3-fpm
-COPY php.ini /usr/local/etc/php/
+
+COPY . /var/www/html
+WORKDIR /var/www/html
+
+COPY ./docker/php/php.ini /usr/local/etc/php/
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
 
 RUN apt-get update && apt-get install -y \
@@ -32,7 +36,14 @@ ENV COMPOSER_HOME /composer
 ENV COMPOSER_HOME=/usr/local/share/composer
 ENV PATH $PATH:/composer/vendor/bin
 
-WORKDIR /var/www/html
-
 RUN composer global require "laravel/installer"
+RUN composer install -n --prefer-dist --no-dev 
+RUN npm install npm@latest -g
+
+
+## Laravel Permission 
+RUN chmod -R a+w storage/ bootstrap/cache
+RUN chown -R www-data:www-data /var/www/html/storage
+RUN chmod -R 775 /var/www/html/storage
+
 

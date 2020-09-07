@@ -113,8 +113,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right"><i class="fas fa-seedling" style="color: limegreen" ></i><strong>{{ __('事業内容') }}</strong></span></label>
 
                             <div class="col-md-6">
-                                <input id="password" type="text" class="form-control @error('summary') is-invalid @enderror" name="summary" required autocomplete="">
-
+                                <textarea class="form-control @error('summary') is-invalid @enderror" id="exampleFormControlTextarea1" rows="3" name='summary'></textarea>
                                 @error('summary')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
