@@ -3,7 +3,9 @@ version: '3.7'
 services: 
     php:
         container_name: php
-        build: ./docker/php
+        build:
+            context: .
+            dockerfile: ./docker/php/Dockerfile
         volumes: 
             - '.:/var/www/html'
         environment:
@@ -20,7 +22,9 @@ services:
     
     web:
         container_name: web
-        build: ./docker/web
+        build:
+            context: .
+            dockerfile: ./docker/web/Dockerfile
         volumes: 
             #nginxに対してどこのディレクトリを公開したいかマウントする。今回はファイルシステムはmy_appになっているので、そこのディレクトリ配下と
             #コンテナの公開ディレクトリ配下デフォルトでは/var/www/html/配下のをマウントしている。そして公開したい、rootの設定はconfファイルに記述#している

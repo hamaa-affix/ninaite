@@ -1,4 +1,4 @@
 FROM nginx:1.17.10
 
-# COPY public /var/www/html/public
-COPY default.conf /etc/nginx/conf.d/
+COPY . /var/www/html/
+COPY ./docker/web/default.conf /etc/nginx/conf.d/

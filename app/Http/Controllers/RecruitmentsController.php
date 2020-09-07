@@ -93,8 +93,8 @@ class RecruitmentsController extends Controller
      */
     public function show(Farm $farm, Recruitment $recruitment)
     {
-        $my_recruitments = Recruitment::where('farm_id', $farm->id)->orderBy('created_at', 'desc')->get();
-        return view('recruitments.show', compact('my_recruitments'));
+        $farm_user = $farm->users()->first();
+        return view('recruitments.show', compact('recruitment', 'farm', 'farm_user'));
     }
 
     /**
@@ -148,6 +148,8 @@ class RecruitmentsController extends Controller
             //filename to insert S3から取得したfullpath
             $img_url = $disk->url($file_path);  
             
+        } else {
+            $img_url = '/storage/recruitment_images/1.png';
         }
 
         
@@ -161,7 +163,6 @@ class RecruitmentsController extends Controller
         $recruitment->keywords()->detach();
         $recruitment->keywords()->attach($keywords);
         
-        //redirect先をrecuruitment.showへ変更すること！
         return redirect()->route('farms.recruitments.show', ['farm' => $farm->id, $recruitment->id]);
     }
 
