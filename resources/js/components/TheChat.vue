@@ -20,9 +20,8 @@
             v-model="postMessage"
             id="textarea-default"
             placeholder="メッセージを入力してください"
-            :disabled="!textExists"
         ></b-form-textarea>
-        <b-button　pill variant="success"　:disabled="!textExists" @click="sendMessage">送信</b-button>
+        <b-button　pill variant="success" @click="sendMessage">送信</b-button>
     </b-container>
 </template>
 
