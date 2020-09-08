@@ -36,7 +36,7 @@ class ChatRoomController extends Controller
 
     public function show(User $user, ChatRoom $chat_room)
     {
-        //$this->authorize('view', $chat_room, $user);
+        $this->authorize('view', $chat_room, $user);
         return view('chat_rooms.show');
     }
     
