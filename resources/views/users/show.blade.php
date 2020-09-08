@@ -30,14 +30,14 @@
                                   @csrf
                                   <input type='hidden' name='_method' value='DELETE'>
                                   <button type="button" class="btn btn-success ml-4" data-toggle="modal" data-target="#exampleModal">
-                                      <i class="fas fa-leaf">プロフィールの削除</i>
+                                      <i class="fas fa-leaf">プロフィール削除</i>
                                   </button>
                                   
                                   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                       <div class="modal-dialog" role="document">
                                           <div class="modal-content">
                                               <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">プロフィールの削除</h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">プロフィール削除</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                   <span aria-hidden="true">&times;</span>
                                                 </button>
@@ -56,7 +56,7 @@
                           </div>
                           
                           <div class="col-sm">
-                              <a href="{{ route('farms.create') }}" class="btn btn-success ml-5"><i class="fas fa-leaf">農園情報を作る</i></a>
+                              <a href="{{ route('farms.create') }}" class="btn btn-success ml-4"><i class="fas fa-leaf">農園情報を作る</i></a>
                           </div>
                         </div>
                     </div>
