@@ -38,6 +38,7 @@ ENV PATH $PATH:/composer/vendor/bin
 
 RUN composer global require "laravel/installer"
 RUN composer install -n --prefer-dist --no-dev 
+RUN composer update
 RUN npm install npm@latest -g
 
 
