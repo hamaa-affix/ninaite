@@ -8,10 +8,6 @@
                 <div class="card-body">
                   <h5 class = "card-title font-weight-bolder" >プロフィール</h5 > 
                   <hr>
-                  <div class="text-center">
-                    <img src=" class="card-img-top" alt="...">
-                  </div>
-                  
                   <div class="form-group text-center">
                       <ul class="list-group list-group-flush">
                           <li class="list-group-item "><span><i class="fas fa-seedling" style="color: limegreen" ></i><strong>名前</strong></span>&emsp;{{ $user->name }}</li>
