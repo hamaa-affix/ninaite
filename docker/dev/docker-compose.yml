@@ -5,7 +5,7 @@ services:
         container_name: php
         build:
             context: .
-            dockerfile: ./docker/php/Dockerfile
+            dockerfile: ./php/Dockerfile
         volumes: 
             - '.:/var/www/html'
         environment:
@@ -14,17 +14,17 @@ services:
             AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
             AWS_BUCKET: ${AWS_BUCKET}
         depends_on:
-            - db
+            - mysql
         links:
-            - db
+            - mysql
         networks: 
             - backend
     
     web:
-        container_name: web
+        container_name: nginx
         build:
             context: .
-            dockerfile: ./docker/web/Dockerfile
+            dockerfile: ./nginx/Dockerfile
         volumes: 
             #nginxに対してどこのディレクトリを公開したいかマウントする。今回はファイルシステムはmy_appになっているので、そこのディレクトリ配下と
             #コンテナの公開ディレクトリ配下デフォルトでは/var/www/html/配下のをマウントしている。そして公開したい、rootの設定はconfファイルに記述#している
@@ -38,16 +38,16 @@ services:
         networks: 
             - backend
     
-    db:
+    mysql:
         image: mysql
-        container_name: db
+        container_name: mysql
         environment: 
             - MYSQL_DATABASE=${DB_DATABASE}
             - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
             - TZ=${TZ}
         volumes: 
             - db-store:/var/lib/mysql
-            - './db/conf_d/my.cnf:/etc/mysql/conf.d/my.cnf'
+            - './mysql/conf_d/my.cnf:/etc/mysql/conf.d/my.cnf'
         ports:
             - ${DB_PORT}:3306
         networks: 
@@ -62,7 +62,7 @@ services:
             - TZ=${TZ}
         volumes: 
             - db-testing-store:/var/lib/mysql
-            - './db/conf_d/my.cnf:/etc/mysql/conf.d/my.cnf'
+            - './mysql/conf_d/my.cnf:/etc/mysql/conf.d/my.cnf'
             
         ports:
             - ${DB_TESTING_PORT}:3306
