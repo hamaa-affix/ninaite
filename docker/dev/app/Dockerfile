@@ -39,16 +39,9 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN apt-get install -y nodejs
 
 #composer install
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin
+RUN mv /usr/bin/composer.phar /usr/bin/composer
 
-ENV COMPOSER_ALLOW_SUPERUSER 1
-ENV COMPOSER_HOME /composer
-ENV COMPOSER_HOME=/usr/local/share/composer
-ENV PATH $PATH:/composer/vendor/bin
-
-RUN composer global require "laravel/installer"
-RUN composer install -n --prefer-dist --no-dev 
-RUN composer update
 RUN npm install npm@latest -g
 
 # setting superviser 
@@ -58,11 +51,9 @@ RUN echo files = /etc/supervisor/conf.d/*.conf >> /etc/supervisord.conf
 
 
 ## Laravel Permission 
-RUN chmod -R a+w storage/ bootstrap/cache
-RUN chown -R www-data:www-data /var/www/html/storage
-RUN chmod -R 775 /var/www/html/storage
-
-
+#RUN chmod -R a+w storage/ bootstrap/cache
+#RUN chown -R www-data:www-data /var/www/html/storage
+#RUN chmod -R 775 /var/www/html/storage
 
 # Port to expose *outside* the container
 EXPOSE 80

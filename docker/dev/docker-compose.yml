@@ -28,7 +28,7 @@ services:
             - TZ=${TZ}
         volumes: 
             - db-store:/var/lib/mysql
-            - ~/git/github/ninaite/docker/mysql/conf_d/my.cnf:/etc/mysql/conf.d/my.cnf
+            - ~/git/github/ninaite/docker/dev/mysql/conf_d/my.cnf:/etc/mysql/conf.d/my.cnf
         ports:
             - ${DB_PORT}:3306
         networks: 
