@@ -2,70 +2,37 @@ version: '3.7'
 
 services: 
     php:
-        container_name: php
-        build:
-            context: .
-            dockerfile: ./docker/php/Dockerfile
+        container_name: app
+        build: 
+            context: ./app
         volumes: 
-            - '.:/var/www/html'
+            - ~/git/github/ninaite/:/var/www/ninaite
         environment:
             AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
             AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
             AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
             AWS_BUCKET: ${AWS_BUCKET}
         depends_on:
-            - db
+            - mysql
         links:
-            - db
+            - mysql
         networks: 
             - backend
+        ports:
+            - 80:80
     
-    web:
-        container_name: web
-        build:
-            context: .
-            dockerfile: ./docker/web/Dockerfile
-        volumes: 
-            #nginxに対してどこのディレクトリを公開したいかマウントする。今回はファイルシステムはmy_appになっているので、そこのディレクトリ配下と
-            #コンテナの公開ディレクトリ配下デフォルトでは/var/www/html/配下のをマウントしている。そして公開したい、rootの設定はconfファイルに記述#している
-            - '.:/var/www/html/'
-        ports: 
-            - '80:80'
-        environment:
-            - TZ=${TZ}
-        depends_on: 
-            - php
-        networks: 
-            - backend
-    
-    db:
+    mysql:
         image: mysql
-        container_name: db
+        container_name: mysql
         environment: 
             - MYSQL_DATABASE=${DB_DATABASE}
             - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
             - TZ=${TZ}
         volumes: 
             - db-store:/var/lib/mysql
-            - './db/conf_d/my.cnf:/etc/mysql/conf.d/my.cnf'
+            - ~/git/github/ninaite/docker/dev/mysql/conf_d/my.cnf:/etc/mysql/conf.d/my.cnf
         ports:
             - ${DB_PORT}:3306
-        networks: 
-            - backend
-
-    test-db:
-        image: mysql
-        container_name: test-db
-        environment: 
-            - MYSQL_DATABASE=${DB_TESTING_DATABASE}
-            - MYSQL_ROOT_PASSWORD=${DB_TESTING_PASSWORD}
-            - TZ=${TZ}
-        volumes: 
-            - db-testing-store:/var/lib/mysql
-            - './db/conf_d/my.cnf:/etc/mysql/conf.d/my.cnf'
-            
-        ports:
-            - ${DB_TESTING_PORT}:3306
         networks: 
             - backend
 
