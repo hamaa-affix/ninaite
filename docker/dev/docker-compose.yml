@@ -2,12 +2,11 @@ version: '3.7'
 
 services: 
     php:
-        container_name: php
-        build:
-            context: .
-            dockerfile: ./php/Dockerfile
+        container_name: app
+        build: 
+            context: ./app
         volumes: 
-            - '.:/var/www/html'
+            - ~/git/github/ninaite/:/var/www/html
         environment:
             AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
             AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
@@ -20,24 +19,6 @@ services:
         networks: 
             - backend
     
-    web:
-        container_name: nginx
-        build:
-            context: .
-            dockerfile: ./nginx/Dockerfile
-        volumes: 
-            #nginxに対してどこのディレクトリを公開したいかマウントする。今回はファイルシステムはmy_appになっているので、そこのディレクトリ配下と
-            #コンテナの公開ディレクトリ配下デフォルトでは/var/www/html/配下のをマウントしている。そして公開したい、rootの設定はconfファイルに記述#している
-            - '.:/var/www/html/'
-        ports: 
-            - '80:80'
-        environment:
-            - TZ=${TZ}
-        depends_on: 
-            - php
-        networks: 
-            - backend
-    
     mysql:
         image: mysql
         container_name: mysql
@@ -47,25 +28,9 @@ services:
             - TZ=${TZ}
         volumes: 
             - db-store:/var/lib/mysql
-            - './mysql/conf_d/my.cnf:/etc/mysql/conf.d/my.cnf'
+            - ~/git/github/ninaite/docker/mysql/conf_d/my.cnf:/etc/mysql/conf.d/my.cnf
         ports:
             - ${DB_PORT}:3306
-        networks: 
-            - backend
-
-    test-db:
-        image: mysql
-        container_name: test-db
-        environment: 
-            - MYSQL_DATABASE=${DB_TESTING_DATABASE}
-            - MYSQL_ROOT_PASSWORD=${DB_TESTING_PASSWORD}
-            - TZ=${TZ}
-        volumes: 
-            - db-testing-store:/var/lib/mysql
-            - './mysql/conf_d/my.cnf:/etc/mysql/conf.d/my.cnf'
-            
-        ports:
-            - ${DB_TESTING_PORT}:3306
         networks: 
             - backend
 
