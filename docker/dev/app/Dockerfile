@@ -1,7 +1,7 @@
 FROM php:7.3-fpm
 
-# COPY . /var/www/html
-WORKDIR /var/www/html
+# COPY . /var/www/ninaite
+WORKDIR /var/www/ninaite
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
 
 # install packages
@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
         libzip-dev \
         libicu-dev \
         supervisor \
-        nginx
+        nginx 
 
 RUN  docker-php-ext-install zip \
         #DGライブラリーをインストール
