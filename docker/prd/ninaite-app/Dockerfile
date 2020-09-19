@@ -15,8 +15,10 @@ RUN apt-get update && apt-get install -y \
         libzip-dev \
         libicu-dev \
         supervisor \
-        nginx 
-        
+        nginx &&\
+        apt-get clean -y && \
+        rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
+
 RUN  docker-php-ext-install zip \
         #DGライブラリーをインストール
         &&  docker-php-ext-configure gd --with-png-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
@@ -54,6 +56,7 @@ RUN echo files = /etc/supervisor/conf.d/*.conf >> /etc/supervisord.conf
 RUN chmod -R a+w storage/ bootstrap/cache
 RUN chown -R www-data:www-data /var/www/ninaite/storage
 RUN chmod -R 775 /var/www/ninaite/storage
+RUN ln -sf /dev/stdout /var/log/nginx/ninaite.access.log
 
 # Port to expose *outside* the container
 EXPOSE 80

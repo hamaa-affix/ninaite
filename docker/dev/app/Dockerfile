@@ -15,7 +15,9 @@ RUN apt-get update && apt-get install -y \
         libzip-dev \
         libicu-dev \
         supervisor \
-        nginx \
+        nginx &&\
+        apt-get clean -y && \
+        rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
 RUN  docker-php-ext-install zip \
         #DGライブラリーをインストール
