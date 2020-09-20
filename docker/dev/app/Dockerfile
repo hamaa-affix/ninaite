@@ -32,9 +32,12 @@ COPY nginx/dev.ninaite-affix.work.conf /etc/nginx/conf.d/dev.ninaite-affix.conf
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
 
 # PHP
+#www.conf意外が設定ファイルとして読み込んで欲しくない為、RUNでrmその他のfile群を削除している。
+RUN rm -f /usr/local/etc/php-fpm.conf.default
+RUN rm -f /usr/local/etc/php-fpm.d/zz-docker.conf
 COPY php/php-fpm.conf /usr/local/etc/php-fpm.conf
 COPY php/php.ini /usr/local/etc/php/php.ini
-COPY php/www.conf /usr/local/etc/php-fpm.d/zzz-www.conf
+COPY php/www.conf /usr/local/etc/php-fpm.d/www.conf
 
 # nodejs install
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
