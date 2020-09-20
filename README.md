@@ -31,6 +31,8 @@ frontend:js,Vue.js(cat機能実装に伴い一部採用、今後はSPA化を目�
 dev環境： docker docker-compose yml  
 
 infra:aws(ECS,ELB,S3,RDS,route53,cloudwatch)  
+
+CI/CD circleci  
 ## Infrastructure architecture
 ## ER図
 
