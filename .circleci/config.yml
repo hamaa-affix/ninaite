@@ -5,8 +5,8 @@ orbs:
 
 executors: 
     docker_build: 
-        machine: 
-            docker_layer_caching: true
+        machine:
+            docker_layer_caching: false
 
 jobs: 
     ninaite-affix_work_prd: 
@@ -41,7 +41,7 @@ workflows:
     version: 2
     deploy_prd: 
         jobs: 
-            - ninaite-affix_work_prd: 
+            - ninaite-affix_work_prd:
                 filters: 
                     branches: 
-                        only: develop
+                        only: master

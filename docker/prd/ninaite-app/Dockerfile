@@ -48,6 +48,7 @@ RUN apt-get install -y nodejs
 #composer install
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin
 RUN mv /usr/bin/composer.phar /usr/bin/composer
+RUN composer install
 
 RUN npm install npm@latest -g
 
@@ -55,7 +56,6 @@ RUN npm install npm@latest -g
 COPY ./docker/prd/ninaite-app/supervisor/supervisord.conf /etc/supervisord.conf
 COPY ./docker/prd/ninaite-app/supervisor/app.conf /etc/supervisor/conf.d/app.conf
 RUN echo files = /etc/supervisor/conf.d/*.conf >> /etc/supervisord.conf
-
 
 ## Laravel Permission 
 RUN chmod -R a+w storage/ bootstrap/cache
