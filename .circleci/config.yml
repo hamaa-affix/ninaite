@@ -42,6 +42,6 @@ workflows:
     deploy_prd: 
         jobs: 
             - ninaite-affix_work_prd
-#                filters: 
-#                    branches: 
-#                        only: develop
+                filters: 
+                    branches: 
+                        only: master
