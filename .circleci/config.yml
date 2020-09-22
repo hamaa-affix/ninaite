@@ -10,7 +10,7 @@ executors:
 
 jobs: 
     ninaite-affix_work_prd: 
-        working_directory: ~/git/github/ninaite
+        working_directory: ~/ninaite
         executor: docker_build
         steps: 
             - checkout
@@ -22,7 +22,7 @@ jobs:
             - run: 
                 name: copy .env
                 command: | 
-                    aws s3 cp s3://ninaite-affix.work/app/.env ./.env
+                    aws s3 cp s3://ninaite-affix-work/app/.env ./.env
             - aws-ecr/build-and-push-image: 
                 account-url: AWS_ECR_ACCOUNT_URL
                 aws-access-key-id: AWS_ACCESS_KEY_ID
