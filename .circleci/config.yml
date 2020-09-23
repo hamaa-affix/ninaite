@@ -41,7 +41,7 @@ workflows:
     version: 2
     deploy_prd: 
         jobs: 
-            - ninaite-affix_work_prd
-                # filters: 
-                #     branches: 
-                #         only: master
+            - ninaite-affix_work_prd:
+                filters: 
+                    branches: 
+                        only: master
