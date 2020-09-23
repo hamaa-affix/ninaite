@@ -49,6 +49,7 @@ RUN apt-get install -y nodejs
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin
 RUN mv /usr/bin/composer.phar /usr/bin/composer
 RUN composer install
+RUN php artisan storage:link
 
 RUN npm install npm@latest -g
 
