@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
         libzip-dev \
         libicu-dev \
         supervisor \
+        procps \
         nginx &&\
         apt-get clean -y && \
         rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
