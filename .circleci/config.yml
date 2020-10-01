@@ -65,11 +65,14 @@ jobs:
     #             cluster-name: 'nainaite-cluseter-ver4'
     #             container-image-name-updates: 'container=app,image-and-tag=${AWS_ECR_ACCOUNT_URL}/ninaite-app:${CIRCLE_SHA1}'
 
-# workflows: 
-#     version: 2
-#     deploy_prd: 
-#         jobs: 
-#             - ninaite-affix_work_prd:
-#                 filters: 
-#                     branches: 
-#                         only: master
+workflows: 
+    version: 2 
+    deploy_stg: 
+        jobs:
+            - ninaite-affix_work_stg
+    # deploy_prd: 
+    #     jobs: 
+    #         - ninaite-affix_work_prd:
+    #             filters: 
+    #                 branches: 
+    #                     only: master
