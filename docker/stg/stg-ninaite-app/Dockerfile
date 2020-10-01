@@ -34,7 +34,8 @@ COPY ./docker/stg/stg-ninaite-app/nginx/nginx.conf /etc/nginx/nginx.conf
 
 
 # _PHP
-RUN rm -f /usr/local/etc/php-fpm.conf.default
+RUN rm -f /usr/local/etc/php-fpm.conf.default 
+RUN rm -f /usr/local/etc/php-fpm.d/www.conf.default
 RUN rm -f /usr/local/etc/php-fpm.d/zz-docker.conf
 COPY ./docker/stg/stg-ninaite-app/php/php-fpm.conf /usr/local/etc/php-fpm.conf
 COPY ./docker/stg/stg-ninaite-app/php/php.ini /usr/local/etc/php/php.ini
@@ -57,6 +58,7 @@ RUN npm install npm@latest -g
 COPY ./docker/stg/stg-ninaite-app/supervisor/supervisord.conf /etc/supervisord.conf
 COPY ./docker/stg/stg-ninaite-app/supervisor/app.conf /etc/supervisor/conf.d/app.conf
 RUN echo files = /etc/supervisor/conf.d/*.conf >> /etc/supervisord.conf
+
 
 ## Laravel Permission 
 RUN chmod -R a+w storage/ bootstrap/cache
