@@ -28,7 +28,7 @@ jobs:
                 aws-access-key-id: AWS_ACCESS_KEY_ID
                 aws-secret-access-key: AWS_SECRET_ACCESS_KEY
                 region: AWS_REGION
-                repo: 'ninaite-app'
+                repo: 'stg-ninaite-app'
                 dockerfile: docker/stg/stg-ninaite-app/Dockerfile
                 tag: "${CIRCLE_SHA1}"
             - aws-ecs/update-service: 
