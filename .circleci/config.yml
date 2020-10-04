@@ -73,8 +73,6 @@ workflows:
                 filters: 
                     branches: 
                         only: stg
-        jobs:
-            - ninaite-affix_work_stg:
     deploy_prd: 
         jobs: 
             - ninaite-affix_work_prd:
