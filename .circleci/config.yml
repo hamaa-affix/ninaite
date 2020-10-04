@@ -9,6 +9,34 @@ executors:
             docker_layer_caching: false
 
 jobs: 
+    ninaite-affix_work_stg: 
+        working_directory: ~/ninaite
+        executor: docker_build
+        steps: 
+            - checkout
+            - run: 
+                name: setting aws configure
+                command: | 
+                    aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID} \
+                    && aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY}
+            - run: 
+                name: copy .env
+                command: | 
+                    aws s3 cp s3://ninaite-affix-work/app/.env ./.env
+            - aws-ecr/build-and-push-image: 
+                account-url: AWS_ECR_ACCOUNT_URL
+                aws-access-key-id: AWS_ACCESS_KEY_ID
+                aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+                region: AWS_REGION
+                repo: 'stg-ninaite-app'
+                dockerfile: docker/stg/stg-ninaite-app/Dockerfile
+                tag: "${CIRCLE_SHA1}"
+            - aws-ecs/update-service: 
+                family: 'stg-ninaite-task'
+                service-name: 'stg-ninaite-service'
+                cluster-name: 'stg-ninaite-cluster'
+                container-image-name-updates: 'container=stg-ninaite-app,image-and-tag=${AWS_ECR_ACCOUNT_URL}/stg-ninaite-app:${CIRCLE_SHA1}'
+
     ninaite-affix_work_prd: 
         working_directory: ~/ninaite
         executor: docker_build
@@ -38,7 +66,13 @@ jobs:
                 container-image-name-updates: 'container=app,image-and-tag=${AWS_ECR_ACCOUNT_URL}/ninaite-app:${CIRCLE_SHA1}'
 
 workflows: 
-    version: 2
+    version: 2 
+    deploy_stg: 
+        jobs:
+            - ninaite-affix_work_stg:
+                filters: 
+                    branches: 
+                        only: stg
     deploy_prd: 
         jobs: 
             - ninaite-affix_work_prd:
