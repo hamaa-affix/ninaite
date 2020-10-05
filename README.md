@@ -25,13 +25,21 @@ URLからブラウザーアクセス可能です。
 ##技術stack
 
 
-backend:laravel  
+backend:
 
-frontend:js,Vue.js(cat機能実装に伴い一部採用、今後はSPA化を目指す) bootstrap  
+laravel  
 
-dev環境： docker docker-compose yml  
+<frontend>
 
-infra:aws(ECS,ELB,S3,RDS,route53,cloudwatch)  
+js,Vue.js(cat機能実装に伴い一部採用、今後はSPA化を目指す) bootstrap  
+
+dev環境： 
+
+docker docker-compose yml  
+
+infra:
+
+ECS/Fargate,ELB,S3,RDS,route53,cloudwatch
 
 CI/CD circleci  
 ## Infrastructure architecture
