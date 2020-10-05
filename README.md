@@ -27,15 +27,15 @@ URLからブラウザーアクセス可能です。
 
 ## 技術stack
 
-**backend**
+**-backend**
     
 laravel  
 
-**frontend**
+**-frontend**
 
 js,Vue.js(cat機能実装に伴い一部採用、今後はSPA化を目指す) bootstrap  
 
-**開発環境**
+**-開発環境**
 
 docker docker-compose yml  
 
@@ -44,7 +44,7 @@ docker docker-compose yml
 
 ECS/Fargate　ELB　S3　RDS　route53　cloudwatch
 
-**<CI/CD>** 
+**-CI/CD** 
 
 circleci  
 ## Infrastructure architecture
