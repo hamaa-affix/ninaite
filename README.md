@@ -22,26 +22,29 @@ URLからブラウザーアクセス可能です。
 -ペジネーション  
 -各種CRUD  
 
-##技術stack
 
 
-**<backend>***
+
+## 技術stack
+
+**<backend>**
 
 laravel  
 
-***<frontend>***
+**<frontend>**
 
 js,Vue.js(cat機能実装に伴い一部採用、今後はSPA化を目指す) bootstrap  
 
-***<開発環境>***
+**<開発環境>**
 
 docker docker-compose yml  
 
-***<infra>***
+
+**<infra>**
 
 ECS/Fargate,ELB,S3,RDS,route53,cloudwatch
 
-***<CI/CD>*** 
+**<CI/CD>** 
 
 circleci  
 ## Infrastructure architecture
