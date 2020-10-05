@@ -38,6 +38,8 @@ CI/CD circleci
 
 ## ER図
 
+<p align="center"><img src="https://aws-ninaite-prod.s3-ap-northeast-1.amazonaws.com/Untitled+Diagram+(1).png"></p>
+
 ## 開発環境の構築
  1,mkdir ~/git/github  
  2,githubディレクトにてgit clone  
