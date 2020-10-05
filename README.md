@@ -33,8 +33,7 @@ infra:aws(ECS,ELB,S3,RDS,route53,cloudwatch)
 
 CI/CD circleci  
 ## Infrastructure architecture
-<p align="center"><img src="https://aws-ninaite-prod.s3-ap-northeast-1.amazonaws.com/Untitled+Diagram-Page-1+(1).png
-"></p>
+<p align="center"><img src="https://aws-ninaite-prod.s3-ap-northeast-1.amazonaws.com/Untitled+Diagram-Page-1+(1).png"></p>
 
 
 ## ER図
