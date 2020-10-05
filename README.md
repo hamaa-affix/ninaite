@@ -22,22 +22,38 @@ URLからブラウザーアクセス可能です。
 -ペジネーション  
 -各種CRUD  
 
-##技術stack
-backend:laravel  
 
-frontend:js,Vue.js(cat機能実装に伴い一部採用、今後はSPA化を目指す) bootstrap  
 
-dev環境： docker docker-compose yml  
 
-infra:aws(ECS,ELB,S3,RDS,route53,cloudwatch)  
+## 技術stack
 
-CI/CD circleci  
+**-backend**
+    
+laravel  
+
+**-frontend**
+
+js,Vue.js(cat機能実装に伴い一部採用、今後はSPA化を目指す) bootstrap  
+
+**-開発環境**
+
+docker docker-compose yml  
+
+
+**infra**
+
+ECS/Fargate　ELB　S3　RDS　route53　cloudwatch
+
+**-CI/CD** 
+
+circleci  
 ## Infrastructure architecture
-<p align="center"><img src="./ninaite.svg"></p>
+<p align="center"><img src="https://aws-ninaite-prod.s3-ap-northeast-1.amazonaws.com/Untitled+Diagram-Page-1+(1).png"></p>
 
 
-ninaite.svg
 ## ER図
+
+<p align="center"><img src="https://aws-ninaite-prod.s3-ap-northeast-1.amazonaws.com/Untitled+Diagram+(1).png"></p>
 
 ## 開発環境の構築
  1,mkdir ~/git/github  
