@@ -23,6 +23,8 @@ URLからブラウザーアクセス可能です。
 -各種CRUD  
 
 ##技術stack
+
+
 backend:laravel  
 
 frontend:js,Vue.js(cat機能実装に伴い一部採用、今後はSPA化を目指す) bootstrap  
