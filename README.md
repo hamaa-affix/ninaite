@@ -25,23 +25,25 @@ URLからブラウザーアクセス可能です。
 ##技術stack
 
 
-backend:
+**<backend>***
 
 laravel  
 
-<frontend>
+***<frontend>***
 
 js,Vue.js(cat機能実装に伴い一部採用、今後はSPA化を目指す) bootstrap  
 
-dev環境： 
+***<開発環境>***
 
 docker docker-compose yml  
 
-infra:
+***<infra>***
 
 ECS/Fargate,ELB,S3,RDS,route53,cloudwatch
 
-CI/CD circleci  
+***<CI/CD>*** 
+
+circleci  
 ## Infrastructure architecture
 <p align="center"><img src="https://aws-ninaite-prod.s3-ap-northeast-1.amazonaws.com/Untitled+Diagram-Page-1+(1).png"></p>
 
