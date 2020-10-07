@@ -56,11 +56,6 @@ COPY supervisor/app.conf /etc/supervisor/conf.d/app.conf
 RUN echo files = /etc/supervisor/conf.d/*.conf >> /etc/supervisord.conf
 
 
-## Laravel Permission 
-#RUN chmod -R a+w storage/ bootstrap/cache
-#RUN chown -R www-data:www-data /var/www/html/storage
-#RUN chmod -R 775 /var/www/html/storage
-
 # Port to expose *outside* the container
 EXPOSE 80
 # Service to run

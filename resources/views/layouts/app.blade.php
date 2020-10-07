@@ -29,8 +29,7 @@
             @yield('content')
         </main>
     </div>
-    @component('layouts.footer')
-    @endcomponent
+
     <!--<script src="{{ mix('/js/app.js') }}"></script>-->
 </body>
 </html>

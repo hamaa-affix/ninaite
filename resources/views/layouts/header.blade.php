@@ -50,18 +50,14 @@
                         </div>
                     </li>
                     
-                      <li class="nav-item dropdown">
-                        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                                <li class="nav-item">
-                                    <a class="nav-link text-light" href="{{route('users.show', ['user' => Auth::user()->id]) }}">プロフィール<span class="sr-only">(current)</span></a>
-                                </li>
-                    
-                                <li class="nav-item active">
-                                    <a href="{{ route('users.chat_rooms.index', ['user' => Auth::id()]) }}" class="nav-link text-light">チャットメッセージを確認<span class="sr-only">(current)</span></a>
-                                </li>
-                            </ul>
-                        </div>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{{route('users.show', ['user' => Auth::user()->id]) }}">プロフィール<span class="sr-only">(current)</span></a>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{{ route('users.chat_rooms.index', ['user' => Auth::id()]) }}">チャットメッセージを確認<span class="sr-only">(current)</span></a>
                     </li>
                     @endguest
                 </ul>
