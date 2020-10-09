@@ -5,7 +5,7 @@
 次の担い手不足と行った問題に直面しており、市で公開していたボランティアの求人の外部への公開度の低さが目立ていました。  
 ボランティアを通じて、もっとカジュアルに農業体験ができれば,それを周知できる環境があればと思い作成しました。  
 
-***ninaite-affix.work***
+***https://ninaite-affix.work***
 
 URLからブラウザーアクセス可能です。
 テストユーザーでログインからお試しいただけます。
@@ -13,61 +13,52 @@ URLからブラウザーアクセス可能です。
 
 
 ## app機能
--キーワード登録、検索  
--農園登録機能  
--案件投稿機能  
--検索機能  
--チャット機能  
--画像アップロード機能  
--ペジネーション  
--各種CRUD  
+ - キーワード登録、検索  
+ - 農園登録機能  
+ - 案件投稿機能  
+ - 検索機能  
+ - チャット機能  
+ - 画像アップロード機能  
+ - ペジネーション  
+ - 各種CRUD  
 
 
 
 
 ## 技術stack
 
-**-backend**
-    
-laravel  
+- backend
+    - laravel 6.0
+    - PHP7.3
+    - Nginx
 
-**-frontend**
+- frontend
+    - js,Vue.js(cat機能実装に伴い一部採用、今後はSPA化を目指す)
+    - bootstrap  
 
-js,Vue.js(cat機能実装に伴い一部採用、今後はSPA化を目指す) bootstrap  
-
-**-開発環境**
-
-docker docker-compose yml  
+- 開発環境
+    - docker
+    - docker-compose yml  
 
 
-**infra**
+- infra
+    - ECS/Fargate　ELB　S3　RDS　route53　cloudwatch
 
-ECS/Fargate　ELB　S3　RDS　route53　cloudwatch
-
-**-CI/CD** 
-
-circleci  
+- CI/CD 
+    - circleci  
 ## Infrastructure architecture
 <p align="center"><img src="https://aws-ninaite-prod.s3-ap-northeast-1.amazonaws.com/Untitled+Diagram-Page-1+(2).png"></p>
 
-##デプロイフロー
+## デプロイフロー
 <p align="center"><img src="https://aws-ninaite-prod.s3-ap-northeast-1.amazonaws.com/Untitled+Diagram-%E3%83%98%E3%82%9A%E3%83%BC%E3%82%B7%E3%82%992+(1).png"></p>
 
-
-
-
 ## ER図
-
 <p align="center"><img src="https://aws-ninaite-prod.s3-ap-northeast-1.amazonaws.com/Untitled+Diagram+(1).png"></p>
 
 ## 開発環境の構築
- 1,mkdir ~/git/github  
- 2,githubディレクトにてgit clone  
- 3,sudo vim /etc/hosts ->127.0.0.1 dev.ninaite-affix.work追加  
- 4,cd ./docker/dev/app/  
- 5,docker-compose up -d  
- 6,docker exec -it app bash  
- 7,db migration and composer install&&update  
- 8 dev.nanite.workでアクセス。  
+- 開発環境の構築はこちらを参照
+
+https://github.com/hamaa-affix/ninaite/tree/master/docker/dev
+
 
 
