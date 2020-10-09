@@ -23,7 +23,7 @@
             <div class="container">
               <div class="row">
                   <div class="col-sm">
-                    <a class="btn btn-success" href="{{ route('farms.edit', ['farm' => $farmData->id]) }}" role="button"><i class="fas fa-leaf">農園情報を編集</i></a>
+                    <a class="btn btn-success mb-2" href="{{ route('farms.edit', ['farm' => $farmData->id]) }}" role="button"><i class="fas fa-leaf">農園情報を編集</i></a>
                   </div>
                   
                   <div class="col-sm">
