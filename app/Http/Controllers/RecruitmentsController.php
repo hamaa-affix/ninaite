@@ -147,9 +147,10 @@ class RecruitmentsController extends Controller
             $path_data = $disk->put($file_path, $image->encode(), 'public');
             //filename to insert S3から取得したfullpath
             $img_url = $disk->url($file_path);  
-            
+        } else {
+            $img_url = $recruitment->img_name;
         }
-        
+
         //update処理
         $recruitment->fill($request->all());
         $recruitment->img_name = $img_url;

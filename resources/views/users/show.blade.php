@@ -18,14 +18,14 @@
                   <div class="container">
                       <div class="row">
                           <div class="col-sm">
-                              <a href="{{route('users.edit', ['user' => $user->id]) }}" class="btn btn-success ml-3"><i class="fas fa-leaf">プロフィール編集</i></a>
+                              <a href="{{route('users.edit', ['user' => $user->id]) }}" class="btn btn-success ml-3 mb-2"><i class="fas fa-leaf">プロフィール編集</i></a>
                           </div>
                           
                           <div class="col-sm">
                               <form method='POST' action='{{route('users.destroy', ['user' => $user->id]) }}'>
                                   @csrf
                                   <input type='hidden' name='_method' value='DELETE'>
-                                  <button type="button" class="btn btn-success ml-4" data-toggle="modal" data-target="#exampleModal">
+                                  <button type="button" class="btn btn-success ml-4 mb-2" data-toggle="modal" data-target="#exampleModal">
                                       <i class="fas fa-leaf">プロフィール削除</i>
                                   </button>
                                   
@@ -52,7 +52,7 @@
                           </div>
                           
                           <div class="col-sm">
-                              <a href="{{ route('farms.create') }}" class="btn btn-success ml-4"><i class="fas fa-leaf">農園情報を作る</i></a>
+                              <a href="{{ route('farms.create') }}" class="btn btn-success ml-4 mb-2"><i class="fas fa-leaf">農園情報を作る</i></a>
                           </div>
                         </div>
                     </div>

@@ -8,7 +8,7 @@
                 <div class="card-body">
                   <h5 class = "card-title font-weight-bolder" >案件情報を編集する</h5 > 
                   <hr>
-                   <form action='{{ route('farms.recruitments.update', ['farm' => $recruitment->farm_id, 'recruitment' => $recruitment->id]) }}' method='POST' enctype='multipart/form-data'>
+                    <form action='{{ route('farms.recruitments.update', ['farm' => $recruitment->farm_id, 'recruitment' => $recruitment->id]) }}' method='POST' enctype='multipart/form-data'>
                       @method('PUT')
                       @csrf
                         <div class="form-group text-center">
@@ -46,7 +46,7 @@
                             </div>
                             <div class="custom-file">
                               <input type="file" name="img_name" class="custom-file-input @error('img_name') is-invalid @enderror" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                              <label class="custom-file-label" for="inputGroupFile01">画像を選択してください(こちらをクリック)</label>
+                              <label class="custom-file-label" for="inputGroupFile01">クリックして画像を選択</label>
                             </div>
                           </div>
                         

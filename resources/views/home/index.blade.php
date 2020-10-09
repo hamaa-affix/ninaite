@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="text-center">
-    <img src="https://aws-ninaite-infra.s3.us-east-2.amazonaws.com/%E3%81%97%E3%81%A3%E3%81%A8%E3%82%8A%E4%BF%9D%E6%B9%BF%E3%82%BF%E3%82%A4%E3%83%95%E3%82%9A+%E3%83%8D%E3%83%AD%E3%83%AA+500ml.png" class="img-fluid  " alt="Responsive image">
+    <img src="https://aws-ninaite-prod.s3-ap-northeast-1.amazonaws.com/1-min.png" class="img-fluid  " alt="Responsive image">
 </div>
     <hr>
     <div class="row">
