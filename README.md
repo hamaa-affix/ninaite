@@ -27,26 +27,25 @@ URLからブラウザーアクセス可能です。
 
 ## 技術stack
 
-**- backend**
- - laravel 6.0
- - PHP7.3
- - Nginx
+- backend
+    - laravel 6.0
+    - PHP7.3
+    - Nginx
 
-**- frontend**
- - js,Vue.js(cat機能実装に伴い一部採用、今後はSPA化を目指す)
- - bootstrap  
+- frontend
+    - js,Vue.js(cat機能実装に伴い一部採用、今後はSPA化を目指す)
+    - bootstrap  
 
-**- 開発環境**
+- 開発環境
+    - docker
+    - docker-compose yml  
 
- - docker docker-compose yml  
 
+- infra
+    - ECS/Fargate　ELB　S3　RDS　route53　cloudwatch
 
-**- infra**
-
- - ECS/Fargate　ELB　S3　RDS　route53　cloudwatch
-
-**- CI/CD** 
- - circleci  
+- CI/CD 
+    - circleci  
 ## Infrastructure architecture
 <p align="center"><img src="https://aws-ninaite-prod.s3-ap-northeast-1.amazonaws.com/Untitled+Diagram-Page-1+(2).png"></p>
 
