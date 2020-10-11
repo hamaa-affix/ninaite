@@ -29,8 +29,5 @@ php artisan storage:link
 ```
 6. ブラウザーからnanite.workでアクセス。 
 
-## Infrastructure architecture
-<p align="center"><img src="https://aws-ninaite-prod.s3-ap-northeast-1.amazonaws.com/Untitled+Diagram-Page-1+(2).png"></p>
-
-## デプロイフロー
-<p align="center"><img src="https://aws-ninaite-prod.s3-ap-northeast-1.amazonaws.com/Untitled+Diagram-%E3%83%98%E3%82%9A%E3%83%BC%E3%82%B7%E3%82%992+(1).png"></p>
+## 開発環境の構成図
+<p align="center"><img src="https://aws-ninaite-prod.s3-ap-northeast-1.amazonaws.com/Untitled+Diagram-%E3%83%98%E3%82%9A%E3%83%BC%E3%82%B7%E3%82%993.png"></p>
