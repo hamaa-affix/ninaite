@@ -11,7 +11,7 @@
             <form class="form-inline" method="get" action="{{ route('recruitments.search') }}">
                 @csrf
                 <div class="form-group">
-                    <input type="text" name="search" value="" class="form-control" placeholder="serch">
+                    <input type="text" name="search" value="" class="form-control" placeholder="search">
                 </div>
                 <button type="submit" class="btn btn-outline-success"><i class="fas fa-leaf">検索</i></button>
             </form>
