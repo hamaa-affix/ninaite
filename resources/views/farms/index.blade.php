@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <table class="table table-hover">
                 <thead>
                   <tr>
@@ -14,7 +14,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach($farmDatas as $farmData) 
+                  @foreach($farmDatas as $farmData)
                   <tr>
                     <td>{{ $farmData->name }}</td>
                     <td>{{ $farmData->summary }}</td>
@@ -22,7 +22,7 @@
                     <td><a href="{{ route('farms.show', ['farm' => $farmData->id]) }}" class="btn btn-success"><i class="fas fa-leaf">農場をみる</i></a></td>
                   </tr>
                   @endforeach
-                 </tbody>
+                </tbody>
             </table>
         </div>
     </div>
