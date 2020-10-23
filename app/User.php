@@ -36,28 +36,27 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
+
     public function farms()
     {
         //farmsリレーション定義変更
         return $this->belongsToMany('App\Farm','farm_user')->withTimestamps();
     }
-    
+
     public function messages()
     {
         return $this->hasMany('App\Msssege');
     }
-    
-    //テストコード
+
     public function chatRoomUsers()
     {
         return $this->hasMany('App\ChatRoomUser');
     }
-    
-    public function chatMessages() 
+
+    public function chatMessages()
     {
         return $this->hasMany('App\ChatMessage');
-        
+
     }
     // ここまで
 }
