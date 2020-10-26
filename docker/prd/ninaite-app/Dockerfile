@@ -27,7 +27,7 @@ RUN  docker-php-ext-install zip \
         && docker-php-ext-install zip pdo_mysql intl
 
 
-# nginx 
+# nginx
 COPY ./docker/prd/ninaite-app/nginx/ninaite-affix.work.conf /etc/nginx/conf.d/ninaite-affix.conf
 COPY ./docker/prd/ninaite-app/nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY ./docker/prd/ninaite-app/nginx/nginx.conf /etc/nginx/nginx.conf
@@ -50,15 +50,16 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin
 RUN mv /usr/bin/composer.phar /usr/bin/composer
 RUN composer install
 RUN php artisan storage:link
+RUN php artisan migrate:fresh
 
 RUN npm install npm@latest -g
 
-# setting superviser 
+# setting superviser
 COPY ./docker/prd/ninaite-app/supervisor/supervisord.conf /etc/supervisord.conf
 COPY ./docker/prd/ninaite-app/supervisor/app.conf /etc/supervisor/conf.d/app.conf
 RUN echo files = /etc/supervisor/conf.d/*.conf >> /etc/supervisord.conf
 
-## Laravel Permission 
+## Laravel Permission
 RUN chmod -R a+w storage/ bootstrap/cache
 RUN chown -R www-data:www-data /var/www/ninaite/storage
 RUN chmod -R 775 /var/www/ninaite/storage
@@ -68,7 +69,7 @@ RUN ln -sf /dev/stdout /var/log/nginx/ninaite.access.log
 RUN ln -sf /dev/stderr /var/log/nginx/ninaite.error.log
 RUN ln -sf /dev/stdout  /var/log/nginx/default_access.log
 RUN ln -sf /dev/stderr /var/log/nginx/default_error.log
-RUN ln -sf /dev/stderr  /var/log/nginx/error.log 
+RUN ln -sf /dev/stderr  /var/log/nginx/error.log
 RUN ln -sf /dev/stderr  /var/log/nginx/access.log
 
 # Port to expose *outside* the container
