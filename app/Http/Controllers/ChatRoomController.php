@@ -32,8 +32,8 @@ class ChatRoomController extends Controller
 
     public function show(User $user, ChatRoom $chat_room)
     {
-        $this->authorize('view', $chat_room, $user);
-        return view('chat_rooms.show');
+        //$this->authorize('view', $chat_room, $user);
+        return view('chat_rooms.show', compact('user', 'chat_room'));
     }
 
 
@@ -68,13 +68,15 @@ class ChatRoomController extends Controller
 												]);
 				}
 
+			//自分のchat_room_idを取得
 			$my_has_chat_room_id = ChatRoomUser::where('user_id', Auth::id())->pluck('chat_room_id');
-			//自分と紐ついるchat_room_userの一覧を持ってくる。
-			$matching_user_ids = ChatRoomUser::whereIn('chat_room_id', $my_has_chat_room_id)
+
+			//matching_userを取得
+			$matching_users = ChatRoomUser::whereIn('chat_room_id', $my_has_chat_room_id)
 																					->where('user_id', '<>', Auth::id())
-																					->pluck('user_id');
-			//matching_userの取得
-			$matching_users = User::whereIn('id',$matching_user_ids)->orderby('created_at', 'DESC')->get();
+																					->with('user')
+																					->orderby('created_at', 'DESC')
+																					->get();
 
 			return view('chat_rooms.index', compact('matching_users'));
     }
