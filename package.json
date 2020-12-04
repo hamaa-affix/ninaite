@@ -27,6 +27,7 @@
         "bootstrap-vue": "^2.16.0",
         "laravel-echo": "^1.8.0",
         "pusher-js": "^6.0.3",
+        "tailwindcss": "^2.0.1",
         "vee-validate": "^3.3.9",
         "vue-nl2br": "^0.1.2",
         "vue-router": "^3.4.7",

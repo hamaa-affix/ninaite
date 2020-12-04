@@ -1,15 +1,16 @@
 <template>
-    <div>
-        <TheChat></TheChat>
-    </div>
+  <div>
+    <router-view />
+    <!-- <TheChat></TheChat> -->
+  </div>
 </template>
 
 <script>
 import TheChat from './components/TheChat';
 
-    export default {
-        components: {
-            TheChat,
-        }
-    }
+  export default {
+    components: {
+      TheChat,
+    },
+  }
 </script>
