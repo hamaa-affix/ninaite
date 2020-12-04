@@ -13,12 +13,23 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/{any?}', function(): void {
+		view('index')->where('any', '.+');
+	});
+
+	//register api
+Route::post('/register', 'Auth\RegisterController@register')->name('register');
+//login api
+Route::post('/login', 'Auth\LoginController@login')->name('login');
+//logout api
+Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 Route::group(['middleware' => 'auth'], function() {
-    Route::resource('chat_messages', 'ChatMessagesController');
+		// Route::resource('chat_messages', 'ChatMessagesController')
+		// ->except(['show']);
+		Route::get('api/chat_messages/{id}', 'ChatMessageController@show');
 });
-
-
