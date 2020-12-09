@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div>センターコンテントです</div>
+    <div>サイドコンテンツです</div>
   </section>
 </template>
 

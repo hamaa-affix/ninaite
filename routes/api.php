@@ -13,10 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/{any?}', function(): void {
-		view('index')->where('any', '.+');
-	});
-
 	//register api
 Route::post('/register', 'Auth\RegisterController@register')->name('register');
 //login api

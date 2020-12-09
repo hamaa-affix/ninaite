@@ -1,14 +1,13 @@
 <template>
-  <main>
-    <section>メイン画面</section>
-    <SideContent />
-    <CenterContent />
-  </main>
+    <v-container>
+      <SideContent />
+      <CenterContent />
+    </v-container>
 </template>
 
 <script>
-import SideContent from "./components/home_commponents/SideContent";
-import CenterContent from "./components/home_commponents/CenterContent";
+import SideContent from "../components/home_commponents/SideContent";
+import CenterContent from "../components/home_commponents/CenterContent";
 
 export default {
   components: {
