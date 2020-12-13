@@ -1,17 +1,12 @@
 <template>
   <v-app>
-    <v-container fluid>
-      <v-row>
-        <v-col>
-          <Header />
-        </v-col>
-      </v-row>
-      <v-main>
+    <Header :data="logiData"/>
+    <v-main>
+      <v-container fluid>
         <router-view />
-      </v-main>
-    </v-container>
+      </v-container>
+    </v-main>
   </v-app>
-
 </template>
 
 <script>
@@ -23,5 +18,18 @@ import TheChat from './components/TheChat';
       Header,
       TheChat,
     },
+    data () {
+      return {
+        loginData: false
+      }
+    },
+    watch: {
+    },
+    methods: {
+      isLogin() {
+        //axios getLoginData
+        //login状態を取得してloginDataのデータを書き換える処理
+      }
+    }
   }
 </script>

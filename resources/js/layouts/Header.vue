@@ -1,54 +1,68 @@
 <template>
-  <v-card
-    class="mx-auto overflow-hidden"
-    height="400"
-  >
-    <v-app-bar
-      color="deep-purple"
-      dark
-    >
-      <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
-
-      <v-toolbar-title>Title</v-toolbar-title>
-    </v-app-bar>
-
-    <v-navigation-drawer
-      v-model="drawer"
-      absolute
-      temporary
-    >
-      <v-list
-        nav
-        dense
+  <v-conainer fluid>
+      <v-app-bar
+        color="green darken-1"
       >
-        <v-list-item-group
-          v-model="group"
-          active-class="deep-purple--text text--accent-4"
-        >
-          <v-list-item>
-            <v-list-item-icon>
-              <v-icon>mdi-home</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>Home</v-list-item-title>
-          </v-list-item>
+      <v-row>
+        <v-col cols="10" left>
+          <v-toolbar-title class="ml-5 mt-2">
+            <router-link to="/" class="header__link" >
 
-          <v-list-item>
-            <v-list-item-icon>
-              <v-icon>mdi-account</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>Account</v-list-item-title>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
-    </v-navigation-drawer>
-  </v-card>
+              <p class="font-weight-bold white--text">
+                <v-icon  color="white">fa fa-seedling</v-icon>ninaite
+              </p>
+            </router-link>
+          </v-toolbar-title>
+        </v-col>
+        <v-col cols="2" rigth>
+          <div v-if=" true">
+            <v-btn icon class="mr-15 white--text" >
+              <v-icon>fa fa-user</v-icon>Profile
+            </v-btn>
+
+            <v-btn icon @click="toMessage" class="white--text">
+              <v-icon>mdi-email</v-icon>message
+            </v-btn>
+          </div>
+          <div v-else>
+            <v-btn icon class="mr-15">
+              login
+            </v-btn>
+
+            <v-btn icon @click="toMessage">
+              <v-icon>mdi-email</v-icon>
+            </v-btn>
+          </div>
+        </v-col>
+      </v-row>
+      </v-app-bar>
+  </v-conainer>
 </template>
 
 <script>
   export default {
-    data: () => ({
-      drawer: false,
-      group: null,
-    }),
+    props: {
+      loginData: {
+        type: Boolean,
+        required: true,
+      }
+    },
+    data () {
+      return {
+        appBar: {
+          drawer: false,
+          group: null,
+        },
+        isLogin: false,
+
+      }
+    },
+    methods: {
+      toProfile () {
+        this.$router.push
+      },
+      toMessage() {},
+
+    }
   }
 </script>
