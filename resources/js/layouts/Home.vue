@@ -3,6 +3,7 @@
       <v-row>
         <v-col cols="12" 	md="12">
           <v-img
+            elevation="5"
             max-height="500"
             max-width="auto"
             src="https://aws-ninaite-prod.s3-ap-northeast-1.amazonaws.com/1-min.png"

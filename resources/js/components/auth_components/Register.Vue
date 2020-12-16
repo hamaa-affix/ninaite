@@ -7,15 +7,28 @@
             <v-card-title >login</v-card-title>
           </v-col>
 
-          <v-form v-model="valid"  @submit.prevent="register">
+          <v-form v-model="valid" @submit.prevent="register">
             <v-container>
               <v-row justify="center">
                 <v-col
                   cols="12"
                   md="8"
                 >
+
                   <v-text-field
-                    v-model="loginForm.email"
+                    v-model="registerForm.tname"
+                    :counter="10"
+                    label="name"
+                    required
+                  ></v-text-field>
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  md="8"
+                >
+                  <v-text-field
+                    v-model="registerForm.email"
                     :rules="nameRules"
                     :counter="10"
                     label="E-mail"
@@ -28,7 +41,7 @@
                   md="8"
                 >
                   <v-text-field
-                    v-model="loginForm.password"
+                    v-model="registerForm.password"
                     label="pasward"
                     required
                   ></v-text-field>
@@ -43,7 +56,7 @@
                   >
                     Login
                   </v-btn>
-                  <v-btn color="primary" text @click="toRegister">初めての方はこちらを</v-btn>
+                  <v-btn color="primary" text @click="toLogin">初めての方はこちらを</v-btn>
                 </v-col>
               </v-row>
             </v-container>
@@ -56,23 +69,24 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       valid: false,
-      loginForm: {
+      registerForm: {
+        name: '',
         email: '',
         password: "",
       }
     }
   },
   methods: {
-    toRegister() {
-      this.$router.push("register");
-    },
-    async login() {
-      //$dispathでvuexのactionsメソッドにアクセスしている。
-      await this.$dispacth('auth/login', this.loginForm);
+    toLogin() {
+      this.$router.push("login");
     }
   }
 }
 </script>
+
+<style>
+
+</style>

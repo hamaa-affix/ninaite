@@ -31,10 +31,10 @@
               >
                 詳細をみる
               </v-btn>
-
             </v-col>
           </v-row>
         </v-card>
+        <button to="/login">login</button>
       </v-col>
     </v-row>
   </v-container>
