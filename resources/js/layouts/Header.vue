@@ -15,14 +15,31 @@
           </v-toolbar-title>
         </v-col>
         <v-col cols="2" rigth>
-          <div v-if=" true">
-            <v-btn icon class="mr-15 white--text" >
-              <v-icon>fa fa-user</v-icon>Profile
-            </v-btn>
+          <div v-if="true">
+            <v-col>
+              <v-btn
+                icon
+                class="mr-15 white--text"
+              >
+                <v-icon>fa fa-user</v-icon>Profile
+              </v-btn>
 
-            <v-btn icon @click="toMessage" class="white--text">
-              <v-icon>mdi-email</v-icon>message
-            </v-btn>
+              <v-btn
+                icon
+                @click="toMessage"
+                class="white--text"
+              >
+                <v-icon>mdi-email</v-icon>message
+              </v-btn>
+
+              <v-btn
+                icon
+                class="mr-15"
+                @click="toLogin"
+              >
+                login
+              </v-btn>
+            </v-col>
           </div>
           <div v-else>
             <v-btn icon class="mr-15">
@@ -62,7 +79,9 @@
         this.$router.push
       },
       toMessage() {},
-
+      toLogin() {
+        this.$router.push("login");
+      }
     }
   }
 </script>
