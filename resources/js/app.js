@@ -1,3 +1,4 @@
+import './bootstrap'
 import Vue from 'vue';
 import router from './routes/index';
 import store from './store/store.js'
