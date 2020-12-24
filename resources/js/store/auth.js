@@ -1,4 +1,3 @@
-import Axios from "axios";
 
 const state = {
   user: null
@@ -17,7 +16,7 @@ const mutations = {
 const actions = {
   //会員登録
   async register(context, data) {
-    const response = await axios.post('api/register', data);
+    const response = await axios.post('/api/register', data);
     context.commit('setUser', response.data);
   },
   //logout
@@ -41,7 +40,7 @@ const actions = {
 }
 
 export default {
-  namespace: true,
+  namespaced: true,
   state,
   getters,
   mutations,
