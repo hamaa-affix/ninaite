@@ -7,7 +7,7 @@
             <v-card-title >login</v-card-title>
           </v-col>
 
-          <v-form v-model="valid"  @submit.prevent="register">
+          <v-form v-model="valid"  @submit.prevent="login">
             <v-container>
               <v-row justify="center">
                 <v-col
@@ -21,6 +21,7 @@
                     label="E-mail"
                     required
                   ></v-text-field>
+                  {{loginForm.email}}
                 </v-col>
 
                 <v-col
@@ -40,6 +41,7 @@
                   <v-btn
                   color="green darken-1"
                   class="mr-4 white--text"
+                  type="submit"
                   >
                     Login
                   </v-btn>
@@ -60,18 +62,19 @@ export default {
     return {
       valid: false,
       loginForm: {
-        email: '',
+        email: "",
         password: "",
       }
     }
   },
   methods: {
     toRegister() {
-      this.$router.push("register");
+      this.$router.push("/register");
     },
     async login() {
       //$dispathでvuexのactionsメソッドにアクセスしている。
-      await this.$dispacth('auth/login', this.loginForm);
+      await this.$store.dispatch('auth/login', this.loginForm);
+      this.$router.push("/");
     }
   }
 }
