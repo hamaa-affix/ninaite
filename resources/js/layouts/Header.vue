@@ -15,13 +15,13 @@
           </v-toolbar-title>
         </v-col>
         <v-col cols="2" rigth>
-          <div v-if="true">
+          <div v-if="isLogin">
             <v-col>
               <v-btn
                 icon
                 class="mr-15 white--text"
               >
-                <v-icon>fa fa-user</v-icon>Profile
+                <v-icon>fa fa-user</v-icon>{{ username }}
               </v-btn>
 
               <v-btn
@@ -31,23 +31,15 @@
               >
                 <v-icon>mdi-email</v-icon>message
               </v-btn>
-
-              <v-btn
-                icon
-                class="mr-15"
-                @click="toLogin"
-              >
-                login
-              </v-btn>
             </v-col>
           </div>
           <div v-else>
-            <v-btn icon class="mr-15">
+            <v-btn
+              icon
+              class="mr-15"
+              @click="toLogin"
+            >
               login
-            </v-btn>
-
-            <v-btn icon @click="toMessage">
-              <v-icon>mdi-email</v-icon>
             </v-btn>
           </div>
         </v-col>
@@ -58,22 +50,23 @@
 
 <script>
   export default {
-    props: {
-      loginData: {
-        type: Boolean,
-        required: true,
-      }
-    },
     data () {
       return {
         appBar: {
           drawer: false,
           group: null,
         },
-        isLogin: false,
-
       }
     },
+    computed: {
+      //computedにてstateを監視 = 認証状態を関ししている。
+      isLogin() {
+        return this.$store.getters['auth/check'];
+      },
+      username() {
+        return this.$store.getters['auth/username'];
+      }
+   },
     methods: {
       toProfile () {
         this.$router.push
