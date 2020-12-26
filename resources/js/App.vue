@@ -6,30 +6,23 @@
         <router-view />
       </v-container>
     </v-main>
+    <Footer />
   </v-app>
 </template>
 
 <script>
 import Header from './layouts/Header';
 import TheChat from './components/TheChat';
+import Footer from './layouts/Footer'
 
   export default {
     components: {
       Header,
+      Footer,
       TheChat,
     },
     data () {
-      return {
-        loginData: false
-      }
+      return{}
     },
-    watch: {
-    },
-    methods: {
-      isLogin() {
-        //axios getLoginData
-        //login状態を取得してloginDataのデータを書き換える処理
-      }
-    }
   }
 </script>

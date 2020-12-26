@@ -13,6 +13,10 @@ import vuetify from '../plugins/vuetify';
 // import 'vuetify/dist/vuetify.min.css';
 // Vue.use(Vuetify);
 
+//Vueインスタン生成時にloginUserを確認する
+const createApp = async () => {
+  await store.dispatch('auth/currentUser');
+}
 
 require('./bootstrap');
 
@@ -28,3 +32,6 @@ const app = new Vue({
     store,
     vuetify
 });
+
+//Vueインスタンス生成後にcreateApp methodを呼び出す
+createApp();

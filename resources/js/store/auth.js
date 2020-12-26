@@ -30,11 +30,9 @@ const actions = {
     const response = await axios.post('api/logout');
     context.commit('setUser', null);
   },
-  //get login user
+  //login状態を確認する
   async currentUser(context) {
-    const response = await axios.get('api/user');
-
-    // axiosで取得したデータが存在いれば、そのまま代入、無ければnull
+    const response = await axios.get('/api/current_user');
     const user = response.data || null;
     context.commit('setUser', user);
   }
