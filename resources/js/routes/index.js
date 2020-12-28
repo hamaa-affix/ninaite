@@ -1,10 +1,12 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import store from "../store/store";
-//register components
+
+// components
 import Home from "../layouts/Home";
 import Login from "../components/auth_components/Login";
 import Register from "../components/auth_components/Register";
+import System from "../components/error/System.vue";
 
 
 Vue.use(VueRouter);
@@ -30,18 +32,28 @@ const routes = [
         }
       }, 3000)
     }
-    // beforeEnter (to, from, next) {
-    //   if (store.getters['auth/check']) {
-    //     next('/')
-    //   } else {
-    //     next()
-    //   }
-    // }
   },
   {
     name: "register",
     path: "/register",
     component: Register,
+    beforeEnter: (to, from, next) => {
+      setTimeout( () => {
+        if (store.getters['auth/check']) {
+          console.log('参照できるよ');
+          next('/')
+        } else {
+          console.log('参照できていないよ');
+          next()
+        }
+      }, 3000)
+    }
+  },
+  {
+    name: "System_error",
+    path: "/500",
+    component: System,
+
   }
 ];
 

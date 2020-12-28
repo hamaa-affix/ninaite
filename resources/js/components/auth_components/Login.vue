@@ -67,6 +67,11 @@ export default {
       }
     }
   },
+  computed: {
+    apiStatus () {
+      return this.$store.state.auth.apiStatus
+    }
+  },
   methods: {
     toRegister() {
       this.$router.push("/register");
@@ -74,7 +79,10 @@ export default {
     async login() {
       //$dispathでvuexのactionsメソッドにアクセスしている。
       await this.$store.dispatch('auth/login', this.loginForm);
-      this.$router.push("/");
+      if (this.apiStatus) {
+      // トップページに移動する
+      this.$router.push('/')
+  }
     }
   }
 }
