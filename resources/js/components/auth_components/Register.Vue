@@ -72,10 +72,22 @@
         </v-card>
       </v-col>
     </v-row>
+    <div v-if="registerErrors" >
+      <ul v-if="registerErrors.name">
+        <li v-for="msg in registerErrors.name" :key="msg">{{ msg }}</li>
+      </ul>
+      <ul v-if="registerErrors.email">
+        <li v-for="msg in registerErrors.email" :key="msg">{{ msg }}</li>
+      </ul>
+      <ul v-if="registerErrors.password">
+        <li v-for="msg in registerErrors.password" :key="msg">{{ msg }}</li>
+      </ul>
+    </div>
   </v-container>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 
 export default {
   data() {
@@ -89,6 +101,9 @@ export default {
       }
     }
   },
+  computed: mapState({
+    registerErrors: state => state.auth.registerErrorMessages
+  }),
   methods: {
     toLogin() {
       this.$router.push("login");
@@ -96,8 +111,19 @@ export default {
     async register() {
       console.log('start register');
       await this.$store.dispatch('auth/register', this.registerForm);
-      this.$router.push('/')
+
+      if (this.apiStatus) {
+        // トップページに移動する
+        this.$router.push('/')
+      }
     }
+  },
+  clearError () {
+    this.$store.commit('auth/setRegisterErrorMessages', null);
+  },
+  created: () => {
+    // validation表示後他のcomponent移動時にvalidation messageを削除する
+    this.clearError();
   }
 }
 </script>
