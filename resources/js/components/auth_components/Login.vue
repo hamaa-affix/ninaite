@@ -53,6 +53,14 @@
         </v-card>
       </v-col>
     </v-row>
+    <div v-if="loginErrors" >
+      <ul v-if="loginErrors.email">
+        <li v-for="msg in loginErrors.email" :key="msg">{{ msg }}</li>
+      </ul>
+      <ul v-if="loginErrors.password">
+        <li v-for="msg in loginErrors.password" :key="msg">{{ msg }}</li>
+      </ul>
+    </div>
   </v-container>
 </template>
 
@@ -69,7 +77,10 @@ export default {
   },
   computed: {
     apiStatus () {
-      return this.$store.state.auth.apiStatus
+      return this.$store.state.auth.apiStatus;
+    },
+    loginErrors () {
+      return this.$store.state.auth.loginErrorMessages;
     }
   },
   methods: {
@@ -80,10 +91,18 @@ export default {
       //$dispathでvuexのactionsメソッドにアクセスしている。
       await this.$store.dispatch('auth/login', this.loginForm);
       if (this.apiStatus) {
-      // トップページに移動する
-      this.$router.push('/')
-  }
+        // トップページに移動する
+        this.$router.push('/');
+      }
+    },
+    clearError() {
+      //clear validation
+      this.$store.commit('auth/setLoginErrorMessages', null);
     }
+  },
+  created: () => {
+    // validation表示後他のcomponent移動時にvalidation messageを削除する
+    this.clearError();
   }
 }
 </script>
