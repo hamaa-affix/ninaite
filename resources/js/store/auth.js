@@ -22,7 +22,7 @@ const mutations = {
   setLoginErrorMessages(state,message) {
     state.loginErrorMessages = message;
   },
-  setRegisterErrorMessage(state, message) {
+  setRegisterErrorMessages(state, message) {
     state.registerErrorMessages = message;
   },
 }
@@ -31,7 +31,9 @@ const actions = {
   //会員登録
   async register(context, data) {
     context.commit('setApiStatus', null);
-    const response = await axios.post('/api/register', data);
+    const response = await axios.post('/api/register', data)
+      .catch(err => err.response || err);
+
     if(response.status === OK) {
       context.commit('setApiStatus', true);
       context.commit('setUser', response.data);
@@ -40,7 +42,7 @@ const actions = {
 
     context.commit('setApiStatus', false);
     if(response.status === UNPROCESSABLE_ENTITY) {
-      context.commit('registerErrorMessages', response.data.errors);
+      context.commit('setRegisterErrorMessages', response.data.errors);
     } else {
       context.commit('error/setCode', response.status, { root: true });
     }
