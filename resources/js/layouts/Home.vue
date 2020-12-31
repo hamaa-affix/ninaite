@@ -13,14 +13,21 @@
       <v-row>
         <v-col cols="12" md="4">
           <SideContent
-            :recruitment="recruitmentDada"
             :tags="tagData"
           />
         </v-col>
         <v-col cols="12" md="8">
-          <CenterContent />
+          <CenterContent
+            :recuitments="recuitmentData"
+          />
         </v-col>
       </v-row>
+      <!-- <div>
+        <ul v-for="data in tagData" :key="data.id">
+          <li>{{data.id}}</li>
+          <li>{{data.value}}</li>
+        </ul>
+      </div> -->
     </v-container>
 </template>
 
@@ -38,26 +45,24 @@ export default {
   },
   data () {
     return {
-      recruitmentDada: [],
-      //   id: "",
-      //   img_name: "",
-      //   summary: "",
-      //   content: "",
-      //   farm: {
-      //     id: ""
-      //   }
-      tagData: [{
-        id: "",
-        value: "",
-      }]
+      recuitmentData: [],
+      tagData: []
     };
   },
   methods: {
-    async fetchRecruitment() {
-      const respose = await axios.get('api/any');
-      //取得した一覧表示を配列としてデータが格納しているか確認が必要。
-      this.recruitmentDada = response.data;
+    async fetchIndexOfHomeData() {
+      try {
+        const respose = await axios.get('api/home');
+        this.recuitmentData = respose.data[0];
+        this.tagData = respose.data[1];
+        console.log(this.recuitmentData);
+      } catch (err) {
+        console.log(err.message);
+      }
     }
   },
+  mounted() {
+    this.fetchIndexOfHomeData()
+  }
 }
 </script>

@@ -24,6 +24,8 @@ Route::get('/current_user', function(){
 							return Auth::user();
 					})->name('current_user');
 
+Route::get('/home', 'HomeController@index')->name('home');
+
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });

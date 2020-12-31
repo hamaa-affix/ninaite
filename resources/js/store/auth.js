@@ -68,7 +68,7 @@ const actions = {
   },
   //logout
   async logout(context) {
-    context.commit('setApiStatus', false);
+    context.commit('setApiStatus', null);
     const response = await axios.post('api/logout');
 
     if(response.status === OK) {
@@ -82,7 +82,7 @@ const actions = {
   },
   //login状態を確認する
   async currentUser(context) {
-    context.commit('setApiStatus', false);
+    context.commit('setApiStatus', null);
     const response = await axios.get('/api/current_user');
     const user = response.data || null;
 
