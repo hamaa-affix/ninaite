@@ -25,11 +25,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        $recruitments = Recruitment::orderBy('created_at', 'DESC')->paginate(3);
+        //$user = Auth::user();
+        $recruitments = Recruitment::orderBy('created_at', 'DESC')->get();
+        // ->paginate(3);
         $keywords = Keyword::all();
-        
-        return view('home.index', compact('user', 'recruitments', 'keywords'));
+
+        // return view('home.index', compact('user', 'recruitments', 'keywords'));
+        return [$recruitments, $keywords];
     }
-    
+
 }
+
+
