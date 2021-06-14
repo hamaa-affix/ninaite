@@ -23,6 +23,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     public const HOME = '/';
 
+    //farmUserのリダイレク先
+    public const FARM_HOME = 'farm';
     /**
      * Define your route model bindings, pattern filters, etc.
      *

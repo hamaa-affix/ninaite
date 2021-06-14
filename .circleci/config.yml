@@ -1,81 +1,338 @@
 version: 2.1
+
+parameters: #parametersは変数定義みたいなものか
+  project_dir:
+    type: string
+    default: "~/evinote-server"
+
 orbs:
-    aws-ecr: circleci/aws-ecr@6.7.0
-    aws-ecs: circleci/aws-ecs@1.1.0
+  aws-ecr: circleci/aws-ecr@3.1.0
+  aws-ecs: circleci/aws-ecs@1.0.1
+  aws-s3: circleci/aws-s3@1.0.11
+  aws-cli: circleci/aws-cli@0.1.13
+  node: circleci/node@4.1.0
 
-executors: 
-    docker_build: 
-        machine:
-            docker_layer_caching: false
+jobs:
+  checkout_and_build:
+    docker:
+      - image: circleci/php:8.0-node-browsers
+    working_directory: << pipeline.parameters.project_dir >>
+    steps:
+      - checkout:
+          path: << pipeline.parameters.project_dir >>
+      #      - run: curl -sS https://getcomposer.org/installer | php
+      - run: composer -V
+      - restore_cache:
+          keys:
+            - v2-composer-{{ checksum "composer.lock" }}
+            - v2-composer-
+      - restore_cache:
+          keys:
+            - v2-npm-{{ checksum "package.json" }}
+            - v2-npm-
+      - run: composer install -n --prefer-dist
+      - run: npm install
+      - save_cache:
+          key: v2-composer-{{ checksum "composer.lock" }}
+          paths:
+            - << pipeline.parameters.project_dir >>/vendor
+      - save_cache:
+          key: v2-npm-{{ checksum "package.json" }}
+          paths:
+            - << pipeline.parameters.project_dir >>/node_modules
+      - run:
+          name: create .env
+          command: |
+            cat \<<EOF > .env
+              MIX_ASSET_PATH=/public/
+            EOF
+      - run:
+          name: Build static files
+          command: npm run prod
+      - persist_to_workspace:
+          root: << pipeline.parameters.project_dir >>
+          paths:
+            - .
 
-jobs: 
-    ninaite-affix_work_stg: 
-        working_directory: ~/ninaite
-        executor: docker_build
-        steps: 
-            - checkout
-            - run: 
-                name: setting aws configure
-                command: | 
-                    aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID} \
-                    && aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY}
-            - run: 
-                name: copy .env
-                command: | 
-                    aws s3 cp s3://ninaite-affix-work/app/.env ./.env
-            - aws-ecr/build-and-push-image: 
-                account-url: AWS_ECR_ACCOUNT_URL
-                aws-access-key-id: AWS_ACCESS_KEY_ID
-                aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-                region: AWS_REGION
-                repo: 'stg-ninaite-app'
-                dockerfile: docker/stg/stg-ninaite-app/Dockerfile
-                tag: "${CIRCLE_SHA1}"
-            - aws-ecs/update-service: 
-                family: 'stg-ninaite-task'
-                service-name: 'stg-ninaite-service'
-                cluster-name: 'stg-ninaite-cluster'
-                container-image-name-updates: 'container=stg-ninaite-app,image-and-tag=${AWS_ECR_ACCOUNT_URL}/stg-ninaite-app:${CIRCLE_SHA1}'
+  build_and_test:
+    docker:
+      - image: php:8.0-fpm-alpine
+      - image: circleci/mysql:5.7
+        environment:
+          MYSQL_DATABASE: evinote
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_ROOT_HOST: "%"
+      - image: circleci/redis:5.0-alpine
 
-    ninaite-affix_work_prd: 
-        working_directory: ~/ninaite
-        executor: docker_build
-        steps: 
-            - checkout
-            - run: 
-                name: setting aws configure
-                command: | 
-                    aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID} \
-                    && aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY}
-            - run: 
-                name: copy .env
-                command: | 
-                    aws s3 cp s3://ninaite-affix-work/app/.env ./.env
-            - aws-ecr/build-and-push-image: 
-                account-url: AWS_ECR_ACCOUNT_URL
-                aws-access-key-id: AWS_ACCESS_KEY_ID
-                aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-                region: AWS_REGION
-                repo: 'ninaite-app'
-                dockerfile: docker/prd/ninaite-app/Dockerfile
-                tag: "${CIRCLE_SHA1}"
-            - aws-ecs/update-service: 
-                family: 'ninaite-app-prod-ver2'
-                service-name: 'niniate-app'
-                cluster-name: 'nainaite-cluseter-ver4'
-                container-image-name-updates: 'container=app,image-and-tag=${AWS_ECR_ACCOUNT_URL}/ninaite-app:${CIRCLE_SHA1}'
+    # environment:
+    #   - APP_ENV: testing
+    #   - APP_DEBUG: true
+    #   - APP_KEY: APP_KEY_DEV
+    #   - DB_CONNECTION: mysql
+    #   - DB_HOST: 127.0.0.1
+    #   - DB_PORT: 3306
+    #   - DB_USERNAME: root
+    #   - DB_PASSWORD: root
+    #   - DB_DATABASE: evinote
+    #   - REDIS_HOST: 127.0.0.1
+    #   - MIX_ASSET_PATH: /public/
 
-workflows: 
-    version: 2 
-    deploy_stg: 
-        jobs:
-            - ninaite-affix_work_stg:
-                filters: 
-                    branches: 
-                        only: stg
-    deploy_prd: 
-        jobs: 
-            - ninaite-affix_work_prd:
-                filters: 
-                    branches: 
-                        only: master
+    working_directory: << pipeline.parameters.project_dir >>
+
+    steps:
+      - attach_workspace:
+          at: << pipeline.parameters.project_dir >>
+      - run: apk --update --no-cache add curl libzip-dev libpng-dev icu-dev
+      - run: rm -rf /var/cache/apk/*
+      - run: docker-php-ext-install pdo_mysql
+      - run: docker-php-ext-install bcmath
+      - run: docker-php-ext-install zip
+      - run: docker-php-ext-install opcache
+      - run: docker-php-ext-install gd
+      - run: docker-php-ext-install intl
+      - run: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
+      - run: composer install -n --prefer-dist
+      - run: apk add git
+      - run: git clone https://github.com/phpredis/phpredis.git /usr/src/php/ext/redis
+      - run: docker-php-ext-install redis
+      - run: apk --update --no-cache add nodejs nodejs-npm
+      - run: npm install
+      - run: npm run prod
+      - run: php artisan migrate
+      # - run: php artisan db:seed
+      - run:
+          name: Run phpunit
+          command: |
+            php ./vendor/bin/phpunit
+  # develop
+  push_image_develop:
+    docker:
+      - image: circleci/php:8.0-node
+    working_directory: << pipeline.parameters.project_dir >>
+    steps:
+      - attach_workspace:
+          at: << pipeline.parameters.project_dir >>
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - aws-cli/install
+      - run:
+          name: Set Env Dir
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              echo "export ENV_DIR=prod" >> $BASH_ENV
+            elif [ "${CIRCLE_BRANCH}" == "staging" ]; then
+              echo "export ENV_DIR=stg" >> $BASH_ENV
+            else
+              echo "export ENV_DIR=dev" >> $BASH_ENV
+            fi
+      - aws-ecr/build-and-push-image:
+          checkout: false
+          repo: "$ENV_DIR/evinote/nginx"
+          tag: "${CIRCLE_SHA1}"
+          dockerfile: ".docker/$ENV_DIR/nginx/Dockerfile.${ENV_DIR}"
+          account-url: AWS_ECR_ACCOUNT_URL
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          region: AWS_REGION
+      - aws-ecr/build-and-push-image:
+          checkout: false
+          repo: "$ENV_DIR/evinote/app"
+          tag: "${ENV_DIR}-base"
+          dockerfile: ".docker/$ENV_DIR/php/Dockerfile.base"
+          account-url: AWS_ECR_ACCOUNT_URL
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          region: AWS_REGION
+      - aws-ecr/build-and-push-image:
+          checkout: false
+          repo: "$ENV_DIR/evinote/app"
+          tag: "${ENV_DIR}-${CIRCLE_SHA1}"
+          dockerfile: ".docker/$ENV_DIR/php/Dockerfile.${ENV_DIR}"
+          account-url: AWS_ECR_ACCOUNT_URL
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          region: AWS_REGION
+
+  deploy_web_assets_to_s3_develop:
+    docker:
+      - image: circleci/node:10
+    working_directory: << pipeline.parameters.project_dir >>
+    parameters:
+      bucket:
+        type: string
+        default: ""
+    steps:
+      - attach_workspace:
+          at: << pipeline.parameters.project_dir >>
+      - run:
+          name: Set Env Dir
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              echo "export ENV_DIR=prod" >> $BASH_ENV
+              echo "export DISTRIBUTION_ID=${DISTRIBUTION_ID_PROD}" >> $BASH_ENV
+            elif [ "${CIRCLE_BRANCH}" == "staging" ]; then
+              echo "export ENV_DIR=stg" >> $BASH_ENV
+              echo "export DISTRIBUTION_ID=${DISTRIBUTION_ID_STG}" >> $BASH_ENV
+            else
+              echo "export ENV_DIR=dev" >> $BASH_ENV
+              echo "export DISTRIBUTION_ID=${DISTRIBUTION_ID_DEV}" >> $BASH_ENV
+            fi
+      - aws-s3/sync:
+          from: ./public
+          to: "s3://${ENV_DIR}.evinote.assets/public/"
+          overwrite: true
+      - run: aws cloudfront create-invalidation --distribution-id ${DISTRIBUTION_ID} --paths "/*"
+
+  deploy_develop:
+    docker:
+      - image: circleci/python:2.7
+    parameters:
+      develop_branch:
+        type: string
+        default: "develop"
+      staging_branch:
+        type: string
+        default: "staging"
+      production_branch:
+        type: string
+        default: "master"
+    working_directory: << pipeline.parameters.project_dir >>
+    steps:
+      - aws-cli/install
+      - attach_workspace:
+          at: << pipeline.parameters.project_dir >>
+      - run:
+          name: Set Env Dir
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              echo "export ENV_DIR=prod" >> $BASH_ENV
+            elif [ "${CIRCLE_BRANCH}" == "staging" ]; then
+              echo "export ENV_DIR=stg" >> $BASH_ENV
+            else
+              echo "export ENV_DIR=dev" >> $BASH_ENV
+            fi
+      - when:
+          condition:
+            or:
+              - equal: [ <<parameters.develop_branch>>, <<pipeline.git.branch >> ]
+              - equal: [ <<parameters.staging_branch>>, <<pipeline.git.branch >> ]
+          steps:
+            - run:
+                name: test
+                command: echo $ENV_DIR
+            - run:
+                name: Load Task Definition File
+                command: |
+                  jsons=(app-task-definition.json migrate-task-definition.json) && \
+                  for json in ${jsons[@]}; do
+                    printf "cat \<<EOF\n`cat .circleci/task-definitions/$ENV_DIR/$json`\nEOF\n" | sh > "ci-$json"
+                  done
+            - run:
+                name: Register new app task definition
+                command: aws ecs register-task-definition --family ${ENV_DIR}-evinote-app --cli-input-json file://ci-app-task-definition.json --region ap-northeast-1
+            - run:
+                name: Update app service
+                command: aws ecs update-service --cluster ${ENV_DIR}-evinote --service app --desired-count 2 --task-definition ${ENV_DIR}-evinote-app --region ap-northeast-1
+
+            - run:
+                name: Register new migrate task definition
+                command: aws ecs register-task-definition --family ${ENV_DIR}-evinote-migrate --cli-input-json file://ci-migrate-task-definition.json --region ap-northeast-1
+            - run:
+                name: Get network configurations
+                command: |
+                  SUBNETS=$(aws ecs describe-services --cluster ${ENV_DIR}-evinote --service app --region ap-northeast-1 --query "services[0].networkConfiguration.awsvpcConfiguration.subnets" --output text | awk '{printf "%s,%s",$1,$2}')
+                  SECURITY_GROUPS=$(aws ecs describe-services --cluster ${ENV_DIR}-evinote --service app --region ap-northeast-1 --query "services[0].networkConfiguration.awsvpcConfiguration.securityGroups" --output text)
+                  echo "export SUBNETS=$SUBNETS" >> $BASH_ENV
+                  echo "export SECURITY_GROUPS=$SECURITY_GROUPS" >> $BASH_ENV
+            - run:
+                name: Run migration task
+                command: |
+                  TASK_ARN=$(aws ecs run-task --launch-type FARGATE --cluster ${ENV_DIR}-evinote --task-definition ${ENV_DIR}-evinote-migrate --region ap-northeast-1 --count 1 --network-configuration "awsvpcConfiguration={subnets=[$SUBNETS],securityGroups=[$SECURITY_GROUPS],assignPublicIp=ENABLED}" --query "tasks[0].taskArn" --output text)
+                  aws ecs wait tasks-stopped --cluster ${ENV_DIR}-evinote --region ap-northeast-1 --tasks $TASK_ARN
+                no_output_timeout: 30m
+      - unless:
+          condition:
+            or:
+              - equal: [ <<parameters.develop_branch>>, <<pipeline.git.branch >> ]
+              - equal: [ <<parameters.staging_branch>>, <<pipeline.git.branch >> ]
+          steps:
+            - run:
+                name: Load Task Definition File
+                command: |
+                  jsons=(app-task-definition.json migrate-task-definition.json cron-task-definition.json queue-task-definition.json) && \
+                  for json in ${jsons[@]}; do
+                    printf "cat \<<EOF\n`cat .circleci/task-definitions/$ENV_DIR/$json`\nEOF\n" | sh > "ci-$json"
+                  done
+            - run:
+                name: Register new app task definition
+                command: aws ecs register-task-definition --family ${ENV_DIR}-evinote-app --cli-input-json file://ci-app-task-definition.json --region ap-northeast-1
+            - run:
+                name: Update app service
+                command: aws ecs update-service --cluster ${ENV_DIR}-evinote --service app --desired-count 2 --task-definition ${ENV_DIR}-evinote-app --region ap-northeast-1
+
+            - run:
+                name: Register new migrate task definition
+                command: aws ecs register-task-definition --family ${ENV_DIR}-evinote-migrate --cli-input-json file://ci-migrate-task-definition.json --region ap-northeast-1
+            - run:
+                name: Get network configurations
+                command: |
+                  SUBNETS=$(aws ecs describe-services --cluster ${ENV_DIR}-evinote --service app --region ap-northeast-1 --query "services[0].networkConfiguration.awsvpcConfiguration.subnets" --output text | awk '{printf "%s,%s",$1,$2}')
+                  SECURITY_GROUPS=$(aws ecs describe-services --cluster ${ENV_DIR}-evinote --service app --region ap-northeast-1 --query "services[0].networkConfiguration.awsvpcConfiguration.securityGroups" --output text)
+                  echo "export SUBNETS=$SUBNETS" >> $BASH_ENV
+                  echo "export SECURITY_GROUPS=$SECURITY_GROUPS" >> $BASH_ENV
+            - run:
+                name: Run migration task
+                command: |
+                  TASK_ARN=$(aws ecs run-task --launch-type FARGATE --cluster ${ENV_DIR}-evinote --task-definition ${ENV_DIR}-evinote-migrate --region ap-northeast-1 --count 1 --network-configuration "awsvpcConfiguration={subnets=[$SUBNETS],securityGroups=[$SECURITY_GROUPS],assignPublicIp=ENABLED}" --query "tasks[0].taskArn" --output text)
+                  aws ecs wait tasks-stopped --cluster ${ENV_DIR}-evinote --region ap-northeast-1 --tasks $TASK_ARN
+                no_output_timeout: 30m
+            - run:
+                name: Register new cron task definition
+                command: aws ecs register-task-definition --family ${ENV_DIR}-evinote-cron --cli-input-json file://ci-cron-task-definition.json --region ap-northeast-1
+            - run:
+                name: Update cron service
+                command: aws ecs update-service --cluster ${ENV_DIR}-evinote --service cron --desired-count 1 --task-definition ${ENV_DIR}-evinote-cron --region ap-northeast-1
+            - run:
+                name: Register new queue task definition
+                command: aws ecs register-task-definition --family ${ENV_DIR}-evinote-queue --cli-input-json file://ci-queue-task-definition.json --region ap-northeast-1
+            - run:
+                name: Update queue service
+                command: aws ecs update-service --cluster ${ENV_DIR}-evinote --service queue --desired-count 1 --task-definition ${ENV_DIR}-evinote-queue --region ap-northeast-1
+
+
+workflows:
+  version: 2
+  build-test-deploy:
+    jobs:
+      - checkout_and_build
+      - build_and_test:
+          requires:
+            - checkout_and_build
+
+      # development
+      - push_image_develop:
+          requires:
+            - checkout_and_build
+          filters:
+            branches:
+              only:
+                - develop
+                - master
+      - deploy_web_assets_to_s3_develop:
+          requires:
+            # - build_and_test
+            - push_image_develop
+          filters:
+            branches:
+              only:
+                - develop
+                - master
+      - deploy_develop:
+          requires:
+            # - build_and_test
+            - push_image_develop
+          filters:
+            branches:
+              only:
+                - develop
+                - master
