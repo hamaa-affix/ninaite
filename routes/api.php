@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+// use Illuminate\Routing\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,14 +25,23 @@ Route::get('/current_user', function(){
 							return Auth::user();
 					})->name('current_user');
 
+//home index metod
 Route::get('/home', 'HomeController@index')->name('home');
+
+//recuitment Api//
+//serch
+Route::get('/recruitments/search', 'RecruitmentsController@search')->name('recuitment_search');
+
+//farm resource api routing
+Route::apiResource('farms', 'FarmsController');
+
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
 
 Route::group(['middleware' => 'auth'], function() {
-		// Route::resource('chat_messages', 'ChatMessagesController')
-		// ->except(['show']);
+		Route::resource('chat_messages', 'ChatMessagesController')
+		->except(['show']);
 		Route::get('api/chat_messages/{id}', 'ChatMessageController@show');
 });

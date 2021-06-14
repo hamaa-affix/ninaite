@@ -14,6 +14,7 @@
         <v-col cols="12" md="4">
           <SideContent
             :tags="tagData"
+
           />
         </v-col>
         <v-col cols="12" md="8">
@@ -55,11 +56,11 @@ export default {
         const respose = await axios.get('api/home');
         this.recuitmentData = respose.data[0];
         this.tagData = respose.data[1];
-        console.log(this.recuitmentData);
       } catch (err) {
-        console.log(err.message);
+        console.log(err);
       }
-    }
+    },
+
   },
   mounted() {
     this.fetchIndexOfHomeData()

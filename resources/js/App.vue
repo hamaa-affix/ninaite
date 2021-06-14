@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Header :data="logiData"/>
+    <Header />
     <v-main>
       <v-container fluid>
         <router-view />

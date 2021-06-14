@@ -5,11 +5,14 @@
       <v-cols clos="12" md="4">
         <v-text-field
             label="検索"
+            v-model="keyword"
         ></v-text-field>
+        {{keyword}}
         <v-btn
           color="green darken-1"
           class="mr-4 white--text"
           block
+          @click="serachRecruitment"
         >
           検索
         </v-btn>
@@ -53,27 +56,35 @@ export default {
   },
   data () {
     return {
-      keyword: "",
+      keyword: '',
+      resultData:[]
     }
   },
-  // computed: {
-  //   watchdata () {
-  //     console.log(tagData);
-  //   }
-  // },
   methods: {
     async serachRecruitment() {
-      // const response = await axios.get('api', this.keyword);
-      //responseに格納されたデータ型の確認 [ {} ] 配列としてobjectに格納されていはず。
-      //なのでここで求められることは配列を回しながら、データを格納する・
-      // props.recruitment = {
+      try {
+        const response = await axios.get('api/recruitments/search', { search: this.resultData } );
+        console.log(response);
+        this.resultData = response.data;
+        //console.log(this.resultData);
+        //this.$emit('search-result', this.resultData);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    //async serachRecruitment() {
+  //     // const response = await axios.get('api', this.keyword);
+  //     //responseに格納されたデータ型の確認 [ {} ] 配列としてobjectに格納されていはず。
+  //     //なのでここで求められることは配列を回しながら、データを格納する・
+  //     // props.recruitment = {
 
-      // }
-      //格納したデータをhomeに渡す
-      //this.$emit('snd-recuruitment-value',props.data );
-      //最後にキーワードを空にする
-      //this.keyword = "";
-    }
+  //     // }
+  //     //格納したデータをhomeに渡す
+  //     //this.$emit('snd-recuruitment-value',props.data );
+  //     //最後にキーワードを空にする
+  //     //this.keyword = "";
+  //   }
+  // }
   }
 };
 </script>

@@ -32,6 +32,7 @@ class ChatRoomController extends Controller
 
     public function show(User $user, ChatRoom $chat_room)
     {
+			//ここで渡ってきているparamsはmatching_userと自分と相手が紐付いたchat_roomId
         //$this->authorize('view', $chat_room, $user);
         return view('chat_rooms.show', compact('user', 'chat_room'));
     }
