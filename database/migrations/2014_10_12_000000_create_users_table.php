@@ -15,12 +15,19 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('name', 225);
+            $table->string('email', 255)->unique();
+            $table->dateTime('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
+            $table->string('tel', 255)->unique()->comment('電話番号');
+            $table->string('postcode', 255)->comment('郵便番号');
+            $table->integer('pref_id')->unsigned()->comment('都道府県ID');
+            $table->string('municipality' ,255)->comment('市町村');
+            $table->string('address' ,255)->comment('番地');
+            $table->string('building' ,255)->comment('建物名');
+            $table->dateTime('created_at')->nullable();
+            $table->dateTime('updated_at')->nullable();
+            $table->dateTime('deleted_at')->nullable();
         });
     }
 
