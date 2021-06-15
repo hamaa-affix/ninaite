@@ -20,7 +20,7 @@ class CreateFarmUsersTable extends Migration
             $table->dateTime('email_verified_at')->nullable();
             $table->string('password');
             $table->string('tel', 255)->unique()->comment('電話番号');
-            $table->string('tel', 255)->comment('郵便番号');
+            $table->string('postcode', 255)->comment('郵便番号');
             $table->integer('pref_id')->unsigned()->comment('都道府県ID');
             $table->string('municipality' ,255)->comment('市町村');
             $table->string('address' ,255)->comment('番地');

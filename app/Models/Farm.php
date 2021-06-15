@@ -1,14 +1,14 @@
 <?php
 
-namespace App;
+namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Farm extends Model
 {
     protected $fillable = [
-        'name', 
-        'postal_code', 
+        'name',
+        'postal_code',
         'address1',
         'address2',
         'address3',
@@ -16,27 +16,27 @@ class Farm extends Model
         'site_url',
         'summary',
     ];
-    
+
     public function users()
     {
         //usersのリレーション定義変更
         return $this->belongsToMany('App\User', 'farm_user')->withTimestamps();
     }
-    
+
     public function recruitments()
     {
         //recruitmentsへのリレーション定義変更
         return $this->hasMany('App\Recruitment');
     }
-    
+
     public function messages()
     {
         return $this->hasMany('App\Message');
     }
-   
-    public function isEditable($user_id) 
+
+    public function isEditable($user_id)
     {
         return $this->users()->where('users.id', $user_id)->count() > 0;
     }
-    
+
 }

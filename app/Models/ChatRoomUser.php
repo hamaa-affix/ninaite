@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,11 +10,11 @@ class ChatRoomUser extends Model
        'user_id',
        'chat_room_id'
     ];
-    
+
     public function user() {
         return $this->belongsTo('App\User');
     }
-    
+
     public function chatRoom() {
         return $this->belongsTo('App\ChatRoom');
     }
