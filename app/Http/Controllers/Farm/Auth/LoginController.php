@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Farm\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -27,7 +29,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::FARM_HOME;
 
     /**
      * Create a new controller instance.
@@ -36,11 +38,35 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest:form_users')->except('logout');
     }
 
     protected function authenticated(Request $request, $user) {
         return $user;
+    }
+
+    public function showLoginForm()
+    {
+        return view('farm.auth.login');
+    }
+
+    /**
+     * gruadの認証方式を決める
+     *
+    */
+    public function gaurd()
+    {
+        return Auth::guard('farms');
+    }
+
+    protected function logout(Request $request)
+    {
+        Auth::guard('farms')->logout();
+        Auth::attempt(['email' => $email, 'password' => $password]);
+        // セッションから全データを削除す
+        session()->flush();
+
+        return $this->loggedOut($request);
     }
 
     protected function loggedOut(Request $request)
@@ -50,5 +76,22 @@ class LoginController extends Controller
 
         return response()->json();
     }
-    
+
+    /**
+     * Validate the user login request.
+     * usename() -> emailがリターンされる。それをバリデーションに記述
+     * http://program-memo.com/archives/646
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function validateLogin(Request $request)
+    {
+        $request->validate([
+            $this->username() => 'required|email',
+            'password' => 'required|string',
+        ]);
+    }
+
 }

@@ -23,8 +23,12 @@ class RouteServiceProvider extends ServiceProvider
      */
     public const HOME = '/';
 
+    //一般userのダイレクト先
+    public const USER = '/user';
     //farmUserのリダイレク先
-    public const FARM_HOME = 'farm';
+    public const FARM_HOME = '/farm';
+    //adminのリダイレクト先
+    public const ADMIN = '/admin';
     /**
      * Define your route model bindings, pattern filters, etc.
      *
@@ -65,6 +69,32 @@ class RouteServiceProvider extends ServiceProvider
              ->group(base_path('routes/web.php'));
     }
 
+    /**
+     * @return void
+     */
+    protected function mapUserRoutes()
+    {
+        Route::middleware('users')
+             ->prefix(null)
+             ->namespace($this->namespace)
+             ->group(base_path('routes/user/web.php'));
+    }
+
+    protected function mapFarmUserRoutes()
+    {
+        Route::middleware('farm_users')
+             ->prefix(null)
+             ->namespace($this->namespace)
+             ->group(base_path('routes/farm/web.php'));
+    }
+
+    protected function mapAdminRoutes()
+    {
+        Route::middleware('admin')
+             ->prefix(null)
+             ->namespace($this->namespace)
+             ->group(base_path('routes/admin/web.php'));
+    }
     /**
      * Define the "api" routes for the application.
      *
