@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Model;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 
-class FarmUsers extends Authenticatable
+class FarmUser extends Authenticatable
 {
     protected $fillable = [
         'name', 'email', 'password',
@@ -29,4 +29,13 @@ class FarmUsers extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * 都道府県名を返します。
+     * @return string
+     */
+    protected function getPrefNameAttribute(): string
+    {
+        return config('region.prefectures'. $this->pref_id);
+    }
 }

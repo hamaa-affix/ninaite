@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Farm\Auth;
+namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -26,5 +26,5 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::FARM_HOME;
+    protected $redirectTo = RouteServiceProvider::ADMIN;
 }

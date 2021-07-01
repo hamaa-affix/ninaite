@@ -14,9 +14,9 @@
 //Auth::routes();
 
 
-Route::get('/{any}', function() {
-  return view('origin.index');
-  })->where('any', '.*');
+// Route::get('/{any}', function() {
+//   return view('origin.index');
+//   })->where('any', '.*');
 
 
 

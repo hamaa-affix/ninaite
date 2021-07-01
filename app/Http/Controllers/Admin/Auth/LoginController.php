@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Farm\Auth;
+namespace App\Http\Controllers\Admin\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -29,7 +29,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::FARM_HOME;
+    protected $redirectTo = RouteServiceProvider::ADMIN;
 
     /**
      * Create a new controller instance.
@@ -38,7 +38,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest:farm')->except('logout');
+        $this->middleware('guest:admin')->except('logout');
     }
 
     protected function authenticated(Request $request, $user) {
@@ -47,8 +47,7 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        //ddd('login hello');
-        return view('farms.auth.login');
+        return view('admin.auth.login');
     }
 
     /**
@@ -57,12 +56,12 @@ class LoginController extends Controller
     */
     public function gaurd()
     {
-        return Auth::guard('farms');
+        return Auth::guard('admin');
     }
 
     protected function logout(Request $request)
     {
-        Auth::guard('farms')->logout();
+        Auth::guard('admin')->logout();
         Auth::attempt(['email' => $email, 'password' => $password]);
         // セッションから全データを削除す
         session()->flush();

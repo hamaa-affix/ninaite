@@ -8,8 +8,8 @@
                 <h2 class="font-weight-bold text-center ">{{ __('Login') }}</h2>
             </div>
                 <br>
-                
-            <form method="POST" action="{{ route('login') }}">
+
+            <form method="POST" action="{{ route('user.') }}">
                 @csrf
                 <div class="form-group row">
                     <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
@@ -65,19 +65,6 @@
                     </div>
                 </div>
             </form>
-            
-            <form method="POST" action="{{ route('login') }}">
-                 @csrf
-                <div class="form-group row mt-2">
-                    <div class="col-md-8 offset-md-4">
-                        <input type="hidden" name="email" value="test@test">
-                        <input type="hidden" name="password" value="12345678">
-                        <button type="submit" class="btn btn-success">
-                            <i class="fas fa-leaf fa-lg"></i>テストユーザーでログイン
-                        </button>
-                    </div>
-                </div>
-            </form>                    
         </div>
     </div>
 </div>
