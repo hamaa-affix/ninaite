@@ -24,18 +24,18 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard(self::GUARD_USERS)->check() && $request->routeIs('users.*')) {
+        if (Auth::guard($guard)->check() && $guard === 'users') {
             return redirect(RouteServiceProvider::USER);
         }
 
-        if (Auth::guard(self::GUARD_FARM_USERS)->check() && $request->routeIs('farm_users.*')) {
+        if (Auth::guard($guard)->check() && $guard === 'farm_users') {
             return redirect(RouteServiceProvider::FARM_HOME);
         }
 
-        if (Auth::guard(self::GUARD_ADMIN)->check() && $request->routeIs('ademin.*')) {
+        if (Auth::guard($guard)->check() && $guard === 'ademin') {
             return redirect(RouteServiceProvider::ADMIN);
         }
-
+        
         return $next($request);
     }
 }

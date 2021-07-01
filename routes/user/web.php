@@ -5,14 +5,14 @@
 //name() -> farm.~ と名前の共通化 route('farm.index');
 //middleware -> routeの名前解決前の認証チェックができる(HTTP requestのフィルタリング)
 
-Route::namespace('Farm')->prefix('farm')->name('farm.')->group( function() {
+Route::namespace('User')->prefix('user')->name('user.')->group( function() {
     Auth::routes([
         'register' => true,
         'reset'    => true,
         'verify'   => true
     ]);
 
-    Route::middleware('auth:farm')->group(function () {
-        Route::get('home', 'HomeController@home');
+    Route::middleware(['auth', 'second'])->group(function () {
+
     });
 });

@@ -23,8 +23,7 @@
 </head>
 <body>
     <div id="app">
-    @component('layouts.header')
-    @endcomponent
+
         <main class="py-4">
             @yield('content')
         </main>
