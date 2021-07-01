@@ -51,7 +51,9 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapApiRoutes();
 
         $this->mapWebRoutes();
-
+        $this->mapAdminRoutes();
+        $this->mapFarmUserRoutes();
+        $this->mapUserRoutes();
         //
     }
 
@@ -82,7 +84,7 @@ class RouteServiceProvider extends ServiceProvider
 
     protected function mapFarmUserRoutes()
     {
-        Route::middleware('farm_users')
+        Route::middleware('farm')
              ->prefix(null)
              ->namespace($this->namespace)
              ->group(base_path('routes/farm/web.php'));

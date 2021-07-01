@@ -44,9 +44,9 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'farm_users' => [
+        'farm' => [
             'driver' => 'session',
-            'provider' => 'farm_users',
+            'provider' => 'farm',
         ],
         'admin' => [
             'driver' => 'session',
@@ -82,7 +82,7 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-        'farm_users' => [
+        'farm' => [
             'driver' => 'eloquent',
             'model' => App\Models\FarmUser::class,
         ],
@@ -118,8 +118,8 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
-        'farm_users' => [
-            'provider' => 'farm_users',
+        'farm' => [
+            'provider' => 'farm',
             'table' => 'farm_user_password_resets',
             'expire' => 60,
             'throttle' => 60,
