@@ -33,12 +33,12 @@ services:
             - ~/git/github/ninaite/docker/dev/mysql/conf_d/my.cnf:/etc/mysql/conf.d/my.cnf
         ports:
             - ${DB_PORT}:3306
-        networks:
-            - backend
+        # networks:
+        #     - backend
 
 volumes:
     db-store:
     db-testing-store:
 networks:
     backend:
-        driver: bridge
+        external: true
