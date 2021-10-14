@@ -37,8 +37,8 @@ RUN apk --update --no-cache add \
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin
 RUN mv /usr/bin/composer.phar /usr/bin/composer
 RUN npm install npm@latest -g
-COPY .docker/dev/php/php-fpm.conf /usr/local/etc/php-fpm.conf
-COPY .docker/dev/php/php.ini /usr/local/etc/php/php.ini
-COPY .docker/dev/php/www.conf /usr/local/etc/php-fpm.d/www.conf
+COPY ./php-fpm.conf /usr/local/etc/php-fpm.conf
+COPY ./php.ini /usr/local/etc/php/php.ini
+COPY ./www.conf /usr/local/etc/php-fpm.d/www.conf
 
 WORKDIR /app/
