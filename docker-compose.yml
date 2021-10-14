@@ -1,0 +1,88 @@
+version: "3.7"
+
+services:
+  nginx:
+    build: "./.docker/dev/nginx"
+    container_name: nginx
+    ports:
+      - "80:80"
+    # volumes:
+    #   - ./public:/app/public
+    #   - ./.docker/local/nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - app
+
+  app:
+    build: "./.docker/dev/php"
+    container_name: app
+    working_dir: /app
+    # volumes:
+    #   - ".:/app"
+    #   - "./.docker/local/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
+    ports:
+      - "9000:9000"
+    depends_on:
+      - mysql
+      - redis
+      - minio
+
+  mysql:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: ninaite
+      MYSQL_USER: ninaite
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+    container_name: mysql
+    volumes:
+      - db-ninaite:/var/lib/mysql
+      - ./.docker/dev/mysql/conf_d/my.cnf:/etc/mysql/conf.d/my.cnf
+
+  redis:
+    image: redis:5.0.6-alpine
+    container_name: redis
+    ports:
+    - "6379:6379"
+
+  minio:
+    image: minio/minio
+    container_name: evinote-minio
+    ports:
+      - "9001:9000"
+    environment:
+      MINIO_ACCESS_KEY: access_key
+      MINIO_SECRET_KEY: secret_key
+    command: server /export
+
+  create-bucket:
+    container_name: evinote-create-bucket
+    image: minio/mc
+    entrypoint: [ "" ]
+    command:
+      - /bin/sh
+      - -c
+      - |
+        until (mc config host add minio http://minio:9000 access_key secret_key) do echo 'wait until add host' && sleep 1; done;
+        mc mb minio/test
+        mc policy set public minio/test
+    environment:
+      MINIO_ACCESS_KEY: access_key
+      MINIO_SECRET_KEY: secret_key
+    depends_on:
+      - minio
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - mysql
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOSTS: mysql
+      PMA_USER: ${DB_USERNAME:-root}
+      PMA_PASSWORD: ${DB_PASSWORD:-root}
+    ports:
+      - '9090:80'
+volumes:
+    db-ninaite:
