@@ -16,9 +16,9 @@ services:
     build: "./.docker/dev/php"
     container_name: app
     working_dir: /app
-    # volumes:
-    #   - ".:/app"
-    #   - "./.docker/local/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
+    volumes:
+      - ".:/app"
+      - "./.docker/dev/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
     ports:
       - "9000:9000"
     depends_on:
