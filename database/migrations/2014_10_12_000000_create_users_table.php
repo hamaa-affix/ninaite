@@ -25,8 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('municipality' ,255)->comment('市町村');
             $table->string('address' ,255)->comment('番地');
             $table->string('building' ,255)->comment('建物名');
-            $table->dateTime('created_at')->nullable();
-            $table->dateTime('updated_at')->nullable();
+            $table->timestamps();
             $table->dateTime('deleted_at')->nullable();
         });
     }
